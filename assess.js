@@ -1,4 +1,6 @@
-
+const fs = require('fs');
+fs.mkdirSync('app/[locale]/assess', {recursive:true});
+fs.writeFileSync('app/[locale]/assess/page.tsx', `
 "use client";
 import { useState } from "react";
 
@@ -293,3 +295,7 @@ export default function AssessPage({ params }: { params: { locale: string } }) {
     </main>
   );
 }
+`, 'utf8');
+
+console.log('OK: app/[locale]/assess/page.tsx written');
+console.log('DONE — run: git add . && git commit -m "Task 3: Full assessment engine" && git push');
