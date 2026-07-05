@@ -1,4 +1,9 @@
-"use client";
+const fs = require('fs');
+
+fs.mkdirSync('app/[locale]/verify', { recursive: true });
+
+fs.writeFileSync('app/[locale]/verify/page.tsx',
+`"use client";
 import { useState } from "react";
 export default function VerifyPage({ params }) {
   const loc = params.locale;
@@ -49,3 +54,7 @@ export default function VerifyPage({ params }) {
     </main>
   );
 }
+`, 'utf8');
+
+console.log('OK: verify/page.tsx written');
+console.log('DONE');
