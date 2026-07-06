@@ -1,4 +1,8 @@
+const fs = require('fs');
 
+fs.mkdirSync('app/[locale]/report/[id]', {recursive:true});
+
+fs.writeFileSync('app/[locale]/report/[id]/page.tsx', `
 "use client";
 import { useEffect, useState, useRef } from "react";
 
@@ -483,3 +487,7 @@ export default function ReportPage({ params }: { params: { locale: string; id: s
     </main>
   );
 }
+`, 'utf8');
+
+console.log('OK: app/[locale]/report/[id]/page.tsx (with PDF template)');
+console.log('DONE — run: git add . && git commit -m "Task 8: PDF report generator" && git push');
