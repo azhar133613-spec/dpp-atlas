@@ -57,7 +57,7 @@ const QS = [
 function calcScore(ans: Record<number,string>) {
   let t = 0;
   QS.forEach(q => { const o = q.opts.find(o => o.v === ans[q.id]); if(o) t += o.s; });
-  return Math.round((t / 100) * 100);
+  return Math.min(100, Math.round((t / 100) * 100));
 }
 
 function getBand(s: number) {
