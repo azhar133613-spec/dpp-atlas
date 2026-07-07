@@ -264,6 +264,17 @@ export default function ReportPage({ params }: { params: { locale: string; id: s
         )}
 
         {/* ACTIONS */}
+        <div className="no-print" style={{marginBottom:"16px", background:"#f0fdfa", border:"1px solid #0d9488", borderRadius:"12px", padding:"14px 18px", display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:"8px"}}>
+          <div>
+            <div style={{fontWeight:700, fontSize:"0.875rem", color:"#0d9488", marginBottom:"2px"}}>
+              🌐 Public DPP Passport Link
+            </div>
+            <div style={{color:"#64748b", fontSize:"0.78rem"}}>Share this with EU buyers — no login required</div>
+          </div>
+          <a href={"/dpp/"+reportId} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"8px 16px", borderRadius:"8px", fontWeight:600, fontSize:"0.8rem"}}>
+            View Passport →
+          </a>
+        </div>
         <div className="no-print" style={{display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(140px,1fr))", gap:"10px"}}>
           <button onClick={() => window.print()}
             style={{padding:"13px", background:"#0d9488", color:"white", border:"none", borderRadius:"10px", fontWeight:700, cursor:"pointer", fontSize:"0.875rem"}}>
