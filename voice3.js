@@ -1,4 +1,66 @@
+const fs = require('fs');
+const path = require('path');
+function w(p,c){fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,c,'utf8');console.log('OK ('+fs.statSync(p).size+' bytes): '+p);}
 
+// Step 1: Global type declaration for SpeechRecognition
+w('types/speech.d.ts', `
+interface SpeechRecognitionEvent extends Event {
+  results: SpeechRecognitionResultList;
+}
+interface SpeechRecognitionResultList {
+  [index: number]: SpeechRecognitionResult;
+  length: number;
+}
+interface SpeechRecognitionResult {
+  [index: number]: SpeechRecognitionAlternative;
+  isFinal: boolean;
+}
+interface SpeechRecognitionAlternative {
+  transcript: string;
+  confidence: number;
+}
+interface SpeechRecognition extends EventTarget {
+  lang: string;
+  continuous: boolean;
+  interimResults: boolean;
+  onstart: (() => void) | null;
+  onend: (() => void) | null;
+  onerror: (() => void) | null;
+  onresult: ((e: SpeechRecognitionEvent) => void) | null;
+  start(): void;
+  stop(): void;
+}
+declare var SpeechRecognition: { new(): SpeechRecognition };
+declare var webkitSpeechRecognition: { new(): SpeechRecognition };
+`);
+
+// Step 2: Updated tsconfig to include the types folder
+const tsconfig = {
+  compilerOptions: {
+    target: "ES2017",
+    lib: ["dom", "dom.iterable", "esnext"],
+    allowJs: true,
+    skipLibCheck: true,
+    strict: true,
+    noEmit: true,
+    esModuleInterop: true,
+    module: "esnext",
+    moduleResolution: "bundler",
+    resolveJsonModule: true,
+    isolatedModules: true,
+    jsx: "preserve",
+    incremental: true,
+    plugins: [{ name: "next" }],
+    paths: { "@/*": ["./*"] }
+  },
+  include: ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  exclude: ["node_modules"]
+};
+fs.writeFileSync('tsconfig.json', JSON.stringify(tsconfig, null, 2), 'utf8');
+console.log('OK: tsconfig.json updated');
+
+// Step 3: Clean assess page using the global types
+w('app/[locale]/assess/page.tsx', `
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
 
@@ -248,3 +310,8 @@ export default function AssessPage({ params }: { params: { locale: string } }) {
     </main>
   );
 }
+`);
+
+console.log('');
+console.log('=== DONE ===');
+console.log('Now run: git add . && git commit -m "Task 6: Voice input with global SpeechRecognition types" && git push');
