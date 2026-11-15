@@ -1,6 +1,6 @@
-
 "use client";
 import { useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 
 const FTYPES = [
   {id:"rmd",   icon:"👕", name:"RMG / Garment Manufacturing"},
@@ -12,6 +12,38 @@ const FTYPES = [
   {id:"home",  icon:"🛏️", name:"Home Textiles"},
   {id:"acc",   icon:"🔗", name:"Accessories & Trim"},
 ];
+
+async function syncFactoryToSupabase(form: Record<string,string>, selType: string) {
+  const token = typeof window !== "undefined" ? localStorage.getItem("dpp_auth_token") : null;
+  if (!token) return; // not logged in — localStorage-only flow unchanged
+
+  try {
+    const sb = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      { global: { headers: { Authorization: `Bearer ${token}` } } }
+    );
+    const { data: userData } = await sb.auth.getUser(token);
+    const userId = userData?.user?.id;
+    if (!userId) return;
+
+    const { data: existing } = await sb.from("factories").select("id").eq("user_id", userId).maybeSingle();
+    const payload = {
+      factory_name: form.factory_name,
+      country: form.country,
+      tier_level: form.tier_level,
+      factory_type: selType,
+      contact_email: form.email,
+    };
+    if (existing) {
+      await sb.from("factories").update(payload).eq("id", (existing as {id:string}).id);
+    } else {
+      await sb.from("factories").insert({ user_id: userId, ...payload });
+    }
+  } catch (e) {
+    console.error("Factory sync error (non-blocking):", String(e));
+  }
+}
 
 export default function EnrollPage({ params }: { params: { locale: string } }) {
   const isBn = params.locale === "bn";
@@ -28,11 +60,14 @@ export default function EnrollPage({ params }: { params: { locale: string } }) {
   const set = (e: React.ChangeEvent<HTMLInputElement|HTMLSelectElement>) =>
     setForm(prev => ({...prev, [e.target.name]: e.target.value}));
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     const factory = {...form, factory_type:selType, id:Date.now().toString(), created_at:new Date().toISOString()};
     localStorage.setItem("dpp_factory", JSON.stringify(factory));
+
+    await syncFactoryToSupabase(form, selType);
+
     setTimeout(() => { setLoading(false); setDone(true); }, 700);
   };
 

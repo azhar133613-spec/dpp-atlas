@@ -52,9 +52,9 @@ export async function POST(req: NextRequest) {
     }
 
     const scoreBand =
-      (score ?? 0) >= 90 ? 'DPP COMPLIANT' :
-      (score ?? 0) >= 70 ? 'CONDITIONALLY COMPLIANT' :
-      (score ?? 0) >= 50 ? 'DEVELOPING' : 'NON-COMPLIANT';
+      (score ?? 0) >= 90 ? 'SELF-REPORTED: STRONG' :
+      (score ?? 0) >= 70 ? 'SELF-REPORTED: MINOR GAPS' :
+      (score ?? 0) >= 50 ? 'DEVELOPING' : 'SELF-REPORTED: MAJOR GAPS';
 
     const lines = [
       'You are an expert EU ESPR Textile Compliance Advisor.',

@@ -3,10 +3,10 @@
 import { useState } from "react";
 
 function getBand(score: number) {
-  if (score >= 90) return {label:"DPP COMPLIANT",           color:"#22c55e", emoji:"✅"};
-  if (score >= 70) return {label:"CONDITIONALLY COMPLIANT", color:"#eab308", emoji:"🟡"};
+  if (score >= 90) return {label:"SELF-REPORTED: STRONG",           color:"#22c55e", emoji:"✅"};
+  if (score >= 70) return {label:"SELF-REPORTED: MINOR GAPS", color:"#eab308", emoji:"🟡"};
   if (score >= 50) return {label:"DEVELOPING",              color:"#f97316", emoji:"🟠"};
-  return                  {label:"NON-COMPLIANT",           color:"#ef4444", emoji:"🔴"};
+  return                  {label:"SELF-REPORTED: MAJOR GAPS",           color:"#ef4444", emoji:"🔴"};
 }
 
 export default function VerifyPage({ params }: { params: { locale: string } }) {
@@ -64,7 +64,7 @@ export default function VerifyPage({ params }: { params: { locale: string } }) {
           <div style={{background:"#fef2f2", border:"1px solid #fecaca", borderRadius:"12px", padding:"20px", textAlign:"center"}}>
             <div style={{fontSize:"1.75rem", marginBottom:"8px"}}>❌</div>
             <div style={{color:"#dc2626", fontWeight:600}}>
-              {isBn?"কোনো যাচাইকৃত রেকর্ড পাওয়া যায়নি।":"No verified record found for this ID."}
+              {isBn?"কোনো রেকর্ড পাওয়া যায়নি।":"No record found for this ID."}
             </div>
           </div>
         )}
@@ -77,7 +77,7 @@ export default function VerifyPage({ params }: { params: { locale: string } }) {
             <div style={{background:"white", border:"2px solid "+b.color, borderRadius:"14px", padding:"28px", textAlign:"center"}}>
               <div style={{fontSize:"2.5rem", marginBottom:"8px"}}>{b.emoji}</div>
               <div style={{fontWeight:800, fontSize:"1.1rem", color:b.color, marginBottom:"4px"}}>{b.label}</div>
-              <div style={{color:"#64748b", fontSize:"0.8rem", marginBottom:"20px"}}>Verified by DPP Atlas Platform</div>
+              <div style={{color:"#64748b", fontSize:"0.8rem", marginBottom:"20px"}}>Self-reported via DPP Atlas</div>
               <div style={{background:"#f8fafc", borderRadius:"10px", padding:"16px", marginBottom:"16px", textAlign:"left"}}>
                 <div style={{display:"grid", gap:"8px", fontSize:"0.875rem"}}>
                   <div><strong>Factory:</strong> {fac.factory_name || "N/A"}</div>

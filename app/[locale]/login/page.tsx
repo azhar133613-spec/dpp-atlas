@@ -27,8 +27,11 @@ export default function LoginPage({ params }: { params: { locale: string } }) {
           headers:{"Content-Type":"application/json","apikey":SUPA_KEY},
           body: JSON.stringify({ email, password })
         });
-        const data = await res.json() as { error?: { message?: string }; id?: string };
-        if (!res.ok) throw new Error(data.error?.message || "Signup failed");
+        const data = await res.json() as Record<string, unknown>;
+        if (!res.ok) throw new Error(
+          (data.msg as string) || (data.error_description as string) || (data.error as string) ||
+          (data.message as string) || ("Signup failed (" + res.status + "): " + JSON.stringify(data))
+        );
         setIsErr(false);
         setMsg(isBn
           ? "✅ নিশ্চিতকরণ ইমেইল পাঠানো হয়েছে। ইনবক্স চেক করুন।"
@@ -39,10 +42,13 @@ export default function LoginPage({ params }: { params: { locale: string } }) {
           headers:{"Content-Type":"application/json","apikey":SUPA_KEY},
           body: JSON.stringify({ email, password })
         });
-        const data = await res.json() as { error?: { message?: string }; access_token?: string; user?: { id: string } };
-        if (!res.ok) throw new Error(data.error?.message || "Login failed");
+        const data = await res.json() as Record<string, unknown>;
+        if (!res.ok) throw new Error(
+          (data.msg as string) || (data.error_description as string) || (data.error as string) ||
+          (data.message as string) || ("Login failed (" + res.status + "): " + JSON.stringify(data))
+        );
         // Store session in localStorage for client-side use
-        localStorage.setItem("dpp_auth_token", data.access_token || "");
+        localStorage.setItem("dpp_auth_token", (data.access_token as string) || "");
         localStorage.setItem("dpp_user_email", email);
         window.location.href = "/" + loc + "/dashboard";
       }

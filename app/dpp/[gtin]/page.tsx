@@ -5,11 +5,11 @@ import DppPassportClient from "./DppPassportClient";
 export async function generateMetadata({ params }: { params: { gtin: string } }): Promise<Metadata> {
   return {
     title: "Digital Product Passport: " + params.gtin + " | DPP Atlas",
-    description: "EU ESPR Digital Product Passport — Verified textile compliance data for buyers and auditors.",
+    description: "EU ESPR Digital Product Passport — Self-reported textile readiness data. Not a certificate.",
     robots: { index: true, follow: true },
     openGraph: {
       title: "Textile DPP Passport: " + params.gtin,
-      description: "Verified EU ESPR compliance data. Scan QR to verify factory compliance status.",
+      description: "Self-reported EU ESPR readiness data. Not a certificate.",
       type: "website",
     }
   };

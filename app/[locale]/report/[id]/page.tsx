@@ -32,10 +32,10 @@ interface Report {
 }
 
 function getBand(score: number) {
-  if (score >= 90) return {label:"DPP COMPLIANT",           color:"#22c55e", emoji:"✅", bg:"#dcfce7"};
-  if (score >= 70) return {label:"CONDITIONALLY COMPLIANT", color:"#eab308", emoji:"🟡", bg:"#fef9c3"};
+  if (score >= 90) return {label:"SELF-REPORTED: STRONG",           color:"#22c55e", emoji:"✅", bg:"#dcfce7"};
+  if (score >= 70) return {label:"SELF-REPORTED: MINOR GAPS", color:"#eab308", emoji:"🟡", bg:"#fef9c3"};
   if (score >= 50) return {label:"DEVELOPING",              color:"#f97316", emoji:"🟠", bg:"#ffedd5"};
-  return                  {label:"NON-COMPLIANT",           color:"#ef4444", emoji:"🔴", bg:"#fee2e2"};
+  return                  {label:"SELF-REPORTED: MAJOR GAPS",           color:"#ef4444", emoji:"🔴", bg:"#fee2e2"};
 }
 
 const CATS = [
@@ -81,11 +81,14 @@ export default function ReportPage({ params }: { params: { locale: string; id: s
     if (savedRef.current || r.saved_to_db) return;
     savedRef.current = true;
     try {
+      const token = localStorage.getItem("dpp_auth_token");
+      const headers: Record<string,string> = {"Content-Type":"application/json"};
+      if (token) headers["Authorization"] = "Bearer " + token;
       const res  = await fetch("/api/v1/save-assessment", {
-        method:"POST", headers:{"Content-Type":"application/json"},
+        method:"POST", headers,
         body: JSON.stringify({factory:r.factory, score:r.score, band:r.band, answers:r.answers, failed_ids:r.failed_ids||[], ai_report:ai, report_id:r.id})
       });
-      const data = await res.json() as {success:boolean};
+      const data = await res.json() as {success:boolean; synced?:boolean};
       if (data.success) {
         const updated = {...r, ai_report:ai, saved_to_db:true};
         localStorage.setItem("dpp_report_"+r.id, JSON.stringify(updated));

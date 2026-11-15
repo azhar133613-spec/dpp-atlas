@@ -244,7 +244,7 @@ export default function AssessPage({ params }: { params: { locale: string } }) {
     const failIds  = QS.filter(q => !q.info && answers[q.id] !== undefined && q.opts.find(o => o.v === answers[q.id])?.s === 0).map(q => q.id);
     const report   = {
       id:rid, score,
-      band: score>=90?"✅ DPP COMPLIANT":score>=70?"🟡 CONDITIONALLY COMPLIANT":score>=50?"🟠 DEVELOPING":"🔴 NON-COMPLIANT",
+      band: score>=90?"✅ SELF-REPORTED: STRONG":score>=70?"🟡 SELF-REPORTED: MINOR GAPS":score>=50?"🟠 DEVELOPING":"🔴 SELF-REPORTED: MAJOR GAPS",
       answers, factory, failed_ids:failIds, voice_notes:notes,
       created_at: new Date().toISOString()
     };

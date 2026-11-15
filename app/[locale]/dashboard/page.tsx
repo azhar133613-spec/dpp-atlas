@@ -1,6 +1,6 @@
-
 "use client";
 import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 
 interface LocalReport {
   id: string;
@@ -39,7 +39,6 @@ function ScoreChart({ reports }: { reports: LocalReport[] }) {
         📈 Score Trend
       </div>
       <svg width="100%" viewBox={"0 0 " + w + " " + h} style={{overflow:"visible"}}>
-        {/* Grid lines */}
         {[0,25,50,75,100].map(v => {
           const y = h - pad - (v / maxScore) * (h - pad * 2);
           return (
@@ -49,12 +48,9 @@ function ScoreChart({ reports }: { reports: LocalReport[] }) {
             </g>
           );
         })}
-        {/* Line */}
         <path d={pathD} fill="none" stroke="#0d9488" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        {/* Area fill */}
         <path d={pathD + " L" + points[points.length-1].x + " " + (h-pad) + " L" + pad + " " + (h-pad) + " Z"}
           fill="#0d948815" />
-        {/* Points */}
         {points.map((p, i) => (
           <g key={i}>
             <circle cx={p.x} cy={p.y} r="5" fill={getBandColor(p.score)} stroke="white" strokeWidth="2" />
@@ -67,34 +63,89 @@ function ScoreChart({ reports }: { reports: LocalReport[] }) {
   );
 }
 
+async function fetchFromSupabase(token: string): Promise<{ factory: Record<string,string> | null; reports: LocalReport[] } | null> {
+  try {
+    const sb = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      { global: { headers: { Authorization: `Bearer ${token}` } } }
+    );
+    const { data: userData } = await sb.auth.getUser(token);
+    const userId = userData?.user?.id;
+    if (!userId) return null;
+
+    const { data: factoryRow } = await sb.from("factories").select("*").eq("user_id", userId).maybeSingle();
+    if (!factoryRow) return { factory: null, reports: [] };
+
+    const { data: assessmentRows } = await sb
+      .from("assessments")
+      .select("id, local_report_id, compliance_score, score_breakdown, created_at")
+      .eq("factory_id", (factoryRow as {id:string}).id)
+      .order("created_at", { ascending: false });
+
+    const reports: LocalReport[] = (assessmentRows || []).map((a: Record<string, unknown>) => ({
+      id: (a.local_report_id as string) || (a.id as string),
+      score: (a.compliance_score as number) ?? 0,
+      band: ((a.score_breakdown as Record<string,unknown>)?.band as string) || "",
+      created_at: a.created_at as string,
+      factory: factoryRow as Record<string,string>,
+    }));
+
+    return { factory: factoryRow as Record<string,string>, reports };
+  } catch (e) {
+    console.error("Supabase dashboard fetch error:", String(e));
+    return null;
+  }
+}
+
 export default function DashboardPage({ params }: { params: { locale: string } }) {
   const isBn = params.locale === "bn";
   const loc  = params.locale;
 
-  const [factory, setFactory]  = useState<Record<string,string> | null>(null);
-  const [reports, setReports]  = useState<LocalReport[]>([]);
-  const [loading, setLoading]  = useState(true);
+  const [factory, setFactory]     = useState<Record<string,string> | null>(null);
+  const [reports, setReports]     = useState<LocalReport[]>([]);
+  const [loading, setLoading]     = useState(true);
   const [userEmail, setUserEmail] = useState("");
+  const [synced, setSynced]       = useState(false);
 
   useEffect(() => {
-    const f = localStorage.getItem("dpp_factory");
-    if (f) setFactory(JSON.parse(f) as Record<string,string>);
-    const email = localStorage.getItem("dpp_user_email");
-    if (email) setUserEmail(email);
+    const load = async () => {
+      const token = localStorage.getItem("dpp_auth_token");
+      const email = localStorage.getItem("dpp_user_email");
+      if (email) setUserEmail(email);
 
-    const all: LocalReport[] = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key && key.startsWith("dpp_report_")) {
-        try {
-          const r = JSON.parse(localStorage.getItem(key) || "") as LocalReport;
-          if (r.id && r.score !== undefined) all.push(r);
-        } catch { /* skip */ }
+      if (token) {
+        const remote = await fetchFromSupabase(token);
+        if (remote) {
+          setFactory(remote.factory);
+          setReports(remote.reports);
+          setSynced(true);
+          setLoading(false);
+          return;
+        }
+        // token existed but fetch failed (expired session, network, etc.) — fall through to local view
       }
-    }
-    all.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-    setReports(all);
-    setLoading(false);
+
+      // Not logged in, or remote fetch failed: existing localStorage behavior, unchanged
+      const f = localStorage.getItem("dpp_factory");
+      if (f) setFactory(JSON.parse(f) as Record<string,string>);
+
+      const all: LocalReport[] = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith("dpp_report_")) {
+          try {
+            const r = JSON.parse(localStorage.getItem(key) || "") as LocalReport;
+            if (r.id && r.score !== undefined) all.push(r);
+          } catch { /* skip */ }
+        }
+      }
+      all.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      setReports(all);
+      setSynced(false);
+      setLoading(false);
+    };
+    load();
   }, []);
 
   if (loading) return (
@@ -126,18 +177,38 @@ export default function DashboardPage({ params }: { params: { locale: string } }
     <main style={{minHeight:"100vh",background:"#f8fafc",fontFamily:"system-ui,sans-serif",padding:"24px"}}>
       <div style={{maxWidth:"960px",margin:"0 auto"}}>
 
-        <nav style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"28px",flexWrap:"wrap",gap:"12px"}}>
+        <nav style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px",flexWrap:"wrap",gap:"12px"}}>
           <a href={"/"+loc} style={{color:"#0d9488",fontWeight:700,fontSize:"1.1rem",textDecoration:"none"}}>🌿 DPP Atlas</a>
           <div style={{display:"flex",gap:"10px",alignItems:"center",flexWrap:"wrap"}}>
             {userEmail && <span style={{color:"#64748b",fontSize:"0.8rem"}}>👤 {userEmail}</span>}
             <a href={"/"+loc+"/assess"} style={{background:"#0d9488",color:"white",textDecoration:"none",padding:"9px 18px",borderRadius:"10px",fontWeight:600,fontSize:"0.875rem"}}>
               + {isBn?"নতুন মূল্যায়ন":"New Assessment"}
             </a>
-            <a href={"/"+loc+"/login"} style={{background:"white",color:"#64748b",border:"1px solid #e2e8f0",textDecoration:"none",padding:"9px 14px",borderRadius:"10px",fontWeight:500,fontSize:"0.875rem"}}>
-              {isBn?"লগইন":"Login"}
-            </a>
+            {!synced && (
+              <a href={"/"+loc+"/login"} style={{background:"white",color:"#64748b",border:"1px solid #e2e8f0",textDecoration:"none",padding:"9px 14px",borderRadius:"10px",fontWeight:500,fontSize:"0.875rem"}}>
+                {isBn?"লগইন":"Login"}
+              </a>
+            )}
           </div>
         </nav>
+
+        {/* SYNC STATUS BANNER */}
+        <div style={{
+          background: synced ? "#f0fdfa" : "#fffbeb",
+          border: "1px solid " + (synced ? "#99f6e4" : "#fde68a"),
+          borderRadius: "10px", padding: "10px 16px", marginBottom: "20px",
+          fontSize: "0.8rem", color: synced ? "#0f766e" : "#92400e",
+          display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap"
+        }}>
+          {synced
+            ? <>☁️ {isBn?"সিঙ্ক করা হয়েছে — যেকোনো ডিভাইস থেকে অ্যাক্সেসযোগ্য":"Synced to your account — accessible from any device"}</>
+            : <>💾 {isBn?"শুধু এই ব্রাউজারে সংরক্ষিত। ":"Saved to this browser only. "}
+                <a href={"/"+loc+"/login"} style={{color:"#92400e",fontWeight:700,textDecoration:"underline"}}>
+                  {isBn?"লগইন করে সব ডিভাইসে সংরক্ষণ করুন":"Log in to save across all devices"}
+                </a>
+              </>
+          }
+        </div>
 
         {/* FACTORY CARD */}
         <div style={{background:"white",border:"1px solid #e2e8f0",borderRadius:"16px",padding:"22px",marginBottom:"20px",display:"flex",gap:"16px",alignItems:"center",flexWrap:"wrap"}}>
@@ -182,7 +253,6 @@ export default function DashboardPage({ params }: { params: { locale: string } }
             </a>
           </div>
 
-          {/* TREND CHART */}
           <ScoreChart reports={reports} />
 
           {reports.length === 0 ? (

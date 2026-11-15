@@ -20,10 +20,10 @@ interface DppData {
 }
 
 function getBand(score: number) {
-  if (score >= 90) return {label:"DPP COMPLIANT",           color:"#22c55e", emoji:"✅", bg:"#dcfce7"};
-  if (score >= 70) return {label:"CONDITIONALLY COMPLIANT", color:"#eab308", emoji:"🟡", bg:"#fef9c3"};
+  if (score >= 90) return {label:"SELF-REPORTED: STRONG",           color:"#22c55e", emoji:"✅", bg:"#dcfce7"};
+  if (score >= 70) return {label:"SELF-REPORTED: MINOR GAPS", color:"#eab308", emoji:"🟡", bg:"#fef9c3"};
   if (score >= 50) return {label:"DEVELOPING",              color:"#f97316", emoji:"🟠", bg:"#ffedd5"};
-  return                  {label:"NON-COMPLIANT",           color:"#ef4444", emoji:"🔴", bg:"#fee2e2"};
+  return                  {label:"SELF-REPORTED: MAJOR GAPS",           color:"#ef4444", emoji:"🔴", bg:"#fee2e2"};
 }
 
 function StatusBadge({ passed, label }: { passed: boolean | undefined; label: string }) {
@@ -82,7 +82,7 @@ export default function DppPassportClient({ gtin }: { gtin: string }) {
           reach_compliant:     ans[10] === "y",
           gots_certified:      ans[8]  === "y",
           oeko_tex_certified:  ans[9]  === "y",
-          material_composition: ans[6] === "y" ? "Fiber blend verified (100%)" : "Fiber blend not fully verified",
+          material_composition: ans[6] === "y" ? "Fiber blend reported as 100%" : "Fiber blend not fully verified",
         };
         setData(dppData);
         setLoading(false);
@@ -116,7 +116,7 @@ export default function DppPassportClient({ gtin }: { gtin: string }) {
         reach_compliant:     ans[10] === "y",
         gots_certified:      ans[8]  === "y",
         oeko_tex_certified:  ans[9]  === "y",
-        material_composition: ans[6] === "y" ? "Fiber blend verified (100%)" : "Fiber blend not fully verified",
+        material_composition: ans[6] === "y" ? "Fiber blend reported as 100%" : "Fiber blend not fully verified",
       };
       setData(dppData);
     } else {
@@ -144,7 +144,7 @@ export default function DppPassportClient({ gtin }: { gtin: string }) {
         <p style={{color:"#64748b", lineHeight:1.7, marginBottom:"24px"}}>
           {isBn
             ? "GTIN: " + gtin + " এর জন্য কোনো যাচাইকৃত পাসপোর্ট পাওয়া যায়নি।"
-            : "No verified passport found for GTIN: " + gtin + ". The factory may not have completed an assessment yet."}
+            : "No record found for GTIN: " + gtin + ". The factory may not have completed an assessment yet."}
         </p>
         <a href="/en" style={{color:"#0d9488", fontWeight:600, textDecoration:"none"}}>
           ← {isBn ? "হোমপেজে ফিরুন" : "Return to DPP Atlas"}
@@ -305,7 +305,7 @@ export default function DppPassportClient({ gtin }: { gtin: string }) {
         {/* DATA HASH */}
         <div style={{background:"white", border:"1px solid #e2e8f0", borderRadius:"12px", padding:"16px", marginBottom:"20px"}}>
           <div style={{fontSize:"0.72rem", color:"#94a3b8", fontWeight:700, marginBottom:"6px"}}>
-            SHA-256 DATA INTEGRITY HASH
+            RECORD REFERENCE (not a security proof)
           </div>
           <div style={{fontFamily:"monospace", fontSize:"0.72rem", color:"#475569", wordBreak:"break-all", lineHeight:1.5}}>
             {/* Simple hash simulation from report ID */}

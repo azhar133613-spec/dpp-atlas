@@ -16,8 +16,8 @@ const FTYPES = [
 const NEWS = [
   {d:"Jul 2026", t:"EU ESPR Regulation enters enforcement phase for textiles",  tag:"REGULATION",    c:"#ef4444"},
   {d:"Jun 2026", t:"Bangladesh BGMEA signs MOU with EU DPP working group",      tag:"BANGLADESH",    c:"#3b82f6"},
-  {d:"Jun 2026", t:"ISO 3759 updated with new shrinkage requirements for 2027", tag:"ISO UPDATE",    c:"#eab308"},
-  {d:"May 2026", t:"GOTS certification now required for organic cotton DPP",    tag:"CERTIFICATION", c:"#22c55e"},
+  {d:"Jun 2026", t:"Draft EU textile DPP rules are being prepared (JRC preparatory study)", tag:"ISO UPDATE",    c:"#eab308"},
+  {d:"May 2026", t:"GOTS is voluntary; ask your buyer what they require",    tag:"CERTIFICATION", c:"#22c55e"},
 ];
 
 export default function HomePage({ params }: { params: { locale: string } }) {
@@ -64,7 +64,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
         <div>
           <div style={{display:"inline-flex", alignItems:"center", gap:"8px", background:"#f0fdfa", border:"1px solid #99f6e4", borderRadius:"99px", padding:"6px 14px", marginBottom:"24px"}}>
             <span style={{width:"8px", height:"8px", background:"#10b981", borderRadius:"50%", display:"inline-block"}}></span>
-            <span style={{color:"#0f766e", fontSize:"0.8rem", fontWeight:600}}>EU ESPR 2027 Compliance Platform — Free</span>
+            <span style={{color:"#0f766e", fontSize:"0.8rem", fontWeight:600}}>EU ESPR Digital Product Passport Readiness — Free</span>
           </div>
           <h1 style={{fontSize:"clamp(2rem,4vw,3.2rem)", fontWeight:800, lineHeight:1.15, marginBottom:"20px", color:"#0f172a"}}>
             {isBn ? "বাংলাদেশ টেক্সটাইল" : "Bangladesh Textile"}
@@ -137,7 +137,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
       <section style={{padding:"16px 32px", background:"#f8fafc", borderTop:"1px solid #f1f5f9", borderBottom:"1px solid #f1f5f9"}}>
         <div style={{maxWidth:"1200px", margin:"0 auto", display:"flex", alignItems:"center", gap:"16px", flexWrap:"wrap", justifyContent:"center"}}>
           <span style={{color:"#94a3b8", fontSize:"0.75rem", fontWeight:700}}>ALIGNED WITH:</span>
-          {["EU ESPR 2027","ISO 3759","ISO 16322-3","REACH","GOTS","OEKO-TEX","GS1 DPP","BGMEA"].map(b => (
+          {["EU ESPR","ISO 3759","ISO 16322-3","REACH","GOTS","OEKO-TEX","GS1 DPP","BGMEA"].map(b => (
             <span key={b} style={{color:"#475569", fontSize:"0.78rem", fontWeight:600, padding:"5px 12px", border:"1px solid #e2e8f0", borderRadius:"8px", background:"white"}}>{b}</span>
           ))}
         </div>
@@ -173,7 +173,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           <div style={{textAlign:"center", marginBottom:"48px"}}>
             <p style={{color:"#0d9488", fontSize:"0.8rem", fontWeight:700, letterSpacing:"1px", marginBottom:"12px"}}>SIMPLE PROCESS</p>
             <h2 style={{fontSize:"clamp(1.75rem,3vw,2.4rem)", fontWeight:800}}>
-              {isBn ? "মাত্র ৪টি ধাপে কমপ্লায়েন্ট হন" : "Get Compliant in 4 Steps"}
+              {isBn ? "মাত্র ৪টি ধাপে আপনার প্রস্তুতির তালিকা পান" : "Get Your Readiness List in 4 Steps"}
             </h2>
           </div>
           <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))", gap:"32px"}}>
@@ -181,7 +181,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               {n:"01", icon:"🏭", t:isBn?"কারখানা নিবন্ধন":"Register Factory",     d:isBn?"ধরন ও মূল তথ্য দিন":"Select type and enter details",            h:"/"+loc+"/enroll"},
               {n:"02", icon:"📋", t:isBn?"মূল্যায়ন সম্পন্ন":"Complete Assessment", d:isBn?"কাস্টম প্রশ্নের উত্তর দিন":"Answer questions for your sector",   h:"/"+loc+"/assess"},
               {n:"03", icon:"🤖", t:isBn?"AI রিপোর্ট পান":"Get AI Report",          d:isBn?"তাৎক্ষণিক রোডম্যাপ":"Instant Gemini AI improvement tips",         h:"/"+loc+"/assess"},
-              {n:"04", icon:"✅", t:isBn?"ব্যাজ অর্জন করুন":"Earn Verified Badge",  d:isBn?"ক্রেতাদের প্রমাণ দিন":"Prove EU DPP readiness to buyers",        h:"/"+loc+"/verify"},
+              {n:"04", icon:"✅", t:isBn?"রিপোর্ট শেয়ার করুন":"Share Your Self-Assessment",  d:isBn?"ক্রেতাদের প্রমাণ দিন":"Prove EU DPP readiness to buyers",        h:"/"+loc+"/verify"},
             ].map((x,i) => (
               <a key={i} href={x.h} style={{textDecoration:"none", color:"inherit"}}>
                 <div style={{fontSize:"0.72rem", fontWeight:800, color:"#0d9488", marginBottom:"10px"}}>STEP {x.n}</div>
@@ -217,14 +217,14 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             ))}
             <div style={{marginTop:"24px"}}>
               <a href={"/"+loc+"/enroll"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"14px 28px", borderRadius:"10px", fontWeight:700, display:"inline-block"}}>
-                {isBn ? "🏆 ভেরিফিকেশন পান" : "🏆 Get Verified Now"}
+                {isBn ? "বিনামূল্যে স্ব-মূল্যায়ন শুরু করুন" : "Start Free Self-Check"}
               </a>
             </div>
           </div>
           <div style={{display:"flex", justifyContent:"center"}}>
             <div style={{width:"280px", background:"white", borderRadius:"20px", padding:"24px", textAlign:"center", color:"#0f172a", boxShadow:"0 0 60px rgba(13,148,136,0.2)"}}>
               <div style={{width:"64px", height:"64px", background:"linear-gradient(135deg,#0d9488,#0369a1)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 12px", fontSize:"1.5rem"}}>✅</div>
-              <div style={{fontWeight:800, fontSize:"0.95rem", marginBottom:"4px"}}>DPP VERIFIED</div>
+              <div style={{fontWeight:800, fontSize:"0.95rem", marginBottom:"4px"}}>SELF-ASSESSED</div>
               <div style={{fontSize:"0.72rem", color:"#64748b", marginBottom:"14px"}}>EU ESPR Compliance Assessed</div>
               <div style={{background:"#f0fdfa", border:"1px solid #99f6e4", borderRadius:"10px", padding:"10px", marginBottom:"14px"}}>
                 <div style={{fontWeight:700, color:"#0d9488", fontSize:"1.4rem"}}>87/100</div>
@@ -233,7 +233,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               <div style={{fontSize:"0.68rem", color:"#94a3b8", borderTop:"1px solid #f1f5f9", paddingTop:"10px", lineHeight:1.8}}>
                 🏭 Sample Garment Factory Ltd.
                 <br/>ID: DPP-2026-XXXXX
-                <br/>🌐 Verified by DPP Atlas
+                <br/>🌐 Self-reported via DPP Atlas
               </div>
             </div>
           </div>
@@ -267,8 +267,8 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             </h2>
             <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:"14px"}}>
               {[
-                {n:"2027",  l:"EU DPP Deadline",         d:"All textile exports need a DPP",         c:"#ef4444"},
-                {n:"$42B",  l:"BD Export Value at Risk",  d:"Without DPP for EU buyers",              c:"#f97316"},
+                {n:"Draft",  l:"EU textile DPP rules",         d:"Still in draft — confirm status with your buyer",         c:"#ef4444"},
+                {n:"—",  l:"Statistic removed",  d:"Source not verified",              c:"#f97316"},
                 {n:"83%",   l:"EU is Top BD Market",      d:"Largest market requires DPP",            c:"#eab308"},
                 {n:"Free",  l:"DPP Atlas Cost",           d:"Zero cost to start today",               c:"#22c55e"},
               ].map((x,i) => (
@@ -290,7 +290,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             {isBn ? "আজই আপনার কারখানার EU ভবিষ্যৎ নিশ্চিত করুন" : "Secure Your Factory's EU Future Today"}
           </h2>
           <p style={{color:"#94a3b8", marginBottom:"36px", fontSize:"1rem", lineHeight:1.7}}>
-            {isBn ? "২০২৭ সালের আগে প্রস্তুত হন। বিনামূল্যে মূল্যায়ন নিন।" : "Get ready before 2027. Free assessment. AI report. Verification badge. No credit card."}
+            {isBn ? "আগে থেকেই প্রস্তুতি শুরু করুন। বিনামূল্যে মূল্যায়ন নিন।" : "Start preparing early. Free assessment. AI report. Verification badge. No credit card."}
           </p>
           <div style={{display:"flex", gap:"14px", justifyContent:"center", flexWrap:"wrap"}}>
             <a href={"/"+loc+"/enroll"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"15px 32px", borderRadius:"10px", fontWeight:700, fontSize:"1rem"}}>
