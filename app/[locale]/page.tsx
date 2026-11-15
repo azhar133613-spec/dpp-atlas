@@ -88,7 +88,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           </div>
           <div style={{display:"flex", gap:"32px", flexWrap:"wrap"}}>
             {[
-              {n:count.toLocaleString()+"+", l:isBn?"মূল্যায়িত কারখানা":"Factories Assessed"},
+              {n:"Pilot", l:isBn?"পরীক্ষামূলক সংস্করণ":"Pilot version"},
               {n:"18",                        l:isBn?"প্রশ্ন বিভাগ":"Question Categories"},
               {n:"$0",                        l:isBn?"সর্বদা বিনামূল্যে":"Forever Free"},
             ].map((x,i) => (
@@ -104,11 +104,11 @@ export default function HomePage({ params }: { params: { locale: string } }) {
         <div style={{background:"#0f172a", borderRadius:"20px", padding:"28px", color:"white"}}>
           <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"20px"}}>
             <span style={{color:"#94a3b8", fontSize:"0.75rem"}}>SAMPLE RESULT</span>
-            <span style={{background:"#22c55e20", color:"#22c55e", padding:"4px 10px", borderRadius:"99px", fontSize:"0.75rem", fontWeight:700}}>✅ COMPLIANT</span>
+            <span style={{background:"#22c55e20", color:"#22c55e", padding:"4px 10px", borderRadius:"99px", fontSize:"0.75rem", fontWeight:700}}>✅ EXAMPLE ONLY</span>
           </div>
           <div style={{textAlign:"center", padding:"12px 0 20px"}}>
             <div style={{fontSize:"4.5rem", fontWeight:800, color:"#22c55e", lineHeight:1}}>87</div>
-            <div style={{color:"#64748b", fontSize:"0.8rem"}}>/100 compliance score</div>
+            <div style={{color:"#64748b", fontSize:"0.8rem"}}>/100 example only — not real data</div>
           </div>
           {[
             {cat:"Factory Identity",      s:18, max:20, c:"#22c55e"},
