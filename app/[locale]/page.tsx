@@ -76,7 +76,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           <p style={{color:"#64748b", fontSize:"1.05rem", lineHeight:1.7, marginBottom:"32px", maxWidth:"480px"}}>
             {isBn
               ? "বিনামূল্যে AI-চালিত EU ESPR DPP মূল্যায়ন। আপনার কারখানার ধরন অনুযায়ী কাস্টম প্রশ্ন। তাৎক্ষণিক ভেরিফিকেশন ব্যাজ।"
-              : "Free AI-powered EU ESPR Digital Product Passport assessment. Custom questions per factory type. Instant verification badge for buyers."}
+              : "Free AI-powered EU ESPR Digital Product Passport assessment. Self-reported readiness check in Bangla and English. Not a certificate."}
           </p>
           <div style={{display:"flex", gap:"12px", flexWrap:"wrap", marginBottom:"40px"}}>
             <a href={"/"+loc+"/enroll"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"14px 28px", borderRadius:"10px", fontWeight:700, fontSize:"1rem"}}>
@@ -290,7 +290,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             {isBn ? "আজই আপনার কারখানার EU ভবিষ্যৎ নিশ্চিত করুন" : "Secure Your Factory's EU Future Today"}
           </h2>
           <p style={{color:"#94a3b8", marginBottom:"36px", fontSize:"1rem", lineHeight:1.7}}>
-            {isBn ? "আগে থেকেই প্রস্তুতি শুরু করুন। বিনামূল্যে মূল্যায়ন নিন।" : "Start preparing early. Free assessment. AI report. Verification badge. No credit card."}
+            {isBn ? "আগে থেকেই প্রস্তুতি শুরু করুন। বিনামূল্যে মূল্যায়ন নিন।" : "Start preparing early. Free self-assessment. AI report. No credit card."}
           </p>
           <div style={{display:"flex", gap:"14px", justifyContent:"center", flexWrap:"wrap"}}>
             <a href={"/"+loc+"/enroll"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"15px 32px", borderRadius:"10px", fontWeight:700, fontSize:"1rem"}}>
@@ -308,7 +308,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
         <div style={{maxWidth:"1200px", margin:"0 auto", display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:"12px"}}>
           <div>
             <div style={{color:"white", fontWeight:700, marginBottom:"4px"}}>🌿 DPP Atlas</div>
-            <div style={{color:"#64748b", fontSize:"0.78rem"}}>Free Textile EU ESPR Compliance Tool · Bangladesh</div>
+            <div style={{color:"#64748b", fontSize:"0.78rem"}}>Free Textile EU ESPR Self-Assessment Tool · Bangladesh</div>
           </div>
           <div style={{color:"#475569", fontSize:"0.72rem"}}>⚠️ Advisory tool only — not legal certification</div>
         </div>
