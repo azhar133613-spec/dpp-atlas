@@ -309,10 +309,10 @@ export default function DppPassportClient({ gtin }: { gtin: string }) {
           </div>
           <div style={{fontFamily:"monospace", fontSize:"0.72rem", color:"#475569", wordBreak:"break-all", lineHeight:1.5}}>
             {/* Simple hash simulation from report ID */}
-            {Array.from(data.id).map(c => c.charCodeAt(0).toString(16)).join("").slice(0, 64).padEnd(64, "0")}
+            {data.id}
           </div>
           <div style={{color:"#94a3b8", fontSize:"0.7rem", marginTop:"6px"}}>
-            {isBn ? "এই হ্যাশ নিশ্চিত করে যে ডেটা পরিবর্তন করা হয়নি।" : "This hash confirms data integrity — content has not been altered since assessment."}
+            {isBn ? "এটি শুধু রেকর্ড আইডি। এটি ডেটা অপরিবর্তিত থাকার প্রমাণ নয়।" : "This is the record ID only. It is not proof that the data is unaltered."}
           </div>
         </div>
 
