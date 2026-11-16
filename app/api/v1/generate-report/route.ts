@@ -22,20 +22,20 @@ interface AiReport {
 
 function fallbackReport(): AiReport {
   return {
-    executive_summary: "Your factory has completed the DPP compliance assessment. Based on your self-reported data, we have identified key areas requiring attention to meet EU ESPR 2027 requirements. Please review the critical actions below.",
-    compliance_band_explanation: "Your score indicates areas where immediate action is needed to achieve EU Digital Product Passport compliance before the 2027 mandate deadline.",
+    executive_summary: "This is a general fallback report shown when the AI service is unavailable. It is NOT based on your specific answers. Please check each item below against your own records and with your buyer.",
+    compliance_band_explanation: "The EU textile Digital Product Passport rules are still being drafted. Your score is a self-reported indication only and does not show legal compliance.",
     strengths: [
-      "Factory has engaged in the DPP compliance process",
+      "Factory has started a DPP self-assessment",
       "Assessment data recorded for progress tracking",
       "Improvement roadmap now available for implementation"
     ],
     critical_actions: [
-      {priority:1, category:"Factory Identity",    issue:"GS1 GLN number not registered",         fix_action:"Register at gs1.org/services/gln for a free Global Location Number. Mandatory for EU DPP traceability.", timeline:"1-2 weeks",  regulatory_reference:"EU ESPR Regulation Article 9"},
-      {priority:2, category:"Chemical Compliance", issue:"REACH audit documentation missing",      fix_action:"Commission a REACH audit from SGS, Bureau Veritas, or Intertek in Bangladesh.",                          timeline:"4-6 weeks",  regulatory_reference:"REACH Regulation (EC) No 1907/2006"},
-      {priority:3, category:"Physical Testing",    issue:"ISO test certifications missing",         fix_action:"Submit fabric samples to a BGMEA-approved lab for ISO 3759 shrinkage and ISO 16322-3 spirality tests.",  timeline:"3-4 weeks",  regulatory_reference:"ISO 3759:2011"},
-      {priority:4, category:"Circularity",         issue:"Recycling instructions missing on labels", fix_action:"Add recycling symbols and end-of-life instructions to all garment labels.",                            timeline:"1 week",     regulatory_reference:"EU ESPR Annex I"}
+      {priority:1, category:"Factory Identity",    issue:"GLN status to be confirmed",         fix_action:"Ask GS1 Bangladesh how to obtain a Global Location Number (GLN). GS1 identifiers appear in the draft DPP data model; confirm with your buyer whether they are required.", timeline:"1-2 weeks",  regulatory_reference:"EU ESPR (draft textile rules; confirm reference)"},
+      {priority:2, category:"Chemical Compliance", issue:"Chemical compliance documents to be confirmed",      fix_action:"Ask your buyer or an accredited laboratory which chemical compliance documents (for example REACH-related declarations) they need.",                          timeline:"4-6 weeks",  regulatory_reference:"REACH Regulation (EC) No 1907/2006"},
+      {priority:3, category:"Physical Testing",    issue:"ISO test reports to be confirmed",         fix_action:"Locate existing ISO 3759 shrinkage and ISO 16322-3 spirality test reports, or ask an accredited laboratory about testing.",  timeline:"3-4 weeks",  regulatory_reference:"ISO 3759:2011"},
+      {priority:4, category:"Circularity",         issue:"Recycling instructions to be confirmed", fix_action:"Add recycling symbols and end-of-life instructions to all garment labels.",                            timeline:"1 week",     regulatory_reference:"EU ESPR (confirm reference)"}
     ],
-    buyer_ready_statement: "This factory has initiated EU ESPR DPP compliance assessment and is actively implementing improvements to meet the 2027 mandate.",
+    buyer_ready_statement: "This factory has completed a self-reported DPP readiness check. This is not a certificate or verified compliance.",
     next_assessment_date: "Reassess in 3 months after implementing critical actions",
     disclaimer: "This report is AI-generated based on self-reported data. It is an advisory tool and does not constitute legal certification. Independent lab testing and official certification bodies must be consulted for legally binding compliance."
   };

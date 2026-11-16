@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     default: "DPP Atlas — Free Textile EU ESPR Compliance Tool",
     template: "%s | DPP Atlas"
   },
-  description: "Free AI-powered EU ESPR Digital Product Passport assessment for textile factories. Get instant compliance scores, AI roadmaps, and verified badges.",
+  description: "Free AI-powered EU ESPR Digital Product Passport assessment for textile factories. Get a self-reported readiness check and an AI improvement roadmap.",
   keywords: ["DPP", "textile compliance", "EU ESPR", "Bangladesh garment", "digital product passport", "ISO 3759", "REACH compliance"],
   authors: [{ name: "DPP Atlas" }],
   robots: { index: true, follow: true },
