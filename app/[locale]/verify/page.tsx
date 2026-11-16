@@ -39,7 +39,7 @@ export default function VerifyPage({ params }: { params: { locale: string } }) {
         <div style={{textAlign:"center", marginBottom:"36px"}}>
           <div style={{fontSize:"2.5rem", marginBottom:"12px"}}>🔍</div>
           <h1 style={{fontSize:"1.75rem", fontWeight:800, marginBottom:"10px", color:"#0f172a"}}>
-            {isBn?"ফ্যাক্টরি ভেরিফিকেশন চেক":"Factory Verification Check"}
+            {isBn?"রিপোর্ট খুঁজুন":"Report Lookup"}
           </h1>
           <p style={{color:"#64748b", lineHeight:1.7}}>
             {isBn?"একটি কারখানার DPP Atlas স্ট্যাটাস যাচাই করুন।":"Verify a factory's DPP compliance status using their Report ID."}

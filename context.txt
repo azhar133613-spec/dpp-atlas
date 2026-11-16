@@ -1,0 +1,43 @@
+== app/dpp/[gtin]/DppPassportClient.tsx lines 228-238
+228: {band.emoji} {isBn ? (data.score >= 90 ? "স্ব-রিপোর্টকৃত: শক্তিশালী" : data.score >= 70 ? "স্ব-রিপোর্টকৃত: ছোট ফাঁক" : data.score >= 50 ? "উন্নয়নমান" : "স্ব-রিপোর্টকৃত: বড় ফাঁক") : band.label}
+229: </div>
+230: 
+231: <p style={{color:"#64748b", fontSize:"0.875rem", maxWidth:"400px", margin:"0 auto 8px", lineHeight:1.6}}>
+232: {data.score >= 90
+233: ? (isBn ? "এই ফলাফল কারখানার নিজের দেওয়া তথ্যের ভিত্তিতে; এটি সনদ নয়।" : "Based on self-reported answers. This is not a certificate.")
+234: : data.score >= 70
+235: ? (isBn ? "এই কারখানা অধিকাংশ EU ESPR মানদণ্ড পূরণ করছে।" : "This factory meets most EU ESPR requirements with minor gaps.")
+236: : (isBn ? "এই কারখানার উল্লেখযোগ্য উন্নতি প্রয়োজন।" : "This factory requires significant improvements for full compliance.")}
+237: </p>
+238: <div style={{color:"#94a3b8", fontSize:"0.72rem"}}>
+== app/[locale]/page.tsx lines 200-212
+200: <div>
+201: <p style={{color:"#5eead4", fontSize:"0.8rem", fontWeight:700, letterSpacing:"1px", marginBottom:"12px"}}>OFFICIAL VERIFICATION</p>
+202: <h2 style={{fontSize:"clamp(1.75rem,3vw,2.3rem)", fontWeight:800, marginBottom:"16px"}}>
+203: {isBn ? "ক্রেতাদের সাথে শেয়ার করার মতো রিপোর্ট" : "A Report You Can Share With Buyers"}
+204: </h2>
+205: <p style={{color:"#94a3b8", lineHeight:1.7, marginBottom:"24px"}}>
+206: {isBn
+207: ? "আপনার স্ব-মূল্যায়ন রিপোর্ট ক্রেতাদের সাথে শেয়ার করতে পারবেন। এটি সনদ নয়।"
+208: : "Score 70+ and earn an official DPP Atlas Verification Badge. Buyers scan QR to verify instantly."}
+209: </p>
+210: {[
+211: isBn?"✅ QR স্ক্যানযোগ্য":"✅ QR-scannable — instant buyer verification",
+212: isBn?"✅ তারিখ স্ট্যাম্পড":"✅ Date-stamped — shows assessment date",
+== app/[locale]/report/[id]/page.tsx lines 164-170
+164: {band.emoji} {band.label}
+165: </div>
+166: <p style={{color:"#64748b",fontSize:"0.875rem",maxWidth:"360px",margin:"0 auto",lineHeight:1.6}}>
+167: {score>=90?(isBn?"আপনার স্ব-মূল্যায়নে উচ্চ প্রস্তুতি দেখা গেছে। এটি সনদ নয়।":"Your self-assessment shows strong readiness. This is not a certificate.")
+168: :score>=70?(isBn?"ভালো অগ্রগতি। কিছু উন্নতি প্রয়োজন।":"Good progress. Key improvements needed.")
+169: :score>=50?(isBn?"উল্লেখযোগ্য উন্নতি প্রয়োজন।":"Significant improvements needed.")
+170: :(isBn?"জরুরি পদক্ষেপ প্রয়োজন।":"Critical action required.")}
+== app/[locale]/report/[id]/page.tsx lines 296-303
+296: <div>
+297: <div style={{fontSize:"1.5rem",marginBottom:"6px"}}>🏆</div>
+298: <h2 style={{fontWeight:800,fontSize:"1rem",color:"#0d9488",marginBottom:"6px"}}>{isBn?"স্ব-মূল্যায়ন সম্পন্ন":"Self-Assessment Complete"}</h2>
+299: <p style={{color:"#64748b",fontSize:"0.82rem",marginBottom:"12px"}}>{isBn?"এই Report ID দিয়ে EU ক্রেতারা তাৎক্ষণিক যাচাই করতে পারবেন।":"EU buyers can instantly verify using this Report ID."}</p>
+300: <div style={{background:"#f0fdfa",border:"1px solid #99f6e4",borderRadius:"8px",padding:"10px",fontFamily:"monospace",fontSize:"0.82rem",color:"#0f766e",marginBottom:"12px",wordBreak:"break-all"}}>{rid}</div>
+301: <a href={"/"+loc+"/verify"} style={{color:"#0d9488",fontSize:"0.875rem",fontWeight:600,textDecoration:"none"}}>🔍 {isBn?"রিপোর্ট পেজ →":"Open Report Page →"}</a>
+302: </div>
+303: {qrUrl && (

@@ -75,7 +75,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           </h1>
           <p style={{color:"#64748b", fontSize:"1.05rem", lineHeight:1.7, marginBottom:"32px", maxWidth:"480px"}}>
             {isBn
-              ? "বিনামূল্যে AI-চালিত EU ESPR DPP মূল্যায়ন। আপনার কারখানার ধরন অনুযায়ী কাস্টম প্রশ্ন। তাৎক্ষণিক ভেরিফিকেশন ব্যাজ।"
+              ? "বিনামূল্যে AI-চালিত EU ESPR DPP স্ব-মূল্যায়ন। নিজের দেওয়া তথ্যের ভিত্তিতে প্রস্তুতি পর্যালোচনা। এটি কোনো সনদ নয়।"
               : "Free AI-powered EU ESPR Digital Product Passport assessment. Self-reported readiness check in Bangla and English. Not a certificate."}
           </p>
           <div style={{display:"flex", gap:"12px", flexWrap:"wrap", marginBottom:"40px"}}>
@@ -181,7 +181,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               {n:"01", icon:"🏭", t:isBn?"কারখানা নিবন্ধন":"Register Factory",     d:isBn?"ধরন ও মূল তথ্য দিন":"Select type and enter details",            h:"/"+loc+"/enroll"},
               {n:"02", icon:"📋", t:isBn?"মূল্যায়ন সম্পন্ন":"Complete Assessment", d:isBn?"কাস্টম প্রশ্নের উত্তর দিন":"Answer questions for your sector",   h:"/"+loc+"/assess"},
               {n:"03", icon:"🤖", t:isBn?"AI রিপোর্ট পান":"Get AI Report",          d:isBn?"তাৎক্ষণিক রোডম্যাপ":"Instant Gemini AI improvement tips",         h:"/"+loc+"/assess"},
-              {n:"04", icon:"✅", t:isBn?"রিপোর্ট শেয়ার করুন":"Share Your Self-Assessment",  d:isBn?"ক্রেতাদের প্রমাণ দিন":"Prove EU DPP readiness to buyers",        h:"/"+loc+"/verify"},
+              {n:"04", icon:"✅", t:isBn?"রিপোর্ট শেয়ার করুন":"Share Your Self-Assessment",  d:isBn?"ক্রেতাদের সাথে শেয়ার করুন":"Share your self-assessment with buyers",        h:"/"+loc+"/verify"},
             ].map((x,i) => (
               <a key={i} href={x.h} style={{textDecoration:"none", color:"inherit"}}>
                 <div style={{fontSize:"0.72rem", fontWeight:800, color:"#0d9488", marginBottom:"10px"}}>STEP {x.n}</div>
@@ -198,17 +198,17 @@ export default function HomePage({ params }: { params: { locale: string } }) {
       <section style={{padding:"80px 32px", background:"#0f172a", color:"white"}}>
         <div style={{maxWidth:"1200px", margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))", gap:"64px", alignItems:"center"}}>
           <div>
-            <p style={{color:"#5eead4", fontSize:"0.8rem", fontWeight:700, letterSpacing:"1px", marginBottom:"12px"}}>OFFICIAL VERIFICATION</p>
+            <p style={{color:"#5eead4", fontSize:"0.8rem", fontWeight:700, letterSpacing:"1px", marginBottom:"12px"}}>SHARE WITH BUYERS</p>
             <h2 style={{fontSize:"clamp(1.75rem,3vw,2.3rem)", fontWeight:800, marginBottom:"16px"}}>
-              {isBn ? "ভেরিফিকেশন ব্যাজ যা ক্রেতারা বিশ্বাস করেন" : "A Verification Badge Buyers Trust"}
+              {isBn ? "ক্রেতাদের সাথে শেয়ার করার মতো রিপোর্ট" : "A Report You Can Share With Buyers"}
             </h2>
             <p style={{color:"#94a3b8", lineHeight:1.7, marginBottom:"24px"}}>
               {isBn
-                ? "৭০+ স্কোর পেলে অফিসিয়াল ভেরিফিকেশন ব্যাজ পাবেন।"
-                : "Score 70+ and earn an official DPP Atlas Verification Badge. Buyers scan QR to verify instantly."}
+                ? "আপনার স্ব-মূল্যায়ন রিপোর্ট ক্রেতাদের সাথে শেয়ার করতে পারবেন। এটি সনদ নয়।"
+                : "Share your self-assessment report with buyers. This is not a certificate."}
             </p>
             {[
-              isBn?"✅ QR স্ক্যানযোগ্য":"✅ QR-scannable — instant buyer verification",
+              isBn?"✅ QR স্ক্যানযোগ্য":"✅ QR-scannable link to your report",
               isBn?"✅ তারিখ স্ট্যাম্পড":"✅ Date-stamped — shows assessment date",
               isBn?"✅ PDF ও PNG ডাউনলোড":"✅ Downloadable PDF and PNG",
               isBn?"✅ অনন্য ID — জালিয়াতি প্রতিরোধী":"✅ Unique ID — fraud-resistant",
@@ -297,7 +297,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               {isBn ? "🚀 বিনামূল্যে শুরু করুন" : "🚀 Start Free Assessment"}
             </a>
             <a href={"/"+loc+"/verify"} style={{border:"2px solid #5eead4", color:"#5eead4", textDecoration:"none", padding:"13px 28px", borderRadius:"10px", fontWeight:600, fontSize:"1rem"}}>
-              {isBn ? "🔍 ভেরিফিকেশন চেক" : "🔍 Verify a Factory"}
+              {isBn ? "🔍 রিপোর্ট খুঁজুন" : "🔍 Look up a Report"}
             </a>
           </div>
         </div>

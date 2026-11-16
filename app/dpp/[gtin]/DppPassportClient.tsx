@@ -143,7 +143,7 @@ export default function DppPassportClient({ gtin }: { gtin: string }) {
         </h1>
         <p style={{color:"#64748b", lineHeight:1.7, marginBottom:"24px"}}>
           {isBn
-            ? "GTIN: " + gtin + " এর জন্য কোনো যাচাইকৃত পাসপোর্ট পাওয়া যায়নি।"
+            ? "GTIN: " + gtin + " এর জন্য কোনো রেকর্ড পাওয়া যায়নি।"
             : "No record found for GTIN: " + gtin + ". The factory may not have completed an assessment yet."}
         </p>
         <a href="/en" style={{color:"#0d9488", fontWeight:600, textDecoration:"none"}}>
@@ -225,15 +225,15 @@ export default function DppPassportClient({ gtin }: { gtin: string }) {
 
           {/* Compliance Band */}
           <div style={{display:"inline-block", padding:"8px 24px", background:band.bg, border:"2px solid "+band.color, borderRadius:"99px", color:band.color, fontWeight:700, fontSize:"1rem", marginBottom:"16px"}}>
-            {band.emoji} {isBn ? (data.score >= 90 ? "DPP সম্মত" : data.score >= 70 ? "শর্তসাপেক্ষে সম্মত" : data.score >= 50 ? "উন্নয়নমান" : "অসম্মত") : band.label}
+            {band.emoji} {isBn ? (data.score >= 90 ? "স্ব-রিপোর্টকৃত: শক্তিশালী" : data.score >= 70 ? "স্ব-রিপোর্টকৃত: ছোট ফাঁক" : data.score >= 50 ? "উন্নয়নমান" : "স্ব-রিপোর্টকৃত: বড় ফাঁক") : band.label}
           </div>
 
           <p style={{color:"#64748b", fontSize:"0.875rem", maxWidth:"400px", margin:"0 auto 8px", lineHeight:1.6}}>
             {data.score >= 90
-              ? (isBn ? "এই কারখানা EU ESPR DPP পাসপোর্টের মানদণ্ড পূরণ করে।" : "This factory meets EU ESPR DPP Passport requirements.")
+              ? (isBn ? "এই ফলাফল কারখানার নিজের দেওয়া তথ্যের ভিত্তিতে; এটি সনদ নয়।" : "Based on self-reported answers. This is not a certificate.")
               : data.score >= 70
-              ? (isBn ? "এই কারখানা অধিকাংশ EU ESPR মানদণ্ড পূরণ করছে।" : "This factory meets most EU ESPR requirements with minor gaps.")
-              : (isBn ? "এই কারখানার উল্লেখযোগ্য উন্নতি প্রয়োজন।" : "This factory requires significant improvements for full compliance.")}
+              ? (isBn ? "স্ব-রিপোর্টকৃত তথ্যে কিছু ফাঁক আছে। এটি সনদ নয়।" : "Self-reported answers show minor gaps. This is not a certificate.")
+              : (isBn ? "স্ব-রিপোর্টকৃত তথ্যে উল্লেখযোগ্য ফাঁক আছে। এটি সনদ নয়।" : "Self-reported answers show significant gaps. This is not a certificate.")}
           </p>
           <div style={{color:"#94a3b8", fontSize:"0.72rem"}}>
             {isBn ? "রিপোর্ট ID:" : "Report ID:"} {data.id.slice(0, 16)}...

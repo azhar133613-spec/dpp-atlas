@@ -1,0 +1,35 @@
+app\dpp\[gtin]\DppPassportClient.tsx:142  {isBn ? "DPP পাসপোর্ট পাওয়া যায়নি" : "DPP Passport Not Found"}
+app\dpp\[gtin]\DppPassportClient.tsx:146  ? "GTIN: " + gtin + " এর জন্য কোনো যাচাইকৃত পাসপোর্ট পাওয়া যায়নি।"
+app\dpp\[gtin]\DppPassportClient.tsx:228  {band.emoji} {isBn ? (data.score >= 90 ? "DPP সম্মত" : data.score >= 70 ? "শর্তসাপেক্ষে সম্মত" : data.score >= 50 ? "উন্নয়নমান" : "অসম্মত") : band.label}
+app\dpp\[gtin]\DppPassportClient.tsx:233  ? (isBn ? "এই কারখানা EU ESPR DPP পাসপোর্টের মানদণ্ড পূরণ করে।" : "This factory meets EU ESPR DPP Passport requirements.")
+app\dpp\[gtin]\DppPassportClient.tsx:259  🧪 {isBn ? "রাসায়নিক সম্মতি" : "Chemical Compliance"}
+app\dpp\[gtin]\DppPassportClient.tsx:287  ? "এই পাসপোর্টের তথ্য DPP Atlas প্ল্যাটফর্মের মাধ্যমে স্ব-রিপোর্টকৃত তথ্যের ভিত্তিতে তৈরি।"
+app\dpp\[gtin]\DppPassportClient.tsx:315  {isBn ? "এটি শুধু রেকর্ড আইডি। এটি ডেটা অপরিবর্তিত থাকার প্রমাণ নয়।" : "This is the record ID only. It is not proof that the data is unaltered."}
+app\dpp\[gtin]\DppPassportClient.tsx:326  ? "এই পাসপোর্টের বিস্তারিত রিপোর্ট বা PDF ডাউনলোড করতে নিচের বাটনে ক্লিক করুন।"
+app\dpp\[gtin]\DppPassportClient.tsx:344  ? "এই ডিজিটাল পণ্য পাসপোর্ট DPP Atlas প্ল্যাটফর্মের মাধ্যমে স্ব-রিপোর্টকৃত তথ্যের ভিত্তিতে AI দ্বারা তৈরি। এটি একটি পরামর্শমূলক টুল এবং আইনি সার্টিফিকেশন নয়। আনুষ্ঠানিক 
+app\[locale]\assess\page.tsx:7  {id:3, name:"Chemical Compliance",                 nameBn:"রাসায়নিক সম্মতি",          max:20},
+app\[locale]\assess\page.tsx:66  {id:8,  cat:2, q:"Do you hold a valid GOTS certification?",                                   qBn:"আপনার কি বৈধ GOTS সার্টিফিকেট আছে?",
+app\[locale]\assess\page.tsx:68  {id:9,  cat:2, q:"Do you hold a valid OEKO-TEX certification?",                               qBn:"আপনার কি বৈধ OEKO-TEX সার্টিফিকেট আছে?",
+app\[locale]\assess\page.tsx:77  {id:8,  cat:2, q:"Do you hold a valid GOTS certification for your dyeing/finishing process?", qBn:"রং/ফিনিশিং প্রক্রিয়ার জন্য বৈধ GOTS সার্টিফিকেট আছে কি?",
+app\[locale]\assess\page.tsx:79  {id:9,  cat:2, q:"Do you hold a valid OEKO-TEX certification for the finished dyed fabric?", qBn:"সমাপ্ত রঙিন কাপড়ের জন্য বৈধ OEKO-TEX সার্টিফিকেট আছে কি?",
+app\[locale]\assess\page.tsx:88  {id:8,  cat:2, q:"For fabric-based trims/labels, do you hold a valid GOTS certification?", qBn:"কাপড়-ভিত্তিক ট্রিম/লেবেলের জন্য বৈধ GOTS সার্টিফিকেট আছে কি?",
+app\[locale]\assess\page.tsx:90  {id:9,  cat:2, q:"Do you hold a valid OEKO-TEX certification for your trims/labels?", qBn:"ট্রিম/লেবেলের জন্য বৈধ OEKO-TEX সার্টিফিকেট আছে কি?",
+app\[locale]\assess\page.tsx:135  {id:15, cat:4, q:"Do you have Effluent Treatment Plant (ETP) compliance documentation?", qBn:"ETP (বর্জ্য পরিশোধন প্ল্যান্ট) সম্মতি নথি কি আছে?",
+app\[locale]\assess\page.tsx:272  {typeInfo.icon} {isBn?"কাস্টমাইজড: ":"Customized for: "}{isBn?typeInfo.nameBn:typeInfo.name}
+app\[locale]\enroll\page.tsx:117  {isBn?"সঠিক ধরন বেছে নিলে কাস্টম প্রশ্নাবলী পাবেন।":"Select your type to get customized compliance questions."}
+app\[locale]\page.tsx:78  ? "বিনামূল্যে AI-চালিত EU ESPR DPP স্ব-মূল্যায়ন। নিজের দেওয়া তথ্যের ভিত্তিতে প্রস্তুতি পর্যালোচনা। এটি কোনো সনদ নয়।"
+app\[locale]\page.tsx:154  {isBn ? "প্রতিটি ধরনের জন্য আলাদা কাস্টম প্রশ্নাবলী।" : "Each factory type has sector-specific compliance questions."}
+app\[locale]\page.tsx:182  {n:"02", icon:"📋", t:isBn?"মূল্যায়ন সম্পন্ন":"Complete Assessment", d:isBn?"কাস্টম প্রশ্নের উত্তর দিন":"Answer questions for your sector",   h:"/"+loc+"/assess"},
+app\[locale]\page.tsx:184  {n:"04", icon:"✅", t:isBn?"রিপোর্ট শেয়ার করুন":"Share Your Self-Assessment",  d:isBn?"ক্রেতাদের প্রমাণ দিন":"Prove EU DPP readiness to buyers",        h:"/"+loc+"/verify
+app\[locale]\page.tsx:203  {isBn ? "ভেরিফিকেশন ব্যাজ যা ক্রেতারা বিশ্বাস করেন" : "A Verification Badge Buyers Trust"}
+app\[locale]\page.tsx:207  ? "৭০+ স্কোর পেলে অফিসিয়াল ভেরিফিকেশন ব্যাজ পাবেন।"
+app\[locale]\page.tsx:300  {isBn ? "🔍 ভেরিফিকেশন চেক" : "🔍 Verify a Factory"}
+app\[locale]\report\[id]\page.tsx:167  {score>=90?(isBn?"অভিনন্দন! EU ESPR DPP পাসপোর্টের জন্য প্রস্তুত।":"Congratulations! Your factory meets EU ESPR requirements.")
+app\[locale]\report\[id]\page.tsx:181  {isBn?"QR স্ক্যান করুন — পাবলিক DPP পাসপোর্ট":"Scan QR — Public DPP Passport"}
+app\[locale]\report\[id]\page.tsx:184  {isBn?"পাসপোর্ট দেখুন →":"View Passport →"}
+app\[locale]\report\[id]\page.tsx:298  <h2 style={{fontWeight:800,fontSize:"1rem",color:"#0d9488",marginBottom:"6px"}}>{isBn?"ভেরিফিকেশন ব্যাজ অর্জিত":"Verification Badge Earned"}</h2>
+app\[locale]\report\[id]\page.tsx:301  <a href={"/"+loc+"/verify"} style={{color:"#0d9488",fontSize:"0.875rem",fontWeight:600,textDecoration:"none"}}>🔍 {isBn?"ভেরিফিকেশন পেজ →":"Open Verification Page →"}</a>
+app\[locale]\report\[id]\page.tsx:316  <div style={{fontWeight:700,fontSize:"0.875rem",color:"#0d9488",marginBottom:"2px"}}>🌐 {isBn?"পাবলিক DPP পাসপোর্ট":"Public DPP Passport"}</div>
+app\[locale]\report\[id]\page.tsx:320  {isBn?"পাসপোর্ট দেখুন →":"View Passport →"}
+app\[locale]\report\[id]\page.tsx:333  🔍 {isBn?"ভেরিফাই":"Verify"}
+app\[locale]\verify\page.tsx:42  {isBn?"ফ্যাক্টরি ভেরিফিকেশন চেক":"Factory Verification Check"}

@@ -164,7 +164,7 @@ export default function ReportPage({ params }: { params: { locale: string; id: s
                 {band.emoji} {band.label}
               </div>
               <p style={{color:"#64748b",fontSize:"0.875rem",maxWidth:"360px",margin:"0 auto",lineHeight:1.6}}>
-                {score>=90?(isBn?"অভিনন্দন! EU ESPR DPP পাসপোর্টের জন্য প্রস্তুত।":"Congratulations! Your factory meets EU ESPR requirements.")
+                {score>=90?(isBn?"আপনার স্ব-মূল্যায়নে উচ্চ প্রস্তুতি দেখা গেছে। এটি সনদ নয়।":"Your self-assessment shows strong readiness. This is not a certificate.")
                 :score>=70?(isBn?"ভালো অগ্রগতি। কিছু উন্নতি প্রয়োজন।":"Good progress. Key improvements needed.")
                 :score>=50?(isBn?"উল্লেখযোগ্য উন্নতি প্রয়োজন।":"Significant improvements needed.")
                 :(isBn?"জরুরি পদক্ষেপ প্রয়োজন।":"Critical action required.")}
@@ -294,11 +294,11 @@ export default function ReportPage({ params }: { params: { locale: string; id: s
           <div style={{background:"white",border:"2px solid #0d9488",borderRadius:"16px",padding:"24px",marginBottom:"20px"}}>
             <div style={{display:"grid",gridTemplateColumns:"1fr auto",gap:"20px",alignItems:"center"}}>
               <div>
-                <div style={{fontSize:"1.5rem",marginBottom:"6px"}}>🏆</div>
-                <h2 style={{fontWeight:800,fontSize:"1rem",color:"#0d9488",marginBottom:"6px"}}>{isBn?"ভেরিফিকেশন ব্যাজ অর্জিত":"Verification Badge Earned"}</h2>
-                <p style={{color:"#64748b",fontSize:"0.82rem",marginBottom:"12px"}}>{isBn?"এই Report ID দিয়ে EU ক্রেতারা তাৎক্ষণিক যাচাই করতে পারবেন।":"EU buyers can instantly verify using this Report ID."}</p>
+                <div style={{fontSize:"1.5rem",marginBottom:"6px"}}>📋</div>
+                <h2 style={{fontWeight:800,fontSize:"1rem",color:"#0d9488",marginBottom:"6px"}}>{isBn?"স্ব-মূল্যায়ন সম্পন্ন":"Self-Assessment Complete"}</h2>
+                <p style={{color:"#64748b",fontSize:"0.82rem",marginBottom:"12px"}}>{isBn?"এই Report ID দিয়ে ক্রেতারা রিপোর্ট খুঁজে দেখতে পারবেন। তথ্য স্ব-রিপোর্টকৃত, যাচাইকৃত নয়।":"Buyers can look up this report using this Report ID. The data is self-reported, not verified."}</p>
                 <div style={{background:"#f0fdfa",border:"1px solid #99f6e4",borderRadius:"8px",padding:"10px",fontFamily:"monospace",fontSize:"0.82rem",color:"#0f766e",marginBottom:"12px",wordBreak:"break-all"}}>{rid}</div>
-                <a href={"/"+loc+"/verify"} style={{color:"#0d9488",fontSize:"0.875rem",fontWeight:600,textDecoration:"none"}}>🔍 {isBn?"ভেরিফিকেশন পেজ →":"Open Verification Page →"}</a>
+                <a href={"/"+loc+"/verify"} style={{color:"#0d9488",fontSize:"0.875rem",fontWeight:600,textDecoration:"none"}}>🔍 {isBn?"রিপোর্ট পেজ →":"Open Report Page →"}</a>
               </div>
               {qrUrl && (
                 <div style={{textAlign:"center",flexShrink:0}}>
@@ -330,7 +330,7 @@ export default function ReportPage({ params }: { params: { locale: string; id: s
             📊 {isBn?"ড্যাশবোর্ড":"Dashboard"}
           </a>
           <a href={"/"+loc+"/verify"}    style={{padding:"13px",background:"white",color:"#374151",border:"1px solid #e2e8f0",borderRadius:"10px",fontWeight:600,textDecoration:"none",textAlign:"center" as const,fontSize:"0.875rem"}}>
-            🔍 {isBn?"ভেরিফাই":"Verify"}
+            🔍 {isBn?"রিপোর্ট দেখুন":"View Report"}
           </a>
           <a href={"/"+loc+"/assess"}    style={{padding:"13px",background:"white",color:"#374151",border:"1px solid #e2e8f0",borderRadius:"10px",fontWeight:600,textDecoration:"none",textAlign:"center" as const,fontSize:"0.875rem"}}>
             🔄 {isBn?"নতুন মূল্যায়ন":"New Assessment"}
