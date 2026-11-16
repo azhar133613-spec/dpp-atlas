@@ -1,0 +1,90 @@
+42: <nav style={{display:"flex", alignItems:"center", justifyContent:"space-between", padding:"0 32px", height:"64px", borderBottom:"1px solid #f1f5f9", position:"sticky", top:0, background:"rgba(255,255,
+43: <div style={{display:"flex", alignItems:"center", gap:"8px"}}>
+44: <span style={{fontSize:"1.4rem"}}>🌿</span>
+45: <span style={{fontWeight:800, fontSize:"1.1rem"}}>DPP Atlas</span>
+--
+43: <div style={{display:"flex", alignItems:"center", gap:"8px"}}>
+44: <span style={{fontSize:"1.4rem"}}>🌿</span>
+45: <span style={{fontWeight:800, fontSize:"1.1rem"}}>DPP Atlas</span>
+46: <span style={{fontSize:"0.65rem", background:"#dcfce7", color:"#16a34a", padding:"2px 8px", borderRadius:"99px", fontWeight:700}}>BETA</span>
+--
+48: <div style={{display:"flex", gap:"16px", alignItems:"center", flexWrap:"wrap"}}>
+49: <a href={"#types"}          style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Factory Types</a>
+50: <a href={"#resources"}      style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Resources</a>
+51: <a href={"/"+loc+"/verify"} style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Verify</a>
+--
+63: <section style={{display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))", gap:"48px", alignItems:"center", maxWidth:"1200px", margin:"0 auto", padding:"80px 32px"}}>
+64: <div>
+65: <div style={{display:"inline-flex", alignItems:"center", gap:"8px", background:"#f0fdfa", border:"1px solid #99f6e4", borderRadius:"99px", padding:"6px 14px", marginBottom:"24px"}}>
+66: <span style={{width:"8px", height:"8px", background:"#10b981", borderRadius:"50%", display:"inline-block"}}></span>
+--
+65: <div style={{display:"inline-flex", alignItems:"center", gap:"8px", background:"#f0fdfa", border:"1px solid #99f6e4", borderRadius:"99px", padding:"6px 14px", marginBottom:"24px"}}>
+66: <span style={{width:"8px", height:"8px", background:"#10b981", borderRadius:"50%", display:"inline-block"}}></span>
+67: <span style={{color:"#0f766e", fontSize:"0.8rem", fontWeight:600}}>EU ESPR Digital Product Passport Readiness — Free</span>
+68: </div>
+--
+105: <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"20px"}}>
+106: <span style={{color:"#94a3b8", fontSize:"0.75rem"}}>SAMPLE RESULT</span>
+107: <span style={{background:"#22c55e20", color:"#22c55e", padding:"4px 10px", borderRadius:"99px", fontSize:"0.75rem", fontWeight:700}}>✅ EXAMPLE ONLY</span>
+108: </div>
+--
+109: <div style={{textAlign:"center", padding:"12px 0 20px"}}>
+110: <div style={{fontSize:"4.5rem", fontWeight:800, color:"#22c55e", lineHeight:1}}>87</div>
+111: <div style={{color:"#64748b", fontSize:"0.8rem"}}>/100 example only — not real data</div>
+112: </div>
+--
+138: <div style={{maxWidth:"1200px", margin:"0 auto", display:"flex", alignItems:"center", gap:"16px", flexWrap:"wrap", justifyContent:"center"}}>
+139: <span style={{color:"#94a3b8", fontSize:"0.75rem", fontWeight:700}}>ALIGNED WITH:</span>
+140: {["EU ESPR","ISO 3759","ISO 16322-3","REACH","GOTS","OEKO-TEX","GS1 DPP","BGMEA (trade body)"].map(b => (
+141: <span key={b} style={{color:"#475569", fontSize:"0.78rem", fontWeight:600, padding:"5px 12px", border:"1px solid #e2e8f0", borderRadius:"8px", background:"white"}}>{b}</span>
+--
+139: <span style={{color:"#94a3b8", fontSize:"0.75rem", fontWeight:700}}>ALIGNED WITH:</span>
+140: {["EU ESPR","ISO 3759","ISO 16322-3","REACH","GOTS","OEKO-TEX","GS1 DPP","BGMEA (trade body)"].map(b => (
+141: <span key={b} style={{color:"#475569", fontSize:"0.78rem", fontWeight:600, padding:"5px 12px", border:"1px solid #e2e8f0", borderRadius:"8px", background:"white"}}>{b}</span>
+142: ))}
+--
+148: <div style={{textAlign:"center", marginBottom:"48px"}}>
+149: <p style={{color:"#0d9488", fontSize:"0.8rem", fontWeight:700, letterSpacing:"1px", marginBottom:"12px"}}>BANGLADESH TEXTILE SECTORS</p>
+150: <h2 style={{fontSize:"clamp(1.75rem,3vw,2.4rem)", fontWeight:800, marginBottom:"12px"}}>
+151: {isBn ? "আপনার কারখানার ধরন বেছে নিন" : "Choose Your Factory Type"}
+--
+173: <div style={{textAlign:"center", marginBottom:"48px"}}>
+174: <p style={{color:"#0d9488", fontSize:"0.8rem", fontWeight:700, letterSpacing:"1px", marginBottom:"12px"}}>SIMPLE PROCESS</p>
+175: <h2 style={{fontSize:"clamp(1.75rem,3vw,2.4rem)", fontWeight:800}}>
+176: {isBn ? "মাত্র ৪টি ধাপে আপনার প্রস্তুতির তালিকা পান" : "Get Your Readiness List in 4 Steps"}
+--
+188: <div style={{width:"48px", height:"48px", background:"#0f172a", borderRadius:"12px", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.3rem", marginBottom:"14px"}}>{x.icon}</di
+189: <h3 style={{fontWeight:700, marginBottom:"6px", fontSize:"1rem"}}>{x.t}</h3>
+190: <p style={{color:"#64748b", fontSize:"0.82rem", lineHeight:1.6}}>{x.d}</p>
+191: </a>
+--
+199: <div style={{maxWidth:"1200px", margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))", gap:"64px", alignItems:"center"}}>
+200: <div>
+201: <p style={{color:"#5eead4", fontSize:"0.8rem", fontWeight:700, letterSpacing:"1px", marginBottom:"12px"}}>SHARE WITH BUYERS</p>
+202: <h2 style={{fontSize:"clamp(1.75rem,3vw,2.3rem)", fontWeight:800, marginBottom:"16px"}}>
+--
+225: <div style={{width:"280px", background:"white", borderRadius:"20px", padding:"24px", textAlign:"center", color:"#0f172a", boxShadow:"0 0 60px rgba(13,148,136,0.2)"}}>
+226: <div style={{width:"64px", height:"64px", background:"linear-gradient(135deg,#0d9488,#0369a1)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 12px", 
+227: <div style={{fontWeight:800, fontSize:"0.95rem", marginBottom:"4px"}}>SELF-ASSESSED</div>
+228: <div style={{fontSize:"0.72rem", color:"#64748b", marginBottom:"14px"}}>EU ESPR Compliance Assessed</div>
+--
+226: <div style={{width:"64px", height:"64px", background:"linear-gradient(135deg,#0d9488,#0369a1)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 12px", 
+227: <div style={{fontWeight:800, fontSize:"0.95rem", marginBottom:"4px"}}>SELF-ASSESSED</div>
+228: <div style={{fontSize:"0.72rem", color:"#64748b", marginBottom:"14px"}}>EU ESPR Compliance Assessed</div>
+229: <div style={{background:"#f0fdfa", border:"1px solid #99f6e4", borderRadius:"10px", padding:"10px", marginBottom:"14px"}}>
+--
+253: <span style={{background:n.c+"20", color:n.c, padding:"3px 8px", borderRadius:"6px", fontSize:"0.68rem", fontWeight:700, whiteSpace:"nowrap" as const, alignSelf:"flex-start"}}>
+254: {n.tag}
+255: </span>
+256: <div>
+--
+287: <section style={{padding:"96px 32px", background:"linear-gradient(135deg,#0f172a,#0d2a3a)", color:"white", textAlign:"center"}}>
+288: <div style={{maxWidth:"700px", margin:"0 auto"}}>
+289: <h2 style={{fontSize:"clamp(1.75rem,3vw,2.75rem)", fontWeight:800, marginBottom:"16px"}}>
+290: {isBn ? "আজই আপনার কারখানার EU ভবিষ্যৎ নিশ্চিত করুন" : "Secure Your Factory's EU Future Today"}
+--
+308: <div style={{maxWidth:"1200px", margin:"0 auto", display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:"12px"}}>
+309: <div>
+310: <div style={{color:"white", fontWeight:700, marginBottom:"4px"}}>🌿 DPP Atlas</div>
+311: <div style={{color:"#64748b", fontSize:"0.78rem"}}>Free Textile EU ESPR Self-Assessment Tool · <a href={"/"+loc+"/rules"} style={{color:"#0d9488"}}>{isBn?"নিয়ম ও স্ট্যান্ডার্ড":"Rules and standards"}
+--

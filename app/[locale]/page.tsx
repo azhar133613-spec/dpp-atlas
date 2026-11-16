@@ -48,7 +48,8 @@ export default function HomePage({ params }: { params: { locale: string } }) {
         <div style={{display:"flex", gap:"16px", alignItems:"center", flexWrap:"wrap"}}>
           <a href={"#types"}          style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Factory Types</a>
           <a href={"#resources"}      style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Resources</a>
-          <a href={"/"+loc+"/verify"} style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Verify</a>
+          <a href={"/"+loc+"/verify"} style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Report Lookup</a>
+<a href={"/"+loc+"/rules"} style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Rules</a>
           <a href={isBn ? "/en" : "/bn"} style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem", padding:"5px 10px", border:"1px solid #e2e8f0", borderRadius:"8px"}}>
             {isBn ? "🇬🇧 EN" : "🇧🇩 বাংলা"}
           </a>
@@ -136,8 +137,8 @@ export default function HomePage({ params }: { params: { locale: string } }) {
       {/* TRUST BAR */}
       <section style={{padding:"16px 32px", background:"#f8fafc", borderTop:"1px solid #f1f5f9", borderBottom:"1px solid #f1f5f9"}}>
         <div style={{maxWidth:"1200px", margin:"0 auto", display:"flex", alignItems:"center", gap:"16px", flexWrap:"wrap", justifyContent:"center"}}>
-          <span style={{color:"#94a3b8", fontSize:"0.75rem", fontWeight:700}}>ALIGNED WITH:</span>
-          {["EU ESPR","ISO 3759","ISO 16322-3","REACH","GOTS","OEKO-TEX","GS1 DPP","BGMEA"].map(b => (
+          <span style={{color:"#94a3b8", fontSize:"0.75rem", fontWeight:700}}>RULES AND STANDARDS REFERENCED:</span>
+          {["EU ESPR","ISO 3759","ISO 16322-3","REACH","GOTS","OEKO-TEX","GS1 DPP","BGMEA (trade body)"].map(b => (
             <span key={b} style={{color:"#475569", fontSize:"0.78rem", fontWeight:600, padding:"5px 12px", border:"1px solid #e2e8f0", borderRadius:"8px", background:"white"}}>{b}</span>
           ))}
         </div>
@@ -225,7 +226,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             <div style={{width:"280px", background:"white", borderRadius:"20px", padding:"24px", textAlign:"center", color:"#0f172a", boxShadow:"0 0 60px rgba(13,148,136,0.2)"}}>
               <div style={{width:"64px", height:"64px", background:"linear-gradient(135deg,#0d9488,#0369a1)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 12px", fontSize:"1.5rem"}}>✅</div>
               <div style={{fontWeight:800, fontSize:"0.95rem", marginBottom:"4px"}}>SELF-ASSESSED</div>
-              <div style={{fontSize:"0.72rem", color:"#64748b", marginBottom:"14px"}}>EU ESPR Compliance Assessed</div>
+              <div style={{fontSize:"0.72rem", color:"#64748b", marginBottom:"14px"}}>EU ESPR self-assessment only. Not a certificate.</div>
               <div style={{background:"#f0fdfa", border:"1px solid #99f6e4", borderRadius:"10px", padding:"10px", marginBottom:"14px"}}>
                 <div style={{fontWeight:700, color:"#0d9488", fontSize:"1.4rem"}}>87/100</div>
                 <div style={{fontSize:"0.72rem", color:"#64748b"}}>Compliance Score · Jul 2026</div>
@@ -287,7 +288,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
       <section style={{padding:"96px 32px", background:"linear-gradient(135deg,#0f172a,#0d2a3a)", color:"white", textAlign:"center"}}>
         <div style={{maxWidth:"700px", margin:"0 auto"}}>
           <h2 style={{fontSize:"clamp(1.75rem,3vw,2.75rem)", fontWeight:800, marginBottom:"16px"}}>
-            {isBn ? "আজই আপনার কারখানার EU ভবিষ্যৎ নিশ্চিত করুন" : "Secure Your Factory's EU Future Today"}
+            {isBn ? "আজই আপনার প্রস্তুতির তালিকা তৈরি শুরু করুন" : "Start Your Readiness Check Today"}
           </h2>
           <p style={{color:"#94a3b8", marginBottom:"36px", fontSize:"1rem", lineHeight:1.7}}>
             {isBn ? "আগে থেকেই প্রস্তুতি শুরু করুন। বিনামূল্যে মূল্যায়ন নিন।" : "Start preparing early. Free self-assessment. AI report. No credit card."}
@@ -308,7 +309,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
         <div style={{maxWidth:"1200px", margin:"0 auto", display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:"12px"}}>
           <div>
             <div style={{color:"white", fontWeight:700, marginBottom:"4px"}}>🌿 DPP Atlas</div>
-            <div style={{color:"#64748b", fontSize:"0.78rem"}}>Free Textile EU ESPR Self-Assessment Tool · Bangladesh</div>
+            <div style={{color:"#64748b", fontSize:"0.78rem"}}>Free Textile EU ESPR Self-Assessment Tool · <a href={"/"+loc+"/rules"} style={{color:"#0d9488"}}>{isBn?"নিয়ম ও স্ট্যান্ডার্ড":"Rules and standards"}</a> · Bangladesh</div>
           </div>
           <div style={{color:"#475569", fontSize:"0.72rem"}}>⚠️ Advisory tool only — not legal certification</div>
         </div>
