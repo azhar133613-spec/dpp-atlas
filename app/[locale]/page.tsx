@@ -50,6 +50,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           <a href={"#resources"}      style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Resources</a>
           <a href={"/"+loc+"/verify"} style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Report Lookup</a>
 <a href={"/"+loc+"/rules"} style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Rules</a>
+<a href={"/"+loc+"/check"} style={{color:"#0d9488", textDecoration:"none", fontSize:"0.875rem", fontWeight:700}}>Data Check</a>
           <a href={isBn ? "/en" : "/bn"} style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem", padding:"5px 10px", border:"1px solid #e2e8f0", borderRadius:"8px"}}>
             {isBn ? "🇬🇧 EN" : "🇧🇩 বাংলা"}
           </a>
