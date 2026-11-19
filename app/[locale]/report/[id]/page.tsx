@@ -120,7 +120,7 @@ export default function ReportPage({ params }: { params: { locale: string; id: s
     <main style={{minHeight:"100vh",background:"#f8fafc",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"system-ui,sans-serif"}}>
       <div style={{textAlign:"center"}}>
         <p style={{color:"#64748b",marginBottom:"16px"}}>Loading report...</p>
-        <a href={"/"+loc+"/assess"} style={{color:"#0d9488"}}>Start a new assessment</a>
+        <a href={"/"+loc+"/check"} style={{color:"#0d9488"}}>Start a Data Check</a>
       </div>
     </main>
   );
@@ -144,8 +144,8 @@ export default function ReportPage({ params }: { params: { locale: string; id: s
             <button onClick={()=>window.print()} style={{padding:"10px 18px",background:"#0d9488",color:"white",border:"none",borderRadius:"8px",fontWeight:700,cursor:"pointer",fontSize:"0.875rem"}}>
               📄 {isBn?"PDF ডাউনলোড":"Download PDF"}
             </button>
-            <a href={"/"+loc+"/assess"} style={{padding:"10px 16px",background:"white",color:"#64748b",border:"1px solid #e2e8f0",borderRadius:"8px",fontWeight:600,textDecoration:"none",fontSize:"0.875rem"}}>
-              🔄 {isBn?"নতুন মূল্যায়ন":"New Assessment"}
+            <a href={"/"+loc+"/check"} style={{padding:"10px 16px",background:"white",color:"#64748b",border:"1px solid #e2e8f0",borderRadius:"8px",fontWeight:600,textDecoration:"none",fontSize:"0.875rem"}}>
+              🔄 {isBn?"ডেটা চেক":"Data Check"}
             </a>
           </div>
         </nav>
@@ -332,8 +332,8 @@ export default function ReportPage({ params }: { params: { locale: string; id: s
           <a href={"/"+loc+"/verify"}    style={{padding:"13px",background:"white",color:"#374151",border:"1px solid #e2e8f0",borderRadius:"10px",fontWeight:600,textDecoration:"none",textAlign:"center" as const,fontSize:"0.875rem"}}>
             🔍 {isBn?"রিপোর্ট দেখুন":"View Report"}
           </a>
-          <a href={"/"+loc+"/assess"}    style={{padding:"13px",background:"white",color:"#374151",border:"1px solid #e2e8f0",borderRadius:"10px",fontWeight:600,textDecoration:"none",textAlign:"center" as const,fontSize:"0.875rem"}}>
-            🔄 {isBn?"নতুন মূল্যায়ন":"New Assessment"}
+          <a href={"/"+loc+"/check"}    style={{padding:"13px",background:"white",color:"#374151",border:"1px solid #e2e8f0",borderRadius:"10px",fontWeight:600,textDecoration:"none",textAlign:"center" as const,fontSize:"0.875rem"}}>
+            🔄 {isBn?"ডেটা চেক":"Data Check"}
           </a>
         </div>
 

@@ -181,8 +181,8 @@ export default function DashboardPage({ params }: { params: { locale: string } }
           <a href={"/"+loc} style={{color:"#0d9488",fontWeight:700,fontSize:"1.1rem",textDecoration:"none"}}>🌿 DPP Atlas</a>
           <div style={{display:"flex",gap:"10px",alignItems:"center",flexWrap:"wrap"}}>
             {userEmail && <span style={{color:"#64748b",fontSize:"0.8rem"}}>👤 {userEmail}</span>}
-            <a href={"/"+loc+"/assess"} style={{background:"#0d9488",color:"white",textDecoration:"none",padding:"9px 18px",borderRadius:"10px",fontWeight:600,fontSize:"0.875rem"}}>
-              + {isBn?"নতুন মূল্যায়ন":"New Assessment"}
+            <a href={"/"+loc+"/check"} style={{background:"#0d9488",color:"white",textDecoration:"none",padding:"9px 18px",borderRadius:"10px",fontWeight:600,fontSize:"0.875rem"}}>
+              + {isBn?"নতুন ডেটা চেক":"New Data Check"}
             </a>
             {!synced && (
               <a href={"/"+loc+"/login"} style={{background:"white",color:"#64748b",border:"1px solid #e2e8f0",textDecoration:"none",padding:"9px 14px",borderRadius:"10px",fontWeight:500,fontSize:"0.875rem"}}>
@@ -228,7 +228,7 @@ export default function DashboardPage({ params }: { params: { locale: string } }
         {/* STATS ROW */}
         <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(150px,1fr))",gap:"14px",marginBottom:"20px"}}>
           {[
-            {icon:"📋", n:String(reports.length),          l:isBn?"মোট মূল্যায়ন":"Total Assessments"},
+            {icon:"📋", n:String(reports.length),          l:isBn?"পুরনো স্কোরভিত্তিক রিপোর্ট":"Old scored reports"},
             {icon:"⭐", n:latestScore !== null ? latestScore+"/100" : "—", l:isBn?"সর্বশেষ স্কোর":"Latest Score"},
             {icon:"🏆", n:best > 0 ? best+"/100" : "—",   l:isBn?"সর্বোচ্চ স্কোর":"Best Score"},
             {icon:"📊", n:avg > 0  ? avg+"/100"  : "—",   l:isBn?"গড় স্কোর":"Average Score"},
@@ -246,9 +246,9 @@ export default function DashboardPage({ params }: { params: { locale: string } }
         <div style={{background:"white",border:"1px solid #e2e8f0",borderRadius:"16px",padding:"24px",marginBottom:"20px"}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"16px",flexWrap:"wrap",gap:"8px"}}>
             <h2 style={{fontWeight:700,fontSize:"1rem",color:"#0f172a"}}>
-              📋 {isBn?"আপনার মূল্যায়ন ইতিহাস":"Assessment History"}
+              📋 {isBn?"পুরনো স্কোরভিত্তিক রিপোর্টের ইতিহাস":"Old scored report history"}
             </h2>
-            <a href={"/"+loc+"/assess"} style={{background:"#0d9488",color:"white",textDecoration:"none",padding:"7px 14px",borderRadius:"8px",fontWeight:600,fontSize:"0.78rem"}}>
+            <a href={"/"+loc+"/check"} style={{background:"#0d9488",color:"white",textDecoration:"none",padding:"7px 14px",borderRadius:"8px",fontWeight:600,fontSize:"0.78rem"}}>
               + {isBn?"নতুন":"New"}
             </a>
           </div>
@@ -258,10 +258,10 @@ export default function DashboardPage({ params }: { params: { locale: string } }
           {reports.length === 0 ? (
             <div style={{textAlign:"center",padding:"40px 24px"}}>
               <div style={{fontSize:"2.5rem",marginBottom:"12px"}}>📋</div>
-              <h3 style={{color:"#0f172a",marginBottom:"10px",fontSize:"1rem"}}>{isBn?"কোনো মূল্যায়ন নেই":"No assessments yet"}</h3>
-              <p style={{color:"#94a3b8",marginBottom:"20px",fontSize:"0.82rem"}}>{isBn?"আপনার প্রথম DPP মূল্যায়ন শুরু করুন।":"Complete your first DPP assessment."}</p>
-              <a href={"/"+loc+"/assess"} style={{background:"#0d9488",color:"white",textDecoration:"none",padding:"12px 24px",borderRadius:"10px",fontWeight:700,fontSize:"0.875rem"}}>
-                📋 {isBn?"শুরু করুন":"Start Assessment"}
+              <h3 style={{color:"#0f172a",marginBottom:"10px",fontSize:"1rem"}}>{isBn?"কোনো পুরনো রিপোর্ট নেই":"No old scored reports"}</h3>
+              <p style={{color:"#94a3b8",marginBottom:"20px",fontSize:"0.82rem"}}>{isBn?"আপনার প্রথম ডেটা চেক শুরু করুন।":"Start your first Data Check."}</p>
+              <a href={"/"+loc+"/check"} style={{background:"#0d9488",color:"white",textDecoration:"none",padding:"12px 24px",borderRadius:"10px",fontWeight:700,fontSize:"0.875rem"}}>
+                📋 {isBn?"ডেটা চেক শুরু করুন":"Start Data Check"}
               </a>
             </div>
           ) : (
@@ -306,7 +306,7 @@ export default function DashboardPage({ params }: { params: { locale: string } }
               {isBn?"স্কোর উন্নত করুন":"Improve Your Score"}
             </h3>
             <p style={{color:"#94a3b8",fontSize:"0.82rem",marginBottom:"16px"}}>
-              {isBn?"AI রোডম্যাপ অনুসরণ করুন এবং পুনরায় মূল্যায়ন করুন।":"Follow your AI roadmap, implement improvements, then reassess."}
+              {isBn?"সোমবারের তালিকা ধরে কাজ করুন, তারপর আবার ডেটা চেক করুন।":"Work through your Monday list, then run the Data Check again."}
             </p>
             <div style={{display:"flex",gap:"10px",justifyContent:"center",flexWrap:"wrap"}}>
               {latest && (
@@ -314,8 +314,8 @@ export default function DashboardPage({ params }: { params: { locale: string } }
                   📊 {isBn?"AI রোডম্যাপ দেখুন":"View AI Roadmap"}
                 </a>
               )}
-              <a href={"/"+loc+"/assess"} style={{border:"1px solid #334155",color:"#94a3b8",textDecoration:"none",padding:"10px 16px",borderRadius:"10px",fontWeight:500,fontSize:"0.82rem"}}>
-                🔄 {isBn?"পুনরায় মূল্যায়ন":"Reassess"}
+              <a href={"/"+loc+"/check"} style={{border:"1px solid #334155",color:"#94a3b8",textDecoration:"none",padding:"10px 16px",borderRadius:"10px",fontWeight:500,fontSize:"0.82rem"}}>
+                🔄 {isBn?"আবার ডেটা চেক":"Run Data Check again"}
               </a>
             </div>
           </div>

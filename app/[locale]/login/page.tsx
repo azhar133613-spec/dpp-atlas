@@ -89,8 +89,8 @@ export default function LoginPage({ params }: { params: { locale: string } }) {
           <div style={{fontWeight:700,marginBottom:"6px"}}>
             {isBn?"অ্যাকাউন্টের সুবিধা:":"Benefits of an account:"}
           </div>
-          <div>✓ {isBn?"সব মূল্যায়ন সংরক্ষিত থাকে":"All assessments saved permanently"}</div>
-          <div>✓ {isBn?"যেকোনো ডিভাইস থেকে অ্যাক্সেস":"Access from any device"}</div>
+          <div>✓ {isBn?"ডেটা চেকের উত্তর শুধু এই ব্রাউজারে সংরক্ষিত থাকে":"Data Check answers are saved in this browser only"}</div>
+          <div>✓ {isBn?"অ্যাকাউন্ট শুধু পুরনো স্কোরভিত্তিক রিপোর্ট ও ড্যাশবোর্ডের জন্য":"An account is only needed for old scored reports and the dashboard"}</div>
           <div>✓ {isBn?"স্কোর ট্র্যাকিং ও তুলনা":"Score history and comparison"}</div>
         </div>
 
@@ -141,8 +141,8 @@ export default function LoginPage({ params }: { params: { locale: string } }) {
             ← {isBn?"হোমপেজে ফিরুন":"Back to home"}
           </a>
           <span style={{color:"#e2e8f0"}}>·</span>
-          <a href={"/"+loc+"/assess"} style={{color:"#0d9488",fontSize:"0.8rem",textDecoration:"none",fontWeight:500}}>
-            {isBn?"লগইন ছাড়াই মূল্যায়ন করুন →":"Continue without login →"}
+          <a href={"/"+loc+"/check"} style={{color:"#0d9488",fontSize:"0.8rem",textDecoration:"none",fontWeight:500}}>
+            {isBn?"লগইন ছাড়াই ডেটা চেক করুন →":"Data Check without login →"}
           </a>
         </div>
       </div>

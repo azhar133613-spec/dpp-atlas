@@ -729,3 +729,114 @@ export const EXTRA: Field[] = [
  }
 ];
 FIELDS.push(...EXTRA);
+
+
+// Data-governance items. JRC 5.2.1 items come from the JRC draft; items marked "Practitioner view" are NOT official rules. Owner and outside-call are ASSUMPTIONS.
+export const GOV: Field[] = [
+ {
+  "n": 49,
+  "cat": "Data governance and buyer readiness",
+  "en": "A named person is responsible for the accuracy of each product data point",
+  "bn": "প্রতিটি পণ্য ডেটার সঠিকতার জন্য একজন নির্দিষ্ট ব্যক্তি দায়ী",
+  "gran": "Company",
+  "ready": "Not assessed in JRC draft",
+  "source": "Org chart, SOPs (ASSUMPTION)",
+  "ownerEn": "NOBODY (likely)",
+  "ownerBn": "কেউ নয় (সম্ভবত)",
+  "outEn": "Your management",
+  "outBn": "আপনার ব্যবস্থাপনা",
+  "ref": "JRC 5.2.1",
+  "rule": "JRC draft 5.2.1: technical data is managed ad hoc across teams. Ownership is the practical gap"
+ },
+ {
+  "n": 50,
+  "cat": "Data governance and buyer readiness",
+  "en": "Product data is copied by hand between ERP, PLM, spreadsheets, email and PDFs",
+  "bn": "ERP, PLM, স্প্রেডশিট, ইমেইল ও PDF-এর মধ্যে ডেটা হাতে কপি করা হয়",
+  "gran": "Company",
+  "ready": "Not assessed in JRC draft",
+  "source": "IT / Merchandising (ASSUMPTION)",
+  "ownerEn": "Merchandising",
+  "ownerBn": "মার্চেন্ডাইজিং",
+  "outEn": "Buyer platform requirements",
+  "outBn": "বায়ার প্ল্যাটফর্মের চাহিদা",
+  "ref": "JRC 5.2.1",
+  "rule": "JRC draft 5.2.1: sustainability and technical data are handled through manual processes, email chains and unstructured PDF or Excel files"
+ },
+ {
+  "n": 51,
+  "cat": "Data governance and buyer readiness",
+  "en": "You can retrieve tech pack, BOM, fibre composition, test report and certificates for ONE style within a day",
+  "bn": "একটি স্টাইলের টেক প্যাক, BOM, ফাইবার কম্পোজিশন, টেস্ট রিপোর্ট ও সনদ এক দিনের মধ্যে বের করতে পারেন",
+  "gran": "Model",
+  "ready": "Not assessed in JRC draft",
+  "source": "Merchandising (ASSUMPTION)",
+  "ownerEn": "Merchandising",
+  "ownerBn": "মার্চেন্ডাইজিং",
+  "outEn": "Buyer",
+  "outBn": "বায়ার",
+  "ref": "Practitioner view (not official)",
+  "rule": "Industry practitioner view (LinkedIn posts); not an official rule"
+ },
+ {
+  "n": 52,
+  "cat": "Data governance and buyer readiness",
+  "en": "You can tell the approved specification apart from what was actually used in production",
+  "bn": "অনুমোদিত স্পেসিফিকেশন আর বাস্তবে উৎপাদনে যা ব্যবহার হয়েছে তা আলাদা করতে পারেন",
+  "gran": "Batch",
+  "ready": "Not assessed in JRC draft",
+  "source": "Planning / QC (ASSUMPTION)",
+  "ownerEn": "Planning",
+  "ownerBn": "প্ল্যানিং",
+  "outEn": "Buyer",
+  "outBn": "বায়ার",
+  "ref": "Practitioner view (not official)",
+  "rule": "Industry practitioner view (LinkedIn posts); not an official rule"
+ },
+ {
+  "n": 53,
+  "cat": "Data governance and buyer readiness",
+  "en": "Materials can be linked to upstream suppliers and facilities beyond Tier 1 (fabric, yarn, fibre)",
+  "bn": "উপকরণকে টিয়ার ১-এর বাইরে (কাপড়, সুতা, ফাইবার) উৎস সরবরাহকারী ও কারখানার সাথে যুক্ত করা যায়",
+  "gran": "Batch",
+  "ready": "Not assessed in JRC draft",
+  "source": "Purchase orders, supplier lists (ASSUMPTION)",
+  "ownerEn": "Sourcing",
+  "ownerBn": "সোর্সিং",
+  "outEn": "Fabric / yarn suppliers",
+  "outBn": "কাপড় / সুতা সরবরাহকারী",
+  "ref": "JRC 5.2.1",
+  "rule": "JRC draft 5.2.1: Tier 2 (fabric), Tier 3 (yarn) and raw-material origin remain largely opaque"
+ },
+ {
+  "n": 54,
+  "cat": "Data governance and buyer readiness",
+  "en": "You know which product data you can share with a buyer and which is confidential business information",
+  "bn": "কোন পণ্য ডেটা ক্রেতার সাথে শেয়ার করা যাবে আর কোনটি গোপন ব্যবসায়িক তথ্য তা জানেন",
+  "gran": "Company",
+  "ready": "Not assessed in JRC draft",
+  "source": "Contracts, NDAs (ASSUMPTION)",
+  "ownerEn": "Compliance",
+  "ownerBn": "কমপ্লায়েন্স",
+  "outEn": "Buyer, legal adviser",
+  "outBn": "বায়ার, আইনজীবী",
+  "ref": "JRC 5.2.1",
+  "rule": "JRC draft 5.2.1: upstream suppliers often treat technical data as confidential business information"
+ },
+ {
+  "n": 55,
+  "cat": "Data governance and buyer readiness",
+  "en": "Your buyer or importer plans to register passports in the EU registry and may ask you for an operator ID (GLN / EORI)",
+  "bn": "আপনার ক্রেতা/আমদানিকারক ইইউ রেজিস্ট্রিতে পাসপোর্ট নিবন্ধন করতে পারেন এবং আপনার কাছে অপারেটর আইডি (GLN/EORI) চাইতে পারেন",
+  "gran": "Company",
+  "ready": "Not assessed in JRC draft",
+  "source": "Buyer communication (ASSUMPTION)",
+  "ownerEn": "Admin-Commercial",
+  "ownerBn": "অ্যাডমিন-কমার্শিয়াল",
+  "outEn": "Buyer, importer",
+  "outBn": "বায়ার, আমদানিকারক",
+  "ref": "Registry (secondary sources)",
+  "rule": "ESPR Art. 13 registry; Implementing Regulation (EU) 2026/1778. No textile registration duty yet; reported by secondary sources only"
+ }
+];
+FIELDS.push(...GOV);
