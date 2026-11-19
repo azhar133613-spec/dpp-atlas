@@ -262,8 +262,9 @@ export default function AssessPage({ params }: { params: { locale: string } }) {
     <main style={{minHeight:"100vh",background:"#f8fafc",fontFamily:"system-ui,sans-serif",padding:"24px",display:"flex",alignItems:"center",justifyContent:"center"}}>
       <div style={{maxWidth:"680px",width:"100%",textAlign:"center"}}>
         <div style={{fontSize:"3rem",marginBottom:"16px"}}>📋</div>
+        <div style={{background:"#fef3c7",border:"1px solid #fbbf24",borderRadius:"10px",padding:"12px 16px",marginBottom:"16px",fontSize:"0.85rem",color:"#92400e",textAlign:"left"}}>{isBn ? "পুরনো স্কোরভিত্তিক চেক। ০–১০০ স্কোরের কোনো অফিসিয়াল ভিত্তি নেই এবং এটি কমপ্লায়েন্স ফলাফল নয়। বর্তমান পদ্ধতির জন্য ডেটা চেক ব্যবহার করুন।" : "Old scored self-check. The 0–100 score has no official basis and is not a compliance result. For the current method, use the Data Check."}{" "}<a href={"/"+loc+"/check"} style={{color:"#0d9488",fontWeight:700}}>{isBn ? "ডেটা চেক →" : "Data Check →"}</a></div>
         <h1 style={{fontSize:"2rem",fontWeight:800,marginBottom:"12px",color:"#0f172a"}}>
-          {isBn?"DPP কমপ্লায়েন্স মূল্যায়ন":"DPP Compliance Assessment"}
+          {isBn?"স্কোরভিত্তিক স্ব-চেক (পুরনো)":"Scored Self-Check (old)"}
         </h1>
         <p style={{color:"#64748b",lineHeight:1.7,marginBottom:"20px",maxWidth:"520px",margin:"0 auto 20px"}}>
           {isBn?`৫টি বিভাগে ${QS.length}টি প্রশ্ন। সততার সাথে উত্তর দিন।`:`${QS.length} questions across 5 categories, tailored to your factory type.`}

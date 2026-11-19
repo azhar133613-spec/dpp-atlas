@@ -82,11 +82,11 @@ export default function EnrollPage({ params }: { params: { locale: string } }) {
           <strong>{form.factory_name}</strong> {isBn?"সফলভাবে নিবন্ধিত হয়েছে।":"has been registered successfully."}
         </p>
         <p style={{color:"#94a3b8",fontSize:"0.875rem",marginBottom:"32px"}}>
-          {isBn?"এখন মূল্যায়ন শুরু করুন — মাত্র ১০ মিনিট লাগবে।":"Now complete your assessment — takes about 10 minutes."}
+          {isBn?"এখন আপনার ডেটা চেক শুরু করুন।":"Now start your data check."}
         </p>
         <div style={{display:"flex",gap:"12px",justifyContent:"center",flexWrap:"wrap"}}>
-          <a href={"/"+loc+"/assess?type="+selType} style={{background:"#0d9488",color:"white",textDecoration:"none",padding:"14px 28px",borderRadius:"12px",fontWeight:700}}>
-            📋 {isBn?"মূল্যায়ন শুরু করুন":"Start Assessment"}
+          <a href={"/"+loc+"/check"} style={{background:"#0d9488",color:"white",textDecoration:"none",padding:"14px 28px",borderRadius:"12px",fontWeight:700}}>
+            📋 {isBn?"ডেটা চেক শুরু করুন":"Start Data Check"}
           </a>
           <a href={"/"+loc+"/login"} style={{border:"1px solid #e2e8f0",color:"#64748b",textDecoration:"none",padding:"14px 20px",borderRadius:"12px",fontWeight:500,fontSize:"0.875rem"}}>
             {isBn?"অ্যাকাউন্ট তৈরি করুন":"Create Account"}

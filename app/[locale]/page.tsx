@@ -84,8 +84,8 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             <a href={"/"+loc+"/enroll"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"14px 28px", borderRadius:"10px", fontWeight:700, fontSize:"1rem"}}>
               {isBn ? "🏭 কারখানা নিবন্ধন করুন" : "🏭 Register Factory"}
             </a>
-            <a href={"/"+loc+"/assess"} style={{border:"2px solid #0d9488", color:"#0d9488", textDecoration:"none", padding:"12px 24px", borderRadius:"10px", fontWeight:600, fontSize:"1rem"}}>
-              {isBn ? "📋 মূল্যায়ন দেখুন" : "📋 View Assessment"}
+            <a href={"/"+loc+"/check"} style={{border:"2px solid #0d9488", color:"#0d9488", textDecoration:"none", padding:"12px 24px", borderRadius:"10px", fontWeight:600, fontSize:"1rem"}}>
+              {isBn ? "📋 ডেটা চেক শুরু করুন" : "📋 Start Data Check"}
             </a>
           </div>
           <div style={{display:"flex", gap:"32px", flexWrap:"wrap"}}>
@@ -213,12 +213,12 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               isBn?"✅ QR স্ক্যানযোগ্য":"✅ QR-scannable link to your report",
               isBn?"✅ তারিখ স্ট্যাম্পড":"✅ Date-stamped — shows assessment date",
               isBn?"✅ PDF ও PNG ডাউনলোড":"✅ Downloadable PDF and PNG",
-              isBn?"✅ অনন্য ID — জালিয়াতি প্রতিরোধী":"✅ Unique ID — fraud-resistant",
+              isBn?"✅ অনন্য রিপোর্ট ID":"✅ Unique report ID",
             ].map((t,i) => (
               <div key={i} style={{color:"#cbd5e1", fontSize:"0.875rem", marginBottom:"8px"}}>{t}</div>
             ))}
             <div style={{marginTop:"24px"}}>
-              <a href={"/"+loc+"/enroll"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"14px 28px", borderRadius:"10px", fontWeight:700, display:"inline-block"}}>
+              <a href={"/"+loc+"/check"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"14px 28px", borderRadius:"10px", fontWeight:700, display:"inline-block"}}>
                 {isBn ? "বিনামূল্যে স্ব-মূল্যায়ন শুরু করুন" : "Start Free Self-Check"}
               </a>
             </div>
@@ -295,8 +295,8 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             {isBn ? "আগে থেকেই প্রস্তুতি শুরু করুন। বিনামূল্যে মূল্যায়ন নিন।" : "Start preparing early. Free self-assessment. AI report. No credit card."}
           </p>
           <div style={{display:"flex", gap:"14px", justifyContent:"center", flexWrap:"wrap"}}>
-            <a href={"/"+loc+"/enroll"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"15px 32px", borderRadius:"10px", fontWeight:700, fontSize:"1rem"}}>
-              {isBn ? "🚀 বিনামূল্যে শুরু করুন" : "🚀 Start Free Assessment"}
+            <a href={"/"+loc+"/check"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"15px 32px", borderRadius:"10px", fontWeight:700, fontSize:"1rem"}}>
+              {isBn ? "🚀 ডেটা চেক শুরু করুন" : "🚀 Start Data Check"}
             </a>
             <a href={"/"+loc+"/verify"} style={{border:"2px solid #5eead4", color:"#5eead4", textDecoration:"none", padding:"13px 28px", borderRadius:"10px", fontWeight:600, fontSize:"1rem"}}>
               {isBn ? "🔍 রিপোর্ট খুঁজুন" : "🔍 Look up a Report"}
