@@ -108,8 +108,8 @@ export default function CheckPage({ params }: { params: { locale: string } }) {
       </p>
       <p style={{ color: "#b45309", fontSize: "0.8rem", marginBottom: "14px" }}>
         {isBn
-          ? "ডেটা পয়েন্ট ও প্রস্তুতির মাত্রা ইইউ JRC খসড়া থেকে। ‘সম্ভাব্য দায়িত্বশীল’ ও ‘বাইরের ফোন’ আমাদের অনুমান। খসড়া এখনও আইন নয়। আইনি পরামর্শ নয়।"
-          : "Data points and readiness come from the EU JRC draft, which is not law. “Likely holder” and “outside call” are our assumptions. Not legal advice."}{" "}
+          ? "বেশিরভাগ ডেটা পয়েন্ট ও প্রস্তুতির মাত্রা ইইউ JRC খসড়া থেকে; “DPP ডেটার বাইরে” অংশ অন্য নিয়ম থেকে। ‘সম্ভাব্য দায়িত্বশীল’ ও ‘বাইরের ফোন’ আমাদের অনুমান। খসড়া এখনও আইন নয়। আইনি পরামর্শ নয়।"
+          : "Most data points and readiness come from the EU JRC draft, which is not law. The “Beyond DPP data” group comes from other rules (see Rules and standards). “Likely holder” and “outside call” are our assumptions. Not legal advice."}{" "}
         <a href={"/" + params.locale + "/rules"} style={{ color: "#0d9488" }}>{isBn ? "নিয়ম ও স্ট্যান্ডার্ড" : "Rules and standards"}</a>
       </p>
 
@@ -142,7 +142,7 @@ export default function CheckPage({ params }: { params: { locale: string } }) {
                 <div style={{ fontWeight: 600, fontSize: "0.92rem", marginBottom: "4px" }}>{f.n}. {isBn ? f.bn : f.en}</div>
                 <div style={{ fontSize: "0.74rem", color: "#0f766e", marginBottom: "4px" }}>{isBn ? "নিয়ম/স্ট্যান্ডার্ড: " : "Rule / standard: "}{f.rule}</div>
                 <div style={{ fontSize: "0.72rem", color: "#94a3b8", marginBottom: "6px" }}>
-                  JRC {f.ref} · {f.gran} · {isBn ? "প্রস্তুতি: " : "readiness: "}{f.ready}
+                  {/^T[0-9]/.test(f.ref) ? "JRC " + f.ref : f.ref} · {f.gran} · {isBn ? "প্রস্তুতি: " : "readiness: "}{f.ready}
                 </div>
                 <div style={{ fontSize: "0.78rem", color: "#334155", marginBottom: "8px" }}>
                   {isBn ? "সম্ভাব্য দায়িত্বশীল (অনুমান): " : "Likely holder (assumed): "}<strong>{isBn ? f.ownerBn : f.ownerEn}</strong>
