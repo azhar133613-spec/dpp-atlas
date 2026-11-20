@@ -1,320 +1,368 @@
+import type { Metadata } from "next";
+import { FIELDS } from "./check/fields";
 
-"use client";
-import { useState, useEffect } from "react";
+type P = { params: { locale: string } };
 
-const FTYPES = [
-  {id:"rmd",   icon:"👕", name:"RMG / Garment",      desc:"Ready-made garments, shirts, trousers, jackets"},
-  {id:"knit",  icon:"🧶", name:"Knitwear",            desc:"T-shirts, polo shirts, sweaters, knitwear"},
-  {id:"denim", icon:"👖", name:"Denim",               desc:"Denim fabric, jeans, denim products"},
-  {id:"spin",  icon:"🌀", name:"Spinning / Yarn",     desc:"Cotton yarn, synthetic yarn, blended yarn"},
-  {id:"dye",   icon:"🎨", name:"Dyeing & Finishing",  desc:"Fabric dyeing, printing, finishing"},
-  {id:"sweat", icon:"🧣", name:"Sweater / Woolen",    desc:"Sweaters, cardigans, woolen products"},
-  {id:"home",  icon:"🛏️", name:"Home Textile",        desc:"Bedsheets, towels, curtains, home goods"},
-  {id:"acc",   icon:"🔗", name:"Accessories / Trim",  desc:"Labels, buttons, zippers, packaging"},
-];
+export function generateMetadata({ params }: P): Metadata {
+  const bn = params.locale === "bn";
+  return bn
+    ? {
+        title: "টেক্সটাইল DPP ডেটা চেক — বাংলাদেশের কারখানার জন্য",
+        description:
+          "ইইউ ডিজিটাল প্রোডাক্ট পাসপোর্ট তথ্যের অনুরোধের আগে জানুন কোন তথ্য কার কাছে আছে। বিনামূল্যের, বাংলা-প্রথম চেকলিস্ট। এটি সনদ বা আইনি পরামর্শ নয়।",
+      }
+    : {
+        title: "Textile DPP data check for Bangladesh factories",
+        description:
+          "Find out who holds each product data point before an EU buyer asks for Digital Product Passport data. A free, Bangla-first checklist. Not a certificate or legal advice.",
+      };
+}
 
-const NEWS = [
-  {d:"Jul 2026", t:"EU ESPR Regulation enters enforcement phase for textiles",  tag:"REGULATION",    c:"#ef4444"},
-  {d:"Jun 2026", t:"Bangladesh BGMEA signs MOU with EU DPP working group",      tag:"BANGLADESH",    c:"#3b82f6"},
-  {d:"Jun 2026", t:"Draft EU textile DPP rules are being prepared (JRC preparatory study)", tag:"ISO UPDATE",    c:"#eab308"},
-  {d:"May 2026", t:"GOTS is voluntary; ask your buyer what they require",    tag:"CERTIFICATION", c:"#22c55e"},
-];
+const CSS = `
+.dl{--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--soft:#f5f7f6;--brand:#0f766e;--brand-d:#115e59;--warn:#b45309;--bad:#b91c1c;--ok:#15803d;--info:#1d4ed8;
+font-family:'Hind Siliguri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--ink);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+.dl *{box-sizing:border-box}
+.dl:lang(bn){line-height:1.8}
+.dl :where(a){color:inherit}
+.dl a:focus-visible,.dl summary:focus-visible{outline:3px solid #0f766e;outline-offset:3px;border-radius:6px}
+.dl-skip{position:absolute;left:-9999px;top:8px;background:#fff;padding:8px 12px;border:2px solid var(--brand);z-index:50}
+.dl-skip:focus{left:8px}
+.dl-wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.dl-nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line)}
+.dl-nav .dl-wrap{display:flex;align-items:center;gap:20px;height:64px}
+.dl-logo{font-weight:700;font-size:1.15rem;text-decoration:none;letter-spacing:-.01em;margin-right:auto;display:flex;align-items:center;gap:8px}
+.dl-logo i{display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--brand)}
+.dl-links{display:flex;gap:22px;align-items:center}
+.dl-links a:not(.dl-btn){text-decoration:none;color:var(--muted);font-size:.95rem}
+.dl-links a:not(.dl-btn):hover{color:var(--ink)}
+.dl-lang{border:1px solid var(--line);padding:5px 12px;border-radius:8px;text-decoration:none;font-size:.9rem;color:var(--ink)}
+.dl-btn{display:inline-block;text-decoration:none;font-weight:600;border-radius:10px;padding:12px 22px;font-size:1rem;border:2px solid var(--brand);line-height:1.3;text-align:center}
+.dl-btn-p{background:var(--brand);color:#fff}
+.dl-btn-p:hover{background:var(--brand-d);border-color:var(--brand-d)}
+.dl-btn-s{background:#fff;color:var(--brand)}
+.dl-btn-s:hover{background:var(--soft)}
+.dl-nav .dl-btn{padding:8px 16px;font-size:.92rem}
+.dl-hero{padding:64px 0 56px;background:linear-gradient(180deg,var(--soft),#fff)}
+.dl-hero .dl-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.dl h1{font-size:2.7rem;line-height:1.15;letter-spacing:-.02em;margin:0 0 18px;font-weight:700}
+.dl:lang(bn) h1{line-height:1.4;letter-spacing:0;font-size:2.4rem}
+.dl-sub{font-size:1.125rem;color:var(--muted);max-width:60ch;margin:0 0 26px}
+.dl-cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.dl-note{font-size:.92rem;color:var(--muted);margin:0}
+.dl-card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 32px rgba(15,23,42,.08);overflow:hidden}
+.dl-card-h{padding:14px 18px;border-bottom:1px solid var(--line);font-weight:600;font-size:.95rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.dl-card-h span{color:var(--muted);font-weight:400;font-size:.85rem}
+.dl-row{padding:14px 18px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:start}
+.dl-row:last-of-type{border-bottom:0}
+.dl-row b{font-weight:600;font-size:.95rem;line-height:1.45}
+.dl-row small{grid-column:1;color:var(--muted);font-size:.85rem}
+.dl-chip{grid-row:1/3;grid-column:2;align-self:center;font-size:.8rem;font-weight:600;padding:3px 10px;border-radius:99px;border:1px solid;white-space:nowrap}
+.dl-c-nobody{color:var(--bad);background:#fef2f2;border-color:#fecaca}
+.dl-c-have{color:var(--ok);background:#f0fdf4;border-color:#bbf7d0}
+.dl-c-partial{color:var(--warn);background:#fffbeb;border-color:#fde68a}
+.dl-c-brand{color:var(--info);background:#eff6ff;border-color:#bfdbfe}
+.dl-card-f{padding:12px 18px;background:var(--soft);font-size:.85rem;color:var(--muted);border-top:1px solid var(--line)}
+.dl-sec{padding:72px 0}
+.dl-sec.dl-alt{background:var(--soft)}
+.dl h2{font-size:1.95rem;line-height:1.25;letter-spacing:-.01em;margin:0 0 10px;font-weight:700}
+.dl:lang(bn) h2{line-height:1.5;letter-spacing:0}
+.dl-lead{color:var(--muted);font-size:1.05rem;max-width:62ch;margin:0 0 36px}
+.dl h3{font-size:1.1rem;margin:0 0 6px;font-weight:600;line-height:1.4}
+.dl :where(p){margin:0}
+.dl-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;list-style:none;margin:0;padding:0;counter-reset:s}
+.dl-steps li{counter-increment:s;background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+.dl-steps li:before{content:counter(s);display:inline-flex;width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;font-weight:600;align-items:center;justify-content:center;margin-bottom:12px}
+.dl-steps p,.dl-feat p{color:var(--muted);font-size:.98rem}
+.dl-feats{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 40px}
+.dl-feat{border-top:3px solid var(--brand);padding-top:14px}
+.dl-stat{margin-top:36px;padding:18px 22px;border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;background:#fff;color:var(--muted);font-size:.98rem}
+.dl-stat strong{color:var(--ink)}
+.dl-src{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0 0 20px;padding:0}
+.dl-src li{border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 14px;font-size:.92rem}
+.dl-lim{list-style:none;margin:0;padding:0;display:grid;gap:12px;max-width:760px}
+.dl-lim li{padding-left:28px;position:relative;color:var(--ink)}
+.dl-lim li:before{content:"!";position:absolute;left:0;top:3px;width:20px;height:20px;border-radius:50%;background:#fffbeb;border:1px solid #fde68a;color:var(--warn);font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center;line-height:1}
+.dl-end{background:var(--ink);color:#fff;text-align:center;padding:64px 0}
+.dl-end h2{color:#fff}
+.dl-end p{color:#cbd5e1;margin:0 auto 24px;max-width:56ch}
+.dl-end .dl-btn-p{background:#14b8a6;border-color:#14b8a6;color:#042f2e}
+.dl-end .dl-btn-p:hover{background:#2dd4bf;border-color:#2dd4bf}
+.dl-foot{padding:32px 0;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
+.dl-foot .dl-wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+.dl-foot nav{display:flex;flex-wrap:wrap;gap:8px 20px}
+.dl-foot a{color:var(--muted)}
+@media(max-width:900px){
+.dl-hero .dl-wrap{grid-template-columns:1fr;gap:32px}
+.dl-steps{grid-template-columns:1fr}
+.dl-feats{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+.dl-links a.dl-hide{display:none}
+.dl-nav .dl-wrap{gap:10px}
+.dl-links{gap:10px}
+}
+@media(max-width:560px){
+.dl h1,.dl:lang(bn) h1{font-size:1.85rem}
+.dl h2{font-size:1.5rem}
+.dl-hero{padding:36px 0 40px}
+.dl-sec{padding:48px 0}
+.dl-wrap{padding:0 16px}
+.dl-cta .dl-btn{width:100%}
+.dl-logo{font-size:1.05rem}
+.dl-nav .dl-btn{padding:8px 12px;font-size:.88rem}
+.dl-lang{padding:5px 9px}
+}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+`;
 
-export default function HomePage({ params }: { params: { locale: string } }) {
-  const loc  = params.locale;
+const T = {
+  en: {
+    skip: "Skip to content",
+    nav: { rules: "Rules and standards", lookup: "Report lookup", login: "Log in", check: "Data Check", lang: "বাংলা" },
+    h1: "Know who holds each product data point before your buyer asks",
+    sub: "A free check for Bangladesh garment and textile factories preparing for EU Digital Product Passport (DPP) data requests. Pick one product, mark each data point, and get a Monday list: who to ask inside, who to call outside, and what nobody owns.",
+    start: "Start the Data Check",
+    seeRules: "See the rules behind it",
+    free: "Free. No sign-up. Your entries stay in this browser.",
+    cardTitle: "One product, four example rows",
+    cardTag: "Illustration only. Not data from any factory.",
+    likely: "Likely holder",
+    noOwner: "No clear owner",
+    cardFoot: "The real check lists all data points, each with the rule it comes from.",
+    s: { nobody: "Nobody owns it", have: "Have it", partial: "Partly have", brand: "Only the brand has it" },
+    howH: "How it works",
+    howLead: "It takes one product and a few people from different departments. Work through it in a sitting, then follow the list.",
+    steps: [
+      ["Pick one product", "Use a style you are making now, so every answer comes from real files and real people."],
+      ["Mark every data point", "Have it, partly have it, missing, nobody owns it, or only the brand has it. Add the name of the person who really holds it."],
+      ["Work the Monday list", "Items are grouped by likely holder, such as Merchandising, QC or Compliance. Inside each group, items nobody owns come first. Download it as CSV or print it."],
+    ],
+    whyH: "What makes it different",
+    whyLead: "It is a working list for the factory floor, not a score for a brochure.",
+    feats: [
+      ["Bangla first", "Every data point, status and next action is available in Bangla and in English."],
+      ["Every item shows its rule", "Each data point names the regulation, draft or standard it comes from, so you can check it yourself."],
+      ["Finds what nobody owns", "Some data points may sit between departments or only with the buyer. The check shows them as a finding instead of hiding them in a total."],
+      ["No score, no certificate", "It gives no pass mark and issues no passport. It gives you a to-do list you can hand to your team."],
+    ],
+    stat: (n: number, c: number, x: number, y: number) =>
+      `In this version: ${n} data points in ${c} groups. We assume ${x} have no clear owner in most factories and ${y} are held by the brand, not the factory. These are our assumptions. Confirm them in your own factory.`,
+    srcH: "Where the list comes from",
+    srcLead: "Most data points follow a draft data list from the EU Joint Research Centre (JRC). Other items come from the laws below. Each source is tagged on the Rules page as seen in source, limited check, or not verified.",
+    src: [
+      "ESPR, Regulation (EU) 2024/1781",
+      "JRC draft textile data list (not law)",
+      "Textile Labelling Regulation (EU) 1007/2011",
+      "REACH Article 33",
+      "Forced Labour Regulation (EU) 2024/3015",
+      "Textile producer responsibility, Directive (EU) 2025/1892",
+    ],
+    srcLink: "Open the Rules and standards page",
+    limH: "What this is not",
+    lim: [
+      "Not a certificate, passport or audit. DPP Atlas verifies nothing you enter.",
+      "The textile data list comes from an EU draft. The final rules may differ.",
+      "“Likely holder” and “outside call” are our assumptions. Confirm them in your factory.",
+      "Not legal advice. Not affiliated with the European Union or any buyer or brand.",
+    ],
+    endH: "Start with one product today",
+    endP: "Ten honest minutes with one style shows you more than a long report.",
+    foot: "DPP Atlas. Content last reviewed November 2026.",
+    earlier: "Earlier tools",
+    scored: "Scored self-check (old)",
+  },
+  bn: {
+    skip: "মূল অংশে যান",
+    nav: { rules: "নিয়ম ও স্ট্যান্ডার্ড", lookup: "রিপোর্ট খুঁজুন", login: "লগ ইন", check: "ডেটা চেক", lang: "English" },
+    h1: "ক্রেতা চাওয়ার আগেই জানুন, পণ্যের প্রতিটি তথ্য কার কাছে আছে",
+    sub: "ইইউ ডিজিটাল প্রোডাক্ট পাসপোর্ট (DPP) তথ্যের অনুরোধের জন্য প্রস্তুতি নিচ্ছে এমন বাংলাদেশের গার্মেন্টস ও টেক্সটাইল কারখানার জন্য বিনামূল্যের একটি চেক। একটি পণ্য বেছে নিন, প্রতিটি তথ্য চিহ্নিত করুন, আর পান সোমবারের কাজের তালিকা: ভেতরে কাকে জিজ্ঞেস করবেন, বাইরে কাকে ফোন করবেন, আর কোন তথ্যের কোনো দায়িত্বশীলই নেই।",
+    start: "ডেটা চেক শুরু করুন",
+    seeRules: "কোন নিয়ম থেকে নেওয়া দেখুন",
+    free: "বিনামূল্যে। সাইন-আপ লাগে না। আপনার তথ্য শুধু এই ব্রাউজারেই থাকে।",
+    cardTitle: "একটি পণ্য, চারটি উদাহরণ সারি",
+    cardTag: "শুধু উদাহরণ। কোনো কারখানার আসল তথ্য নয়।",
+    likely: "সম্ভাব্য দায়িত্বশীল",
+    noOwner: "কোনো দায়িত্বশীল নেই",
+    cardFoot: "আসল চেকে সব তথ্য আছে, প্রতিটির পাশে কোন নিয়ম থেকে নেওয়া তা লেখা।",
+    s: { nobody: "কেউ দায়িত্বে নেই", have: "আছে", partial: "আংশিক আছে", brand: "শুধু ব্র্যান্ডের কাছে" },
+    howH: "কীভাবে কাজ করে",
+    howLead: "একটি পণ্য আর বিভিন্ন বিভাগের কয়েকজন মানুষ লাগবে। একবারে বসে শেষ করুন, তারপর তালিকা ধরে কাজ করুন।",
+    steps: [
+      ["একটি পণ্য বেছে নিন", "এখন যে স্টাইল তৈরি হচ্ছে সেটি নিন, যাতে প্রতিটি উত্তর বাস্তব ফাইল ও বাস্তব মানুষ থেকে আসে।"],
+      ["প্রতিটি তথ্য চিহ্নিত করুন", "আছে, আংশিক আছে, নেই, কেউ দায়িত্বে নেই, বা শুধু ব্র্যান্ডের কাছে আছে। আসলে যিনি রাখেন তাঁর নাম লিখুন।"],
+      ["সোমবারের তালিকা ধরে কাজ করুন", "তথ্যগুলো সম্ভাব্য দায়িত্বশীল অনুযায়ী সাজানো, যেমন মার্চেন্ডাইজিং, কোয়ালিটি বা কমপ্লায়েন্স। প্রতিটি দলের ভেতরে যেগুলোর কেউ দায়িত্বে নেই সেগুলো আগে। CSV ডাউনলোড বা প্রিন্ট করতে পারেন।"],
+    ],
+    whyH: "কী আলাদা",
+    whyLead: "এটি কারখানার কাজের তালিকা, ব্রোশিয়ারের জন্য কোনো স্কোর নয়।",
+    feats: [
+      ["বাংলা আগে", "প্রতিটি তথ্য, অবস্থা ও পরের কাজ বাংলা ও ইংরেজি দুই ভাষাতেই আছে।"],
+      ["প্রতিটি তথ্যের পাশে নিয়ম", "প্রতিটি তথ্যের পাশে লেখা আছে কোন আইন, খসড়া বা স্ট্যান্ডার্ড থেকে নেওয়া, যাতে আপনি নিজে যাচাই করতে পারেন।"],
+      ["যার কেউ নেই তা খুঁজে বের করে", "কিছু তথ্য হয়তো বিভাগগুলোর মাঝখানে পড়ে থাকে বা শুধু ক্রেতার কাছে থাকে। মোট নম্বরে লুকিয়ে না রেখে চেকটি সেগুলো আলাদা করে দেখায়।"],
+      ["স্কোর নেই, সনদ নেই", "এটি পাস নম্বর দেয় না, কোনো পাসপোর্টও ইস্যু করে না। এটি দেয় এমন একটি কাজের তালিকা যা আপনার দলকে দেওয়া যায়।"],
+    ],
+    stat: (n: number, c: number, x: number, y: number) =>
+      `এই সংস্করণে: ${c}টি দলে ${n}টি তথ্য। আমাদের অনুমান, বেশিরভাগ কারখানায় ${x}টির কোনো স্পষ্ট দায়িত্বশীল নেই এবং ${y}টি কারখানার নয়, ব্র্যান্ডের কাছে থাকে। এগুলো আমাদের অনুমান। আপনার কারখানায় যাচাই করে নিন।`,
+    srcH: "তালিকাটি কোথা থেকে নেওয়া",
+    srcLead: "বেশিরভাগ তথ্য ইইউ জয়েন্ট রিসার্চ সেন্টারের (JRC) একটি খসড়া তালিকা অনুসরণ করে। বাকিগুলো নিচের আইন থেকে। নিয়ম পাতায় প্রতিটি উৎসে লেখা আছে: উৎসে দেখা হয়েছে, সীমিত যাচাই, বা যাচাই করা হয়নি।",
+    src: [
+      "ESPR, রেগুলেশন (ইইউ) 2024/1781",
+      "JRC টেক্সটাইল তথ্য-তালিকার খসড়া (আইন নয়)",
+      "টেক্সটাইল লেবেলিং রেগুলেশন (ইইউ) 1007/2011",
+      "REACH ধারা ৩৩",
+      "জোরপূর্বক শ্রম রেগুলেশন (ইইউ) 2024/3015",
+      "টেক্সটাইল উৎপাদক দায়িত্ব, নির্দেশনা (ইইউ) 2025/1892",
+    ],
+    srcLink: "নিয়ম ও স্ট্যান্ডার্ড পাতা খুলুন",
+    limH: "এটি যা নয়",
+    lim: [
+      "সনদ, পাসপোর্ট বা অডিট নয়। আপনি যা লিখবেন DPP Atlas তা যাচাই করে না।",
+      "টেক্সটাইল তথ্য-তালিকা ইইউর একটি খসড়া থেকে নেওয়া। চূড়ান্ত নিয়ম আলাদা হতে পারে।",
+      "“সম্ভাব্য দায়িত্বশীল” ও “বাইরের ফোন” আমাদের অনুমান। আপনার কারখানায় যাচাই করে নিন।",
+      "আইনি পরামর্শ নয়। ইউরোপীয় ইউনিয়ন বা কোনো ক্রেতা বা ব্র্যান্ডের সাথে যুক্ত নয়।",
+    ],
+    endH: "আজই একটি পণ্য দিয়ে শুরু করুন",
+    endP: "একটি স্টাইল নিয়ে সৎভাবে দশ মিনিট বসলে লম্বা রিপোর্টের চেয়ে বেশি জানা যায়।",
+    foot: "DPP Atlas। বিষয়বস্তু সর্বশেষ পর্যালোচনা: নভেম্বর ২০২৬।",
+    earlier: "আগের টুল",
+    scored: "স্কোরসহ সেলফ-চেক (পুরোনো)",
+  },
+};
+
+export default function Landing({ params }: P) {
+  const loc = params.locale === "bn" ? "bn" : "en";
   const isBn = loc === "bn";
-  const [count, setCount] = useState(0);
+  const t = T[loc];
 
-  useEffect(() => {
-    let n = 0;
-    const timer = setInterval(() => {
-      n += 103;
-      if (n >= 6200) { setCount(6200); clearInterval(timer); }
-      else setCount(n);
-    }, 16);
-    return () => clearInterval(timer);
-  }, []);
+  const total = FIELDS.length;
+  const groups = Array.from(new Set(FIELDS.map((f) => f.cat))).length;
+  const noOwner = FIELDS.filter((f) => f.ownerEn.toUpperCase().startsWith("NOBODY")).length;
+  const brandHeld = FIELDS.filter((f) => f.ownerEn.startsWith("Brand")).length;
+
+  const pick: [number, "partial" | "nobody" | "have" | "brand"][] = [
+    [12, "partial"],
+    [20, "nobody"],
+    [10, "have"],
+    [11, "brand"],
+  ];
+  const rows = pick
+    .map(([n, s]) => ({ f: FIELDS.find((x) => x.n === n), s }))
+    .filter((r) => r.f);
 
   return (
-    <main style={{minHeight:"100vh", background:"#fff", fontFamily:"system-ui,sans-serif", color:"#0f172a", margin:0, padding:0}}>
+    <div className="dl" lang={loc}>
+      <style dangerouslySetInnerHTML={{ __html: CSS }} />
+      <a className="dl-skip" href="#main">{t.skip}</a>
 
-      {/* NAV */}
-      <nav style={{display:"flex", alignItems:"center", justifyContent:"space-between", padding:"0 32px", height:"64px", borderBottom:"1px solid #f1f5f9", position:"sticky", top:0, background:"rgba(255,255,255,0.96)", backdropFilter:"blur(8px)", zIndex:100, flexWrap:"wrap", gap:"8px"}}>
-        <div style={{display:"flex", alignItems:"center", gap:"8px"}}>
-          <span style={{fontSize:"1.4rem"}}>🌿</span>
-          <span style={{fontWeight:800, fontSize:"1.1rem"}}>DPP Atlas</span>
-          <span style={{fontSize:"0.65rem", background:"#dcfce7", color:"#16a34a", padding:"2px 8px", borderRadius:"99px", fontWeight:700}}>BETA</span>
+      <header className="dl-nav">
+        <div className="dl-wrap">
+          <a className="dl-logo" href={"/" + loc}><i aria-hidden="true" />DPP Atlas</a>
+          <nav className="dl-links" aria-label="Main">
+            <a className="dl-hide" href={"/" + loc + "/rules"}>{t.nav.rules}</a>
+            <a className="dl-hide" href={"/" + loc + "/verify"}>{t.nav.lookup}</a>
+            <a className="dl-hide" href={"/" + loc + "/login"}>{t.nav.login}</a>
+            <a className="dl-lang" href={isBn ? "/en" : "/bn"} lang={isBn ? "en" : "bn"} hrefLang={isBn ? "en" : "bn"}>{t.nav.lang}</a>
+            <a className="dl-btn dl-btn-p" href={"/" + loc + "/check"}>{t.nav.check}</a>
+          </nav>
         </div>
-        <div style={{display:"flex", gap:"16px", alignItems:"center", flexWrap:"wrap"}}>
-          <a href={"#types"}          style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Factory Types</a>
-          <a href={"#resources"}      style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Resources</a>
-          <a href={"/"+loc+"/verify"} style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Report Lookup</a>
-<a href={"/"+loc+"/rules"} style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Rules</a>
-<a href={"/"+loc+"/check"} style={{color:"#0d9488", textDecoration:"none", fontSize:"0.875rem", fontWeight:700}}>Data Check</a>
-          <a href={isBn ? "/en" : "/bn"} style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem", padding:"5px 10px", border:"1px solid #e2e8f0", borderRadius:"8px"}}>
-            {isBn ? "🇬🇧 EN" : "🇧🇩 বাংলা"}
-          </a>
-          <a href={"/"+loc+"/login"}  style={{color:"#64748b", textDecoration:"none", fontSize:"0.875rem"}}>Login</a>
-          <a href={"/"+loc+"/enroll"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"10px 20px", borderRadius:"10px", fontWeight:700, fontSize:"0.875rem"}}>
-            {isBn ? "শুরু করুন" : "Get Started"}
-          </a>
-        </div>
-      </nav>
+      </header>
 
-      {/* HERO */}
-      <section style={{display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))", gap:"48px", alignItems:"center", maxWidth:"1200px", margin:"0 auto", padding:"80px 32px"}}>
-        <div>
-          <div style={{display:"inline-flex", alignItems:"center", gap:"8px", background:"#f0fdfa", border:"1px solid #99f6e4", borderRadius:"99px", padding:"6px 14px", marginBottom:"24px"}}>
-            <span style={{width:"8px", height:"8px", background:"#10b981", borderRadius:"50%", display:"inline-block"}}></span>
-            <span style={{color:"#0f766e", fontSize:"0.8rem", fontWeight:600}}>EU ESPR Digital Product Passport Readiness — Free</span>
-          </div>
-          <h1 style={{fontSize:"clamp(2rem,4vw,3.2rem)", fontWeight:800, lineHeight:1.15, marginBottom:"20px", color:"#0f172a"}}>
-            {isBn ? "বাংলাদেশ টেক্সটাইল" : "Bangladesh Textile"}
-            <br/>
-            <span style={{color:"#0d9488"}}>{isBn ? "DPP কমপ্লায়েন্স" : "DPP Compliance"}</span>
-            <br/>
-            {isBn ? "সহজ করুন" : "Made Simple"}
-          </h1>
-          <p style={{color:"#64748b", fontSize:"1.05rem", lineHeight:1.7, marginBottom:"32px", maxWidth:"480px"}}>
-            {isBn
-              ? "বিনামূল্যে AI-চালিত EU ESPR DPP স্ব-মূল্যায়ন। নিজের দেওয়া তথ্যের ভিত্তিতে প্রস্তুতি পর্যালোচনা। এটি কোনো সনদ নয়।"
-              : "Free AI-powered EU ESPR Digital Product Passport assessment. Self-reported readiness check in Bangla and English. Not a certificate."}
-          </p>
-          <div style={{display:"flex", gap:"12px", flexWrap:"wrap", marginBottom:"40px"}}>
-            <a href={"/"+loc+"/enroll"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"14px 28px", borderRadius:"10px", fontWeight:700, fontSize:"1rem"}}>
-              {isBn ? "🏭 কারখানা নিবন্ধন করুন" : "🏭 Register Factory"}
-            </a>
-            <a href={"/"+loc+"/check"} style={{border:"2px solid #0d9488", color:"#0d9488", textDecoration:"none", padding:"12px 24px", borderRadius:"10px", fontWeight:600, fontSize:"1rem"}}>
-              {isBn ? "📋 ডেটা চেক শুরু করুন" : "📋 Start Data Check"}
-            </a>
-          </div>
-          <div style={{display:"flex", gap:"32px", flexWrap:"wrap"}}>
-            {[
-              {n:"Pilot", l:isBn?"পরীক্ষামূলক সংস্করণ":"Pilot version"},
-              {n:"18",                        l:isBn?"প্রশ্ন বিভাগ":"Question Categories"},
-              {n:"$0",                        l:isBn?"সর্বদা বিনামূল্যে":"Forever Free"},
-            ].map((x,i) => (
-              <div key={i}>
-                <div style={{fontSize:"1.75rem", fontWeight:800, color:"#0d9488"}}>{x.n}</div>
-                <div style={{color:"#94a3b8", fontSize:"0.8rem", marginTop:"2px"}}>{x.l}</div>
+      <main id="main">
+        <section className="dl-hero">
+          <div className="dl-wrap">
+            <div>
+              <h1>{t.h1}</h1>
+              <p className="dl-sub">{t.sub}</p>
+              <div className="dl-cta">
+                <a className="dl-btn dl-btn-p" href={"/" + loc + "/check"}>{t.start}</a>
+                <a className="dl-btn dl-btn-s" href={"/" + loc + "/rules"}>{t.seeRules}</a>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Score preview */}
-        <div style={{background:"#0f172a", borderRadius:"20px", padding:"28px", color:"white"}}>
-          <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"20px"}}>
-            <span style={{color:"#94a3b8", fontSize:"0.75rem"}}>SAMPLE RESULT</span>
-            <span style={{background:"#22c55e20", color:"#22c55e", padding:"4px 10px", borderRadius:"99px", fontSize:"0.75rem", fontWeight:700}}>✅ EXAMPLE ONLY</span>
-          </div>
-          <div style={{textAlign:"center", padding:"12px 0 20px"}}>
-            <div style={{fontSize:"4.5rem", fontWeight:800, color:"#22c55e", lineHeight:1}}>87</div>
-            <div style={{color:"#64748b", fontSize:"0.8rem"}}>/100 example only — not real data</div>
-          </div>
-          {[
-            {cat:"Factory Identity",      s:18, max:20, c:"#22c55e"},
-            {cat:"Material Traceability", s:22, max:25, c:"#22c55e"},
-            {cat:"Chemical Compliance",   s:14, max:20, c:"#eab308"},
-            {cat:"Physical Testing",      s:16, max:20, c:"#22c55e"},
-            {cat:"Circularity",           s:17, max:15, c:"#f97316"},
-          ].map((r,i) => (
-            <div key={i} style={{marginBottom:"10px"}}>
-              <div style={{display:"flex", justifyContent:"space-between", marginBottom:"3px"}}>
-                <span style={{color:"#94a3b8", fontSize:"0.7rem"}}>{r.cat}</span>
-                <span style={{color:r.c, fontSize:"0.7rem", fontWeight:600}}>{r.s}/{r.max}</span>
-              </div>
-              <div style={{height:"4px", background:"#1e293b", borderRadius:"2px"}}>
-                <div style={{height:"100%", background:r.c, borderRadius:"2px", width:Math.min(100,Math.round(r.s/r.max*100))+"%"}} />
-              </div>
+              <p className="dl-note">{t.free}</p>
             </div>
-          ))}
-          <div style={{marginTop:"14px", padding:"10px 12px", background:"#0d948820", border:"1px solid #0d9488", borderRadius:"8px", fontSize:"0.75rem", color:"#5eead4"}}>
-            🤖 AI: Complete REACH audit to reach 95+ and unlock full DPP passport
-          </div>
-        </div>
-      </section>
 
-      {/* TRUST BAR */}
-      <section style={{padding:"16px 32px", background:"#f8fafc", borderTop:"1px solid #f1f5f9", borderBottom:"1px solid #f1f5f9"}}>
-        <div style={{maxWidth:"1200px", margin:"0 auto", display:"flex", alignItems:"center", gap:"16px", flexWrap:"wrap", justifyContent:"center"}}>
-          <span style={{color:"#94a3b8", fontSize:"0.75rem", fontWeight:700}}>RULES AND STANDARDS REFERENCED:</span>
-          {["EU ESPR","ISO 3759","ISO 16322-3","REACH","GOTS","OEKO-TEX","GS1 DPP","BGMEA (trade body)"].map(b => (
-            <span key={b} style={{color:"#475569", fontSize:"0.78rem", fontWeight:600, padding:"5px 12px", border:"1px solid #e2e8f0", borderRadius:"8px", background:"white"}}>{b}</span>
-          ))}
-        </div>
-      </section>
-
-      {/* FACTORY TYPES */}
-      <section id="types" style={{padding:"80px 32px", maxWidth:"1200px", margin:"0 auto"}}>
-        <div style={{textAlign:"center", marginBottom:"48px"}}>
-          <p style={{color:"#0d9488", fontSize:"0.8rem", fontWeight:700, letterSpacing:"1px", marginBottom:"12px"}}>BANGLADESH TEXTILE SECTORS</p>
-          <h2 style={{fontSize:"clamp(1.75rem,3vw,2.4rem)", fontWeight:800, marginBottom:"12px"}}>
-            {isBn ? "আপনার কারখানার ধরন বেছে নিন" : "Choose Your Factory Type"}
-          </h2>
-          <p style={{color:"#64748b", maxWidth:"500px", margin:"0 auto", lineHeight:1.7}}>
-            {isBn ? "প্রতিটি ধরনের জন্য আলাদা কাস্টম প্রশ্নাবলী।" : "Each factory type has sector-specific compliance questions."}
-          </p>
-        </div>
-        <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))", gap:"16px"}}>
-          {FTYPES.map(f => (
-            <a key={f.id} href={"/"+loc+"/enroll?type="+f.id}
-              style={{border:"1.5px solid #e2e8f0", borderRadius:"14px", padding:"20px", textDecoration:"none", color:"inherit", background:"white", display:"block"}}>
-              <div style={{fontSize:"2.2rem", marginBottom:"10px"}}>{f.icon}</div>
-              <div style={{fontWeight:700, fontSize:"0.95rem", marginBottom:"6px", color:"#0f172a"}}>{f.name}</div>
-              <div style={{color:"#64748b", fontSize:"0.78rem", lineHeight:1.5, marginBottom:"12px"}}>{f.desc}</div>
-              <span style={{color:"#0d9488", fontWeight:600, fontSize:"0.82rem"}}>{isBn ? "মূল্যায়ন করুন →" : "Assess now →"}</span>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      {/* HOW IT WORKS */}
-      <section style={{padding:"80px 32px", background:"#f8fafc"}}>
-        <div style={{maxWidth:"1200px", margin:"0 auto"}}>
-          <div style={{textAlign:"center", marginBottom:"48px"}}>
-            <p style={{color:"#0d9488", fontSize:"0.8rem", fontWeight:700, letterSpacing:"1px", marginBottom:"12px"}}>SIMPLE PROCESS</p>
-            <h2 style={{fontSize:"clamp(1.75rem,3vw,2.4rem)", fontWeight:800}}>
-              {isBn ? "মাত্র ৪টি ধাপে আপনার প্রস্তুতির তালিকা পান" : "Get Your Readiness List in 4 Steps"}
-            </h2>
-          </div>
-          <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))", gap:"32px"}}>
-            {[
-              {n:"01", icon:"🏭", t:isBn?"কারখানা নিবন্ধন":"Register Factory",     d:isBn?"ধরন ও মূল তথ্য দিন":"Select type and enter details",            h:"/"+loc+"/enroll"},
-              {n:"02", icon:"📋", t:isBn?"মূল্যায়ন সম্পন্ন":"Complete Assessment", d:isBn?"কাস্টম প্রশ্নের উত্তর দিন":"Answer questions for your sector",   h:"/"+loc+"/assess"},
-              {n:"03", icon:"🤖", t:isBn?"AI রিপোর্ট পান":"Get AI Report",          d:isBn?"তাৎক্ষণিক রোডম্যাপ":"Instant Gemini AI improvement tips",         h:"/"+loc+"/assess"},
-              {n:"04", icon:"✅", t:isBn?"রিপোর্ট শেয়ার করুন":"Share Your Self-Assessment",  d:isBn?"ক্রেতাদের সাথে শেয়ার করুন":"Share your self-assessment with buyers",        h:"/"+loc+"/verify"},
-            ].map((x,i) => (
-              <a key={i} href={x.h} style={{textDecoration:"none", color:"inherit"}}>
-                <div style={{fontSize:"0.72rem", fontWeight:800, color:"#0d9488", marginBottom:"10px"}}>STEP {x.n}</div>
-                <div style={{width:"48px", height:"48px", background:"#0f172a", borderRadius:"12px", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.3rem", marginBottom:"14px"}}>{x.icon}</div>
-                <h3 style={{fontWeight:700, marginBottom:"6px", fontSize:"1rem"}}>{x.t}</h3>
-                <p style={{color:"#64748b", fontSize:"0.82rem", lineHeight:1.6}}>{x.d}</p>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* VERIFICATION */}
-      <section style={{padding:"80px 32px", background:"#0f172a", color:"white"}}>
-        <div style={{maxWidth:"1200px", margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))", gap:"64px", alignItems:"center"}}>
-          <div>
-            <p style={{color:"#5eead4", fontSize:"0.8rem", fontWeight:700, letterSpacing:"1px", marginBottom:"12px"}}>SHARE WITH BUYERS</p>
-            <h2 style={{fontSize:"clamp(1.75rem,3vw,2.3rem)", fontWeight:800, marginBottom:"16px"}}>
-              {isBn ? "ক্রেতাদের সাথে শেয়ার করার মতো রিপোর্ট" : "A Report You Can Share With Buyers"}
-            </h2>
-            <p style={{color:"#94a3b8", lineHeight:1.7, marginBottom:"24px"}}>
-              {isBn
-                ? "আপনার স্ব-মূল্যায়ন রিপোর্ট ক্রেতাদের সাথে শেয়ার করতে পারবেন। এটি সনদ নয়।"
-                : "Share your self-assessment report with buyers. This is not a certificate."}
-            </p>
-            {[
-              isBn?"✅ QR স্ক্যানযোগ্য":"✅ QR-scannable link to your report",
-              isBn?"✅ তারিখ স্ট্যাম্পড":"✅ Date-stamped — shows assessment date",
-              isBn?"✅ PDF ও PNG ডাউনলোড":"✅ Downloadable PDF and PNG",
-              isBn?"✅ অনন্য রিপোর্ট ID":"✅ Unique report ID",
-            ].map((t,i) => (
-              <div key={i} style={{color:"#cbd5e1", fontSize:"0.875rem", marginBottom:"8px"}}>{t}</div>
-            ))}
-            <div style={{marginTop:"24px"}}>
-              <a href={"/"+loc+"/check"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"14px 28px", borderRadius:"10px", fontWeight:700, display:"inline-block"}}>
-                {isBn ? "বিনামূল্যে স্ব-মূল্যায়ন শুরু করুন" : "Start Free Self-Check"}
-              </a>
+            <div className="dl-card" role="group" aria-label={t.cardTitle}>
+              <div className="dl-card-h">{t.cardTitle}<span>{t.cardTag}</span></div>
+              {rows.map(({ f, s }) => {
+                if (!f) return null;
+                const owner = s === "nobody" ? t.noOwner : isBn ? f.ownerBn : f.ownerEn;
+                return (
+                  <div className="dl-row" key={f.n}>
+                    <b>{isBn ? f.bn : f.en}</b>
+                    <span className={"dl-chip dl-c-" + s}>{t.s[s]}</span>
+                    <small>{t.likely}: {owner}</small>
+                  </div>
+                );
+              })}
+              <div className="dl-card-f">{t.cardFoot}</div>
             </div>
           </div>
-          <div style={{display:"flex", justifyContent:"center"}}>
-            <div style={{width:"280px", background:"white", borderRadius:"20px", padding:"24px", textAlign:"center", color:"#0f172a", boxShadow:"0 0 60px rgba(13,148,136,0.2)"}}>
-              <div style={{width:"64px", height:"64px", background:"linear-gradient(135deg,#0d9488,#0369a1)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 12px", fontSize:"1.5rem"}}>✅</div>
-              <div style={{fontWeight:800, fontSize:"0.95rem", marginBottom:"4px"}}>SELF-ASSESSED</div>
-              <div style={{fontSize:"0.72rem", color:"#64748b", marginBottom:"14px"}}>EU ESPR self-assessment only. Not a certificate.</div>
-              <div style={{background:"#f0fdfa", border:"1px solid #99f6e4", borderRadius:"10px", padding:"10px", marginBottom:"14px"}}>
-                <div style={{fontWeight:700, color:"#0d9488", fontSize:"1.4rem"}}>87/100</div>
-                <div style={{fontSize:"0.72rem", color:"#64748b"}}>Compliance Score · Jul 2026</div>
-              </div>
-              <div style={{fontSize:"0.68rem", color:"#94a3b8", borderTop:"1px solid #f1f5f9", paddingTop:"10px", lineHeight:1.8}}>
-                🏭 Sample Garment Factory Ltd.
-                <br/>ID: DPP-2026-XXXXX
-                <br/>🌐 Self-reported via DPP Atlas
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* RESOURCES */}
-      <section id="resources" style={{padding:"80px 32px", maxWidth:"1200px", margin:"0 auto"}}>
-        <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))", gap:"64px"}}>
-          <div>
-            <p style={{color:"#0d9488", fontSize:"0.8rem", fontWeight:700, letterSpacing:"1px", marginBottom:"12px"}}>LIVE UPDATES</p>
-            <h2 style={{fontSize:"clamp(1.5rem,2.5vw,2rem)", fontWeight:800, marginBottom:"28px"}}>
-              {isBn ? "সর্বশেষ EU আপডেট" : "Latest EU Compliance Updates"}
-            </h2>
-            {NEWS.map((n,i) => (
-              <div key={i} style={{display:"flex", gap:"12px", paddingBottom:"16px", borderBottom:"1px solid #f1f5f9", marginBottom:"16px"}}>
-                <span style={{background:n.c+"20", color:n.c, padding:"3px 8px", borderRadius:"6px", fontSize:"0.68rem", fontWeight:700, whiteSpace:"nowrap" as const, alignSelf:"flex-start"}}>
-                  {n.tag}
-                </span>
-                <div>
-                  <div style={{fontWeight:600, fontSize:"0.85rem", marginBottom:"3px", lineHeight:1.4}}>{n.t}</div>
-                  <div style={{color:"#94a3b8", fontSize:"0.72rem"}}>{n.d}</div>
-                </div>
-              </div>
-            ))}
+        <section className="dl-sec" aria-labelledby="how">
+          <div className="dl-wrap">
+            <h2 id="how">{t.howH}</h2>
+            <p className="dl-lead">{t.howLead}</p>
+            <ol className="dl-steps">
+              {t.steps.map((s) => (
+                <li key={s[0]}><h3>{s[0]}</h3><p>{s[1]}</p></li>
+              ))}
+            </ol>
           </div>
-          <div>
-            <p style={{color:"#0d9488", fontSize:"0.8rem", fontWeight:700, letterSpacing:"1px", marginBottom:"12px"}}>WHY ACT NOW</p>
-            <h2 style={{fontSize:"clamp(1.5rem,2.5vw,2rem)", fontWeight:800, marginBottom:"28px"}}>
-              {isBn ? "এখনই প্রস্তুত হওয়া কেন দরকার" : "The Stakes for Bangladesh"}
-            </h2>
-            <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:"14px"}}>
-              {[
-                {n:"Draft",  l:"EU textile DPP rules",         d:"Still in draft — confirm status with your buyer",         c:"#ef4444"},
-                {n:"—",  l:"Statistic removed",  d:"Source not verified",              c:"#f97316"},
-                {n:"83%",   l:"EU is Top BD Market",      d:"Largest market requires DPP",            c:"#eab308"},
-                {n:"Free",  l:"DPP Atlas Cost",           d:"Zero cost to start today",               c:"#22c55e"},
-              ].map((x,i) => (
-                <div key={i} style={{border:"1px solid #f1f5f9", borderRadius:"12px", padding:"16px"}}>
-                  <div style={{fontSize:"1.5rem", fontWeight:800, color:x.c, marginBottom:"4px"}}>{x.n}</div>
-                  <div style={{fontWeight:600, fontSize:"0.78rem", marginBottom:"4px"}}>{x.l}</div>
-                  <div style={{color:"#94a3b8", fontSize:"0.72rem", lineHeight:1.4}}>{x.d}</div>
-                </div>
+        </section>
+
+        <section className="dl-sec dl-alt" aria-labelledby="why">
+          <div className="dl-wrap">
+            <h2 id="why">{t.whyH}</h2>
+            <p className="dl-lead">{t.whyLead}</p>
+            <div className="dl-feats">
+              {t.feats.map((f) => (
+                <div className="dl-feat" key={f[0]}><h3>{f[0]}</h3><p>{f[1]}</p></div>
               ))}
             </div>
+            <p className="dl-stat">{t.stat(total, groups, noOwner, brandHeld)}</p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA */}
-      <section style={{padding:"96px 32px", background:"linear-gradient(135deg,#0f172a,#0d2a3a)", color:"white", textAlign:"center"}}>
-        <div style={{maxWidth:"700px", margin:"0 auto"}}>
-          <h2 style={{fontSize:"clamp(1.75rem,3vw,2.75rem)", fontWeight:800, marginBottom:"16px"}}>
-            {isBn ? "আজই আপনার প্রস্তুতির তালিকা তৈরি শুরু করুন" : "Start Your Readiness Check Today"}
-          </h2>
-          <p style={{color:"#94a3b8", marginBottom:"36px", fontSize:"1rem", lineHeight:1.7}}>
-            {isBn ? "আগে থেকেই প্রস্তুতি শুরু করুন। বিনামূল্যে মূল্যায়ন নিন।" : "Start preparing early. Free self-assessment. AI report. No credit card."}
-          </p>
-          <div style={{display:"flex", gap:"14px", justifyContent:"center", flexWrap:"wrap"}}>
-            <a href={"/"+loc+"/check"} style={{background:"#0d9488", color:"white", textDecoration:"none", padding:"15px 32px", borderRadius:"10px", fontWeight:700, fontSize:"1rem"}}>
-              {isBn ? "🚀 ডেটা চেক শুরু করুন" : "🚀 Start Data Check"}
-            </a>
-            <a href={"/"+loc+"/verify"} style={{border:"2px solid #5eead4", color:"#5eead4", textDecoration:"none", padding:"13px 28px", borderRadius:"10px", fontWeight:600, fontSize:"1rem"}}>
-              {isBn ? "🔍 রিপোর্ট খুঁজুন" : "🔍 Look up a Report"}
-            </a>
+        <section className="dl-sec" aria-labelledby="src">
+          <div className="dl-wrap">
+            <h2 id="src">{t.srcH}</h2>
+            <p className="dl-lead">{t.srcLead}</p>
+            <ul className="dl-src">
+              {t.src.map((s) => <li key={s}>{s}</li>)}
+            </ul>
+            <a className="dl-btn dl-btn-s" href={"/" + loc + "/rules"}>{t.srcLink}</a>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FOOTER */}
-      <footer style={{padding:"28px 32px", borderTop:"1px solid #1e293b", background:"#0f172a"}}>
-        <div style={{maxWidth:"1200px", margin:"0 auto", display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:"12px"}}>
-          <div>
-            <div style={{color:"white", fontWeight:700, marginBottom:"4px"}}>🌿 DPP Atlas</div>
-            <div style={{color:"#64748b", fontSize:"0.78rem"}}>Free Textile EU ESPR Self-Assessment Tool · <a href={"/"+loc+"/rules"} style={{color:"#0d9488"}}>{isBn?"নিয়ম ও স্ট্যান্ডার্ড":"Rules and standards"}</a> · Bangladesh</div>
+        <section className="dl-sec dl-alt" aria-labelledby="lim">
+          <div className="dl-wrap">
+            <h2 id="lim">{t.limH}</h2>
+            <ul className="dl-lim">
+              {t.lim.map((s) => <li key={s}>{s}</li>)}
+            </ul>
           </div>
-          <div style={{color:"#475569", fontSize:"0.72rem"}}>⚠️ Advisory tool only — not legal certification</div>
+        </section>
+
+        <section className="dl-end">
+          <div className="dl-wrap">
+            <h2>{t.endH}</h2>
+            <p>{t.endP}</p>
+            <a className="dl-btn dl-btn-p" href={"/" + loc + "/check"}>{t.start}</a>
+          </div>
+        </section>
+      </main>
+
+      <footer className="dl-foot">
+        <div className="dl-wrap">
+          <span>{t.foot}</span>
+          <nav aria-label="Footer">
+            <a href={"/" + loc + "/check"}>{t.nav.check}</a>
+            <a href={"/" + loc + "/rules"}>{t.nav.rules}</a>
+            <span>{t.earlier}:</span>
+            <a href={"/" + loc + "/verify"}>{t.nav.lookup}</a>
+            <a href={"/" + loc + "/assess"}>{t.scored}</a>
+          </nav>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }
