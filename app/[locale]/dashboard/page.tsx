@@ -306,7 +306,7 @@ export default function DashboardPage({ params }: { params: { locale: string } }
               {isBn?"স্কোর উন্নত করুন":"Improve Your Score"}
             </h3>
             <p style={{color:"#94a3b8",fontSize:"0.82rem",marginBottom:"16px"}}>
-              {isBn?"সোমবারের তালিকা ধরে কাজ করুন, তারপর আবার ডেটা চেক করুন।":"Work through your Monday list, then run the Data Check again."}
+              {isBn?"কাজের তালিকা ধরে এগোন, তারপর আবার ডেটা চেক করুন।":"Work through your action list, then run the Data Check again."}
             </p>
             <div style={{display:"flex",gap:"10px",justifyContent:"center",flexWrap:"wrap"}}>
               {latest && (
