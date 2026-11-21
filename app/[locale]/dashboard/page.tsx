@@ -176,6 +176,7 @@ export default function DashboardPage({ params }: { params: { locale: string } }
   return (
     <main style={{minHeight:"100vh",background:"#f8fafc",fontFamily:"system-ui,sans-serif",padding:"24px"}}>
       <div style={{maxWidth:"960px",margin:"0 auto"}}>
+        <div role="note" style={{background:"#fffbeb",border:"1px solid #fde68a",borderRadius:"12px",padding:"12px 16px",marginBottom:"16px",color:"#92400e",fontSize:"0.85rem",lineHeight:1.6,maxWidth:"960px",marginLeft:"auto",marginRight:"auto"}}>{isBn?"পুরোনো স্কোরসহ রিপোর্ট। এটি কারখানার নিজের দেওয়া তথ্য থেকে তৈরি। এটি সনদ, পাসপোর্ট বা অডিট নয়, এবং কেউ এটি যাচাই করেনি। বর্তমান পদ্ধতি দেখুন: ডেটা চেক।":"Old scored report. Built from the factory’s own answers. It is not a certificate, passport or audit, and nobody has verified it. See the current approach: the Data Check."} <a href={"/"+loc+"/check"} style={{color:"#0f766e",fontWeight:600}}>{isBn?"ডেটা চেক":"Data Check"}</a></div>
 
         <nav style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px",flexWrap:"wrap",gap:"12px"}}>
           <a href={"/"+loc} style={{color:"#0d9488",fontWeight:700,fontSize:"1.1rem",textDecoration:"none"}}>🌿 DPP Atlas</a>

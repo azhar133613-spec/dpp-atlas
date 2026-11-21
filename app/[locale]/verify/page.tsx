@@ -39,10 +39,10 @@ export default function VerifyPage({ params }: { params: { locale: string } }) {
         <div style={{textAlign:"center", marginBottom:"36px"}}>
           <div style={{fontSize:"2.5rem", marginBottom:"12px"}}>🔍</div>
           <h1 style={{fontSize:"1.75rem", fontWeight:800, marginBottom:"10px", color:"#0f172a"}}>
-            {isBn?"রিপোর্ট খুঁজুন":"Report Lookup"}
+            {isBn?"পুরোনো রিপোর্ট খুঁজুন":"Old Report Lookup"}
           </h1>
           <p style={{color:"#64748b", lineHeight:1.7}}>
-            {isBn?"একটি কারখানার DPP Atlas স্ট্যাটাস যাচাই করুন।":"Verify a factory's DPP compliance status using their Report ID."}
+            {isBn?"রিপোর্ট ID দিয়ে একটি পুরোনো, স্ব-রিপোর্টকৃত রিপোর্ট খুঁজুন। এটি যাচাই বা সনদ নয়।":"Find an old self-reported report by its Report ID. This is not a verification or a certificate."}
           </p>
         </div>
         <div style={{background:"white", border:"1px solid #e2e8f0", borderRadius:"14px", padding:"28px", marginBottom:"20px"}}>

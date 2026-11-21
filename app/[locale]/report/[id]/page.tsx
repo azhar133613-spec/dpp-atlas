@@ -65,7 +65,7 @@ export default function ReportPage({ params }: { params: { locale: string; id: s
       setReport(r);
       // Generate QR URL pointing to public DPP passport page
       const passportUrl = window.location.origin + "/dpp/" + r.id;
-      setQrUrl("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(passportUrl));
+      setQrUrl("");
       if (r.ai_report) {
         setAiReport(r.ai_report);
         if (r.saved_to_db) setDbSaved(true);
@@ -135,6 +135,7 @@ export default function ReportPage({ params }: { params: { locale: string; id: s
     <main style={{minHeight:"100vh",background:"#f8fafc",fontFamily:"system-ui,sans-serif",padding:"24px"}}>
       <style>{"@media print{.no-print{display:none!important}.print-show{display:block!important}}"}</style>
       <div style={{maxWidth:"860px",margin:"0 auto"}}>
+        <div role="note" style={{background:"#fffbeb",border:"1px solid #fde68a",borderRadius:"12px",padding:"12px 16px",marginBottom:"16px",color:"#92400e",fontSize:"0.85rem",lineHeight:1.6,maxWidth:"860px",marginLeft:"auto",marginRight:"auto"}}>{isBn?"পুরোনো স্কোরসহ রিপোর্ট। এটি কারখানার নিজের দেওয়া তথ্য থেকে তৈরি। এটি সনদ, পাসপোর্ট বা অডিট নয়, এবং কেউ এটি যাচাই করেনি। বর্তমান পদ্ধতি দেখুন: ডেটা চেক।":"Old scored report. Built from the factory’s own answers. It is not a certificate, passport or audit, and nobody has verified it. See the current approach: the Data Check."} <a href={"/"+loc+"/check"} style={{color:"#0f766e",fontWeight:600}}>{isBn?"ডেটা চেক":"Data Check"}</a></div>
 
         {/* NAV */}
         <nav className="no-print" style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"32px",flexWrap:"wrap",gap:"12px"}}>
@@ -309,17 +310,6 @@ export default function ReportPage({ params }: { params: { locale: string; id: s
             </div>
           </div>
         )}
-
-        {/* DPP PASSPORT LINK */}
-        <div className="no-print" style={{background:"#f0fdfa",border:"1px solid #0d9488",borderRadius:"12px",padding:"14px 18px",marginBottom:"20px",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:"8px"}}>
-          <div>
-            <div style={{fontWeight:700,fontSize:"0.875rem",color:"#0d9488",marginBottom:"2px"}}>🌐 {isBn?"পাবলিক DPP পাসপোর্ট":"Public DPP Passport"}</div>
-            <div style={{color:"#64748b",fontSize:"0.78rem"}}>{isBn?"EU ক্রেতাদের সাথে শেয়ার করুন — কোনো লগইন দরকার নেই":"Share with EU buyers — no login required"}</div>
-          </div>
-          <a href={"/dpp/"+rid} style={{background:"#0d9488",color:"white",textDecoration:"none",padding:"8px 16px",borderRadius:"8px",fontWeight:600,fontSize:"0.8rem"}}>
-            {isBn?"পাসপোর্ট দেখুন →":"View Passport →"}
-          </a>
-        </div>
 
         {/* ACTION BUTTONS */}
         <div className="no-print" style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(140px,1fr))",gap:"10px"}}>

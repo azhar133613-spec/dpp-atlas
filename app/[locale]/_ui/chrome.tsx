@@ -61,8 +61,7 @@ export function Header({ loc, path, current }: { loc: "en" | "bn"; path: string;
           <nav className="dl-links" aria-label="Main">
             <a className="dl-hide" href={"/" + loc + "/rules"} aria-current={current === "rules" ? "page" : undefined}>{t.rules}</a>
             <a className="dl-hide" href={"/" + loc + "/verify"}>{t.lookup}</a>
-            <a className="dl-hide" href={"/" + loc + "/login"}>{t.login}</a>
-            <a className="dl-lang" href={"/" + other + path} lang={other} hrefLang={other}>{t.lang}</a>
+                        <a className="dl-lang" href={"/" + other + path} lang={other} hrefLang={other}>{t.lang}</a>
             <a className="dl-btn dl-btn-p" href={"/" + loc + "/check"} aria-current={current === "check" ? "page" : undefined}>{t.check}</a>
           </nav>
         </div>
@@ -83,6 +82,7 @@ export function Footer({ loc }: { loc: "en" | "bn" }) {
           <span>{t.earlier}:</span>
           <a href={"/" + loc + "/verify"}>{t.lookup}</a>
           <a href={"/" + loc + "/assess"}>{t.scored}</a>
+          <a href={"/" + loc + "/login"}>{t.login}</a>
         </nav>
       </div>
     </footer>

@@ -259,8 +259,7 @@ export default function Landing({ params }: P) {
           <nav className="dl-links" aria-label="Main">
             <a className="dl-hide" href={"/" + loc + "/rules"}>{t.nav.rules}</a>
             <a className="dl-hide" href={"/" + loc + "/verify"}>{t.nav.lookup}</a>
-            <a className="dl-hide" href={"/" + loc + "/login"}>{t.nav.login}</a>
-            <a className="dl-lang" href={isBn ? "/en" : "/bn"} lang={isBn ? "en" : "bn"} hrefLang={isBn ? "en" : "bn"}>{t.nav.lang}</a>
+                        <a className="dl-lang" href={isBn ? "/en" : "/bn"} lang={isBn ? "en" : "bn"} hrefLang={isBn ? "en" : "bn"}>{t.nav.lang}</a>
             <a className="dl-btn dl-btn-p" href={"/" + loc + "/check"}>{t.nav.check}</a>
           </nav>
         </div>
@@ -360,6 +359,7 @@ export default function Landing({ params }: P) {
             <span>{t.earlier}:</span>
             <a href={"/" + loc + "/verify"}>{t.nav.lookup}</a>
             <a href={"/" + loc + "/assess"}>{t.scored}</a>
+            <a href={"/" + loc + "/login"}>{t.nav.login}</a>
           </nav>
         </div>
       </footer>
