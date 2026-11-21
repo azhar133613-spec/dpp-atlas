@@ -60,7 +60,6 @@ export function Header({ loc, path, current }: { loc: "en" | "bn"; path: string;
           <a className="dl-logo" href={"/" + loc}><i aria-hidden="true" />DPP Atlas</a>
           <nav className="dl-links" aria-label="Main">
             <a className="dl-hide" href={"/" + loc + "/rules"} aria-current={current === "rules" ? "page" : undefined}>{t.rules}</a>
-            <a className="dl-hide" href={"/" + loc + "/verify"}>{t.lookup}</a>
                         <a className="dl-lang" href={"/" + other + path} lang={other} hrefLang={other}>{t.lang}</a>
             <a className="dl-btn dl-btn-p" href={"/" + loc + "/check"} aria-current={current === "check" ? "page" : undefined}>{t.check}</a>
           </nav>
@@ -79,10 +78,6 @@ export function Footer({ loc }: { loc: "en" | "bn" }) {
         <nav aria-label="Footer">
           <a href={"/" + loc + "/check"}>{t.check}</a>
           <a href={"/" + loc + "/rules"}>{t.rules}</a>
-          <span>{t.earlier}:</span>
-          <a href={"/" + loc + "/verify"}>{t.lookup}</a>
-          <a href={"/" + loc + "/assess"}>{t.scored}</a>
-          <a href={"/" + loc + "/login"}>{t.login}</a>
         </nav>
       </div>
     </footer>

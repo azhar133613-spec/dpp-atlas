@@ -258,7 +258,6 @@ export default function Landing({ params }: P) {
           <a className="dl-logo" href={"/" + loc}><i aria-hidden="true" />DPP Atlas</a>
           <nav className="dl-links" aria-label="Main">
             <a className="dl-hide" href={"/" + loc + "/rules"}>{t.nav.rules}</a>
-            <a className="dl-hide" href={"/" + loc + "/verify"}>{t.nav.lookup}</a>
                         <a className="dl-lang" href={isBn ? "/en" : "/bn"} lang={isBn ? "en" : "bn"} hrefLang={isBn ? "en" : "bn"}>{t.nav.lang}</a>
             <a className="dl-btn dl-btn-p" href={"/" + loc + "/check"}>{t.nav.check}</a>
           </nav>
@@ -356,10 +355,6 @@ export default function Landing({ params }: P) {
           <nav aria-label="Footer">
             <a href={"/" + loc + "/check"}>{t.nav.check}</a>
             <a href={"/" + loc + "/rules"}>{t.nav.rules}</a>
-            <span>{t.earlier}:</span>
-            <a href={"/" + loc + "/verify"}>{t.nav.lookup}</a>
-            <a href={"/" + loc + "/assess"}>{t.scored}</a>
-            <a href={"/" + loc + "/login"}>{t.nav.login}</a>
           </nav>
         </div>
       </footer>
