@@ -1,0 +1,42 @@
+name: Watch sources
+on:
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Load saved state
+        run: |
+          if git ls-remote --exit-code --heads origin watch-state >/dev/null 2>&1; then
+            git fetch origin watch-state
+            git show origin/watch-state:state.json > watch/state.json || echo '{}' > watch/state.json
+          else
+            echo '{}' > watch/state.json
+          fi
+      - name: Check sources
+        run: node watch/check.mjs
+      - name: Open an issue if something changed
+        run: |
+          if [ -f watch/report.md ]; then
+            gh label create source-change --color FBCA04 --description "A watched source changed" 2>/dev/null || true
+            gh issue create --title "Source check: $(date -u +%F)" --label source-change --body-file watch/report.md
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Save state to the watch-state branch
+        run: |
+          git config user.name "dpp-atlas-watcher"
+          git config user.email "actions@users.noreply.github.com"
+          mkdir -p /tmp/ws && cp watch/state.json /tmp/ws/state.json
+          git checkout --orphan watch-state
+          git rm -rf . >/dev/null 2>&1 || true
+          cp /tmp/ws/state.json state.json
+          git add state.json
+          git commit -m "Update watcher state"
+          git push --force origin watch-state

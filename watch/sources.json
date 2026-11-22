@@ -1,0 +1,10 @@
+[
+  {"id":"dpp-textile-page","name":"EU Commission: DPP textile and apparel page","url":"https://single-market-economy.ec.europa.eu/single-market/digital-product-passport/textile-apparel_en","why":"Says whether the textile delegated act is adopted. Our Rules and Updates pages depend on it."},
+  {"id":"dpp-registry-news","name":"EU Commission: DPP Registry launch news","url":"https://single-market-economy.ec.europa.eu/news/digital-product-passport-registry-now-live-2026-07-20_en","why":"Registry duties and deadlines."},
+  {"id":"destruction-ban-news","name":"EU Commission: ban on destroying unsold clothes","url":"https://environment.ec.europa.eu/news/ban-destruction-unsold-clothes-and-shoes-enters-application-2026-07-17_en","why":"Applies to large companies from 19 Jul 2026."},
+  {"id":"espr-2024-1781","name":"EUR-Lex: ESPR Regulation (EU) 2024/1781","url":"https://eur-lex.europa.eu/eli/reg/2024/1781/oj","why":"Base law for the DPP. EUR-Lex may block automated requests."},
+  {"id":"epr-2025-1892","name":"EUR-Lex: Directive (EU) 2025/1892 (textile EPR)","url":"https://eur-lex.europa.eu/eli/dir/2025/1892/oj","why":"Textile producer responsibility. EUR-Lex may block automated requests."},
+  {"id":"forced-labour-2024-3015","name":"EUR-Lex: Forced Labour Regulation (EU) 2024/3015","url":"https://eur-lex.europa.eu/eli/reg/2024/3015/oj","why":"Applies from 14 Dec 2027. EUR-Lex may block automated requests."},
+  {"id":"decision-2026-1736","name":"EUR-Lex: Decision (EU) 2026/1736","url":"https://eur-lex.europa.eu/eli/dec_impl/2026/1736/oj","why":"Listed on our Rules page as limited review."},
+  {"id":"reg-2026-1778","name":"EUR-Lex: Regulation (EU) 2026/1778","url":"https://eur-lex.europa.eu/eli/reg_impl/2026/1778/oj","why":"Not yet reviewed by us. A change here means read it."}
+]
