@@ -14,5 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: base + "/bn/updates", lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     { url: base + "/en/privacy", lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: base + "/bn/privacy", lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: base + "/en/about", lastModified: now, changeFrequency: "monthly", priority: 0.4 },
+    { url: base + "/bn/about", lastModified: now, changeFrequency: "monthly", priority: 0.4 },
   ];
 }

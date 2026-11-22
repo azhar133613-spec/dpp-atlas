@@ -45,11 +45,11 @@ font-family:'Hind Siliguri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif
 `;
 
 const L = {
-  en: { skip: "Skip to content", rules: "Rules and standards", updates: "Updates", privacy: "Privacy", lookup: "Report lookup", login: "Log in", check: "Data Check", lang: "বাংলা", foot: "DPP Atlas. Content last reviewed November 2026.", earlier: "Earlier tools", scored: "Scored self-check (old)" },
-  bn: { skip: "মূল অংশে যান", rules: "নিয়ম ও স্ট্যান্ডার্ড", updates: "আপডেট", privacy: "গোপনীয়তা", lookup: "রিপোর্ট খুঁজুন", login: "লগ ইন", check: "ডেটা চেক", lang: "English", foot: "DPP Atlas। বিষয়বস্তু সর্বশেষ পর্যালোচনা: নভেম্বর ২০২৬।", earlier: "আগের টুল", scored: "স্কোরসহ সেলফ-চেক (পুরোনো)" },
+  en: { skip: "Skip to content", rules: "Rules and standards", updates: "Updates", privacy: "Privacy", about: "About", lookup: "Report lookup", login: "Log in", check: "Data Check", lang: "বাংলা", foot: "DPP Atlas. Content last reviewed November 2026.", earlier: "Earlier tools", scored: "Scored self-check (old)" },
+  bn: { skip: "মূল অংশে যান", rules: "নিয়ম ও স্ট্যান্ডার্ড", updates: "আপডেট", privacy: "গোপনীয়তা", about: "আমাদের সম্পর্কে", lookup: "রিপোর্ট খুঁজুন", login: "লগ ইন", check: "ডেটা চেক", lang: "English", foot: "DPP Atlas। বিষয়বস্তু সর্বশেষ পর্যালোচনা: নভেম্বর ২০২৬।", earlier: "আগের টুল", scored: "স্কোরসহ সেলফ-চেক (পুরোনো)" },
 };
 
-export function Header({ loc, path, current }: { loc: "en" | "bn"; path: string; current: "check" | "rules" | "updates" | "privacy" }) {
+export function Header({ loc, path, current }: { loc: "en" | "bn"; path: string; current: "check" | "rules" | "updates" | "privacy" | "about" }) {
   const t = L[loc];
   const other = loc === "bn" ? "en" : "bn";
   return (
@@ -81,6 +81,7 @@ export function Footer({ loc }: { loc: "en" | "bn" }) {
           <a href={"/" + loc + "/rules"}>{t.rules}</a>
           <a href={"/" + loc + "/updates"}>{t.updates}</a>
           <a href={"/" + loc + "/privacy"}>{t.privacy}</a>
+          <a href={"/" + loc + "/about"}>{t.about}</a>
         </nav>
       </div>
     </footer>

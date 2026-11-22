@@ -361,6 +361,7 @@ export default function Landing({ params }: P) {
             <a href={"/" + loc + "/rules"}>{t.nav.rules}</a>
             <a href={"/" + loc + "/updates"}>{isBn ? "আপডেট" : "Updates"}</a>
             <a href={"/" + loc + "/privacy"}>{isBn ? "গোপনীয়তা" : "Privacy"}</a>
+            <a href={"/" + loc + "/about"}>{isBn ? "আমাদের সম্পর্কে" : "About"}</a>
           </nav>
         </div>
       </footer>
