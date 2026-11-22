@@ -31,6 +31,7 @@ async function main() {
   const changed = [], failing = [], baseline = [];
 
   for (const s of sources) {
+    if (s.manual) continue; // blocked for scripts: checked by hand, see MANUAL.md
     const prev = state[s.id] || { fails: 0 };
     try {
       const res = await fetch(s.url, { headers: { "User-Agent": UA, "Accept": "text/html" }, redirect: "follow", signal: AbortSignal.timeout(30000) });
