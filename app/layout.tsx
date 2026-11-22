@@ -1,8 +1,13 @@
 
 import type { Metadata } from "next";
 import "./globals.css";
+import { PwaRegister } from "./[locale]/_ui/Pwa";
+
+export const viewport = { themeColor: "#0f766e" };
 
 export const metadata: Metadata = {
+  manifest: "/manifest.webmanifest",
+  icons: { icon: "/icon-192.png", apple: "/apple-touch-icon.png" },
   title: {
     default: "DPP Atlas — Textile DPP data check for Bangladesh factories",
     template: "%s | DPP Atlas"
@@ -34,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
-      <body style={{margin:0, padding:0}}>{children}</body>
+      <body style={{margin:0, padding:0}}>{children}<PwaRegister /></body>
     </html>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FIELDS } from "./check/fields";
+import PhoneSection from "./_ui/PhoneSection";
 
 type P = { params: { locale: string } };
 
@@ -258,6 +259,7 @@ export default function Landing({ params }: P) {
           <a className="dl-logo" href={"/" + loc}><i aria-hidden="true" />DPP Atlas</a>
           <nav className="dl-links" aria-label="Main">
             <a className="dl-hide" href={"/" + loc + "/rules"}>{t.nav.rules}</a>
+            <a className="dl-hide" href={"/" + loc + "/updates"}>{isBn ? "আপডেট" : "Updates"}</a>
                         <a className="dl-lang" href={isBn ? "/en" : "/bn"} lang={isBn ? "en" : "bn"} hrefLang={isBn ? "en" : "bn"}>{t.nav.lang}</a>
             <a className="dl-btn dl-btn-p" href={"/" + loc + "/check"}>{t.nav.check}</a>
           </nav>
@@ -340,6 +342,8 @@ export default function Landing({ params }: P) {
           </div>
         </section>
 
+        <PhoneSection loc={loc} />
+
         <section className="dl-end">
           <div className="dl-wrap">
             <h2>{t.endH}</h2>
@@ -355,6 +359,8 @@ export default function Landing({ params }: P) {
           <nav aria-label="Footer">
             <a href={"/" + loc + "/check"}>{t.nav.check}</a>
             <a href={"/" + loc + "/rules"}>{t.nav.rules}</a>
+            <a href={"/" + loc + "/updates"}>{isBn ? "আপডেট" : "Updates"}</a>
+            <a href={"/" + loc + "/privacy"}>{isBn ? "গোপনীয়তা" : "Privacy"}</a>
           </nav>
         </div>
       </footer>
