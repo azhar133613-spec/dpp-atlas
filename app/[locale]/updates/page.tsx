@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BASE_CSS, Header, Footer } from "../_ui/chrome";
+import { FEEDS, getFeed } from "./feed";
 
 export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
   return params.locale === "bn"
@@ -58,11 +59,18 @@ const CSS = `
 .up-date{color:#0f766e;font-weight:600;font-size:.9rem;margin-bottom:2px}
 .up-card p{color:#334155;font-size:.97rem;margin:6px 0 8px}
 .up-src a{color:#0f766e;font-size:.9rem}
+.up-auto{margin-top:20px;border:1px dashed #94a3b8;border-radius:12px;padding:14px 18px;background:#f8fafc}
+.up-auto h2{font-size:1.05rem;margin:0 0 4px}
+.up-auto ul{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:10px}
+.up-auto li{font-size:.97rem}
+.up-auto small{display:block;color:#475569}
 `;
 
-export default function UpdatesPage({ params }: { params: { locale: string } }) {
+export default async function UpdatesPage({ params }: { params: { locale: string } }) {
   const loc: "en" | "bn" = params.locale === "bn" ? "bn" : "en";
   const bn = loc === "bn";
+  const feed = await getFeed();
+  const fmt = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString(bn ? "bn-BD" : "en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }) : "");
   return (
     <div className="dl" lang={loc}>
       <style dangerouslySetInnerHTML={{ __html: BASE_CSS + CSS }} />
@@ -72,10 +80,34 @@ export default function UpdatesPage({ params }: { params: { locale: string } }) 
           <h1>{bn ? "আপডেট" : "Updates"}</h1>
           <p className="dl-lead">
             {bn
-              ? "টেক্সটাইল DPP-সংক্রান্ত ইইউ নিয়মের পরিবর্তন, প্রতিটির সাথে অফিসিয়াল উৎসের লিংক। সর্বশেষ যাচাই: ২২ নভেম্বর ২০২৬। এই পাতা হাতে হালনাগাদ করা হয়; সিদ্ধান্ত নেওয়ার আগে লিংক খুলে মূল উৎস দেখুন।"
-              : "Changes in EU rules relevant to textile DPP, each with a link to the official source. Last checked 22 November 2026. This page is updated by hand; open the source link before you rely on anything."}
+              ? "টেক্সটাইল DPP-সংক্রান্ত ইইউ নিয়মের পরিবর্তন, প্রতিটির সাথে অফিসিয়াল উৎসের লিংক। সর্বশেষ যাচাই: ২২ নভেম্বর ২০২৬। নিচের স্বয়ংক্রিয় তালিকা নিজে নিজে হালনাগাদ হয়; তার পরের নোটগুলো হাতে যাচাই করা। সিদ্ধান্ত নেওয়ার আগে লিংক খুলে মূল উৎস দেখুন।"
+              : "Changes in EU rules relevant to textile DPP, each with a link to the official source. Last checked 22 November 2026. The automatic list below updates by itself; the notes after it are checked by hand. Open the source link before you rely on anything."}
           </p>
           <p className="dl-warn">{bn ? "আইনি পরামর্শ নয়।" : "Not legal advice."}</p>
+          <section className="up-auto" aria-labelledby="up-auto-h">
+            <h2 id="up-auto-h">{bn ? "অফিসিয়াল উৎস থেকে সর্বশেষ (স্বয়ংক্রিয়)" : "Latest from the official source (automatic)"}</h2>
+            <p className="dl-warn" style={{ margin: 0 }}>
+              {bn
+                ? "এই তালিকা নিজে নিজে হালনাগাদ হয় এবং আমরা পড়ে যাচাই করিনি। শিরোনাম ইংরেজিতেই থাকে, উৎসের হুবহু। কোনো কিছুর ওপর নির্ভর করার আগে লিংক খুলে পড়ুন।"
+                : "This list updates by itself and has not been reviewed by us. Titles are copied exactly from the source, in English. Open the link and read it before you rely on anything."}
+            </p>
+            {feed.length ? (
+              <ul>
+                {feed.map((it) => (
+                  <li key={it.link}>
+                    <a href={it.link} target="_blank" rel="noopener noreferrer">{it.title}</a>
+                    <small>{fmt(it.date)}{it.date ? " · " : ""}{FEEDS[0].name}</small>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>
+                {bn ? "এই মুহূর্তে তালিকা আনা যায়নি। সরাসরি দেখুন: " : "The list could not be loaded right now. Read it directly: "}
+                <a href={FEEDS[0].page} target="_blank" rel="noopener noreferrer">{FEEDS[0].name}</a>
+              </p>
+            )}
+          </section>
+          <h2 style={{ fontSize: "1.2rem", marginTop: 28 }}>{bn ? "আমাদের যাচাই করা নোট" : "Notes we checked by hand"}</h2>
           <div className="up-list">
             {ITEMS.map((it) => (
               <article key={it.title} className="up-card">
