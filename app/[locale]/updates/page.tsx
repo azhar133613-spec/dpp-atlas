@@ -69,7 +69,7 @@ const CSS = `
 export default async function UpdatesPage({ params }: { params: { locale: string } }) {
   const loc: "en" | "bn" = params.locale === "bn" ? "bn" : "en";
   const bn = loc === "bn";
-  const feed = await getFeed();
+  const { items: feed, error: feedError } = await getFeed();
   const fmt = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString(bn ? "bn-BD" : "en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }) : "");
   return (
     <div className="dl" lang={loc}>
@@ -105,6 +105,9 @@ export default async function UpdatesPage({ params }: { params: { locale: string
                 {bn ? "এই মুহূর্তে তালিকা আনা যায়নি। সরাসরি দেখুন: " : "The list could not be loaded right now. Read it directly: "}
                 <a href={FEEDS[0].page} target="_blank" rel="noopener noreferrer">{FEEDS[0].name}</a>
               </p>
+            )}
+            {!feed.length && feedError && (
+              <small style={{ color: "#475569" }}>{bn ? "কারণ (কারিগরি): " : "Reason (technical): "}{feedError}</small>
             )}
           </section>
           <h2 style={{ fontSize: "1.2rem", marginTop: 28 }}>{bn ? "আমাদের যাচাই করা নোট" : "Notes we checked by hand"}</h2>

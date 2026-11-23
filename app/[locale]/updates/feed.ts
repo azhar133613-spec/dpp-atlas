@@ -40,16 +40,46 @@ export function parseFeed(xml: string): FeedItem[] {
   return out.slice(0, 8);
 }
 
-export async function getFeed(): Promise<FeedItem[]> {
-  try {
-    const res = await fetch(FEEDS[0].url, {
-      headers: { "User-Agent": "DPP-Atlas/1.0 (student project; https://dpp-atlas.vercel.app)", Accept: "application/rss+xml, application/xml, text/xml" },
-      next: { revalidate: 21600 },
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!res.ok) return [];
-    return parseFeed(await res.text());
-  } catch {
-    return [];
+// Fallback: read the news listing page. Every item link ends in -YYYY-MM-DD_en, so the date comes from the link itself.
+export function parseListing(html: string, base: string): FeedItem[] {
+  const seen = new Set<string>();
+  const out: FeedItem[] = [];
+  const re = /<a\s[^>]*href="([^"]*\/news\/[^"#?]*?(\d{4}-\d{2}-\d{2})_en)"[^>]*>([\s\S]*?)<\/a>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html))) {
+    let link = "";
+    try { const u = new URL(decode(m[1]), base); if (u.protocol === "https:" && (u.hostname === "europa.eu" || u.hostname.endsWith(".europa.eu"))) link = u.toString(); } catch { /* ignore */ }
+    const title = decode(m[3]);
+    if (!link || title.length < 8 || seen.has(link)) continue;
+    seen.add(link);
+    out.push({ title, link, date: m[2] + "T00:00:00.000Z" });
   }
+  out.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  return out.slice(0, 8);
+}
+
+async function grab(url: string, accept: string): Promise<string> {
+  const res = await fetch(url, {
+    headers: { "User-Agent": "Mozilla/5.0 (compatible; DPP-Atlas/1.0; student project; +https://dpp-atlas.vercel.app)", Accept: accept },
+    next: { revalidate: 21600 },
+    signal: AbortSignal.timeout(8000),
+  });
+  if (!res.ok) throw new Error("HTTP " + res.status);
+  return res.text();
+}
+
+export async function getFeed(): Promise<{ items: FeedItem[]; error: string }> {
+  const errs: string[] = [];
+  try {
+    const items = parseFeed(await grab(FEEDS[0].url, "application/rss+xml, application/xml, text/xml"));
+    if (items.length) return { items, error: "" };
+    errs.push("feed: no items found");
+  } catch (e) { errs.push("feed: " + String((e as Error).message || e)); }
+  try {
+    const items = parseListing(await grab(FEEDS[0].page, "text/html"), FEEDS[0].page);
+    if (items.length) return { items, error: "" };
+    errs.push("page: no items found");
+  } catch (e) { errs.push("page: " + String((e as Error).message || e)); }
+  console.error("DPP updates feed failed:", errs.join(" | "));
+  return { items: [], error: errs.join(" | ") };
 }
