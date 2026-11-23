@@ -70,7 +70,7 @@ export default async function UpdatesPage({ params }: { params: { locale: string
   const loc: "en" | "bn" = params.locale === "bn" ? "bn" : "en";
   const bn = loc === "bn";
   const { items: feed, error: feedError } = await getFeed();
-  const fmt = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString(bn ? "bn-BD" : "en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }) : "");
+  const fmt = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString(bn ? "bn-BD" : "en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Brussels" }) : "");
   return (
     <div className="dl" lang={loc}>
       <style dangerouslySetInnerHTML={{ __html: BASE_CSS + CSS }} />
@@ -88,8 +88,8 @@ export default async function UpdatesPage({ params }: { params: { locale: string
             <h2 id="up-auto-h">{bn ? "অফিসিয়াল উৎস থেকে সর্বশেষ (স্বয়ংক্রিয়)" : "Latest from the official source (automatic)"}</h2>
             <p className="dl-warn" style={{ margin: 0 }}>
               {bn
-                ? "এই তালিকা নিজে নিজে হালনাগাদ হয় এবং আমরা পড়ে যাচাই করিনি। শিরোনাম ইংরেজিতেই থাকে, উৎসের হুবহু। কোনো কিছুর ওপর নির্ভর করার আগে লিংক খুলে পড়ুন।"
-                : "This list updates by itself and has not been reviewed by us. Titles are copied exactly from the source, in English. Open the link and read it before you rely on anything."}
+                ? "এই তালিকা নিজে নিজে হালনাগাদ হয় এবং আমরা পড়ে যাচাই করিনি। শুধু সেই খবর দেখানো হয় যার শিরোনামে DPP, ইকোডিজাইন, টেক্সটাইল, পোশাক বা জুতার উল্লেখ আছে; শিরোনাম ইংরেজিতেই থাকে, উৎসের হুবহু। কোনো কিছুর ওপর নির্ভর করার আগে লিংক খুলে পড়ুন।"
+                : "This list updates by itself and has not been reviewed by us. Only items whose title mentions DPP, ecodesign, textiles, clothing or footwear are shown, copied exactly from the source, in English. Open the link and read it before you rely on anything."}
             </p>
             {feed.length ? (
               <ul>
