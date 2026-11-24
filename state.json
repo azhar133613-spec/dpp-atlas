@@ -1,0 +1,42 @@
+{
+  "dpp-textile-page": {
+    "hash": "1be25969696416c6c9e480cbd33aafd0ba56446ba020ee9986bf5ad2360d17a2",
+    "fails": 0,
+    "checked": "2026-11-24T19:23:49.465Z"
+  },
+  "dpp-registry-news": {
+    "hash": "09064bfd54bec43400ec38fdd1dff6eab9688cdcdcacf04a2f316fdc4e4985f9",
+    "fails": 0,
+    "checked": "2026-11-24T19:23:49.465Z"
+  },
+  "destruction-ban-news": {
+    "hash": "b0f382f83f1686dbc01e9ac1ee15589bc92b473bab967afb46a78d2b3ede702a",
+    "fails": 0,
+    "checked": "2026-11-24T19:23:49.465Z"
+  },
+  "espr-2024-1781": {
+    "fails": 1,
+    "lastError": "page text too short (0 chars), likely blocked or empty",
+    "checked": "2026-11-22T19:15:38.816Z"
+  },
+  "epr-2025-1892": {
+    "fails": 1,
+    "lastError": "page text too short (0 chars), likely blocked or empty",
+    "checked": "2026-11-22T19:15:38.816Z"
+  },
+  "forced-labour-2024-3015": {
+    "fails": 1,
+    "lastError": "page text too short (0 chars), likely blocked or empty",
+    "checked": "2026-11-22T19:15:38.816Z"
+  },
+  "decision-2026-1736": {
+    "fails": 1,
+    "lastError": "page text too short (0 chars), likely blocked or empty",
+    "checked": "2026-11-22T19:15:38.816Z"
+  },
+  "reg-2026-1778": {
+    "fails": 1,
+    "lastError": "page text too short (0 chars), likely blocked or empty",
+    "checked": "2026-11-22T19:15:38.816Z"
+  }
+}
