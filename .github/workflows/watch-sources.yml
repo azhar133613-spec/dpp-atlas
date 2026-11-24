@@ -37,6 +37,7 @@ jobs:
           git checkout --orphan watch-state
           git rm -rf . >/dev/null 2>&1 || true
           cp /tmp/ws/state.json state.json
-          git add state.json
+          echo '{"git":{"deploymentEnabled":false}}' > vercel.json
+          git add state.json vercel.json
           git commit -m "Update watcher state"
           git push --force origin watch-state
