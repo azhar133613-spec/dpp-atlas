@@ -10,6 +10,8 @@ For one product, you mark each DPP data point as: have it, partly have it, missi
 
 Answers stay in your browser (localStorage). There are no accounts and no server-side storage.
 
+Other pages: Updates (an automatic list of DPP-related titles from the European Commission's news source, refreshed about every 6 hours, plus notes checked by hand), About (including how sources are checked), and Privacy. The site can be installed as an app (PWA) and has a QR code to the live site.
+
 ## What it is not
 
 - Not a certificate, passport, audit or legal advice. Nothing you enter is verified.
@@ -28,7 +30,11 @@ npm install
 npm run dev
 ```
 
-Pages: `/bn` and `/en` (landing), `/[locale]/check` (Data Check), `/[locale]/rules` (rules and standards).
+Pages: `/bn` and `/en` (landing), `/[locale]/check` (Data Check), `/[locale]/rules` (rules and standards), `/[locale]/updates`, `/[locale]/about`, `/[locale]/privacy`.
+
+## Source watcher
+
+A GitHub Actions workflow (`.github/workflows/watch-sources.yml`, weekly) checks the pages listed in `watch/sources.json` and opens a GitHub issue when a page's main text changes. It never edits the site. The five EUR-Lex pages block automated reads, so they must be checked by hand. Saved state lives on the `watch-state` branch.
 
 ## Status
 
