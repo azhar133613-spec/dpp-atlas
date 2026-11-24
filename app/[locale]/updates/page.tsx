@@ -12,6 +12,14 @@ type Item = { date: string; dateBn: string; title: string; titleBn: string; body
 
 const ITEMS: Item[] = [
   {
+    date: "16 November 2026", dateBn: "১৬ নভেম্বর ২০২৬",
+    title: "Technical guidance for the DPP Registry published", titleBn: "DPP রেজিস্ট্রির প্রযুক্তিগত নির্দেশিকা প্রকাশিত",
+    body: "The Commission announced a set of technical documentation to help organisations prepare their systems for the DPP Registry. We have read only the announcement on the Commission’s DPP page, not the documents themselves. The same page says textiles are expected to follow later: delegated acts for textiles are planned for Q3–Q4 2027 (indicative), and operators will then have a transition period of at least 18 months.",
+    bodyBn: "কমিশন DPP রেজিস্ট্রির জন্য সিস্টেম প্রস্তুত করতে সহায়ক একগুচ্ছ প্রযুক্তিগত নথির ঘোষণা দিয়েছে। আমরা শুধু কমিশনের DPP পাতার ঘোষণাটি পড়েছি, নথিগুলো নিজে পড়িনি। একই পাতায় বলা আছে টেক্সটাইল পরে আসবে: টেক্সটাইলের ডেলিগেটেড অ্যাক্ট ২০২৭ সালের তৃতীয়–চতুর্থ প্রান্তিকে পরিকল্পিত (ইঙ্গিতমূলক), এবং তারপর অপারেটরদের অন্তত ১৮ মাসের উত্তরণকাল থাকবে।",
+    src: "European Commission, DPP page", srcBn: "ইউরোপীয় কমিশন, DPP পাতা",
+    href: "https://single-market-economy.ec.europa.eu/single-market/digital-product-passport_en",
+  },
+  {
     date: "20 July 2026", dateBn: "২০ জুলাই ২০২৬",
     title: "EU DPP Registry launched", titleBn: "ইইউ DPP রেজিস্ট্রি চালু",
     body: "The Commission launched the DPP Registry. Economic operators must register each passport. The first implementation deadline given is 18 February 2027. Textiles are named as a covered product group, but the page describes no textile-specific duty.",
