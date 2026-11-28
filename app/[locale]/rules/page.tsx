@@ -31,10 +31,10 @@ const ROWS: Row[] = [
   { name: "Forced Labour Regulation (EU) 2024/3015", type: "EU law", typeBn: "ইইউ আইন", what: "Bans products made with forced labour on the EU market. Applies from 14 December 2027. General, not textile-specific.", source: "European Parliament Legislative Observatory", whatBn: "জোরপূর্বক শ্রমে তৈরি পণ্য ইইউ বাজারে নিষিদ্ধ। ১৪ ডিসেম্বর ২০২৭ থেকে প্রযোজ্য। এটি সাধারণ নিয়ম, শুধু টেক্সটাইলের জন্য নয়।", sourceBn: "ইউরোপীয় পার্লামেন্টের Legislative Observatory", status: "checked" },
   { name: "EU Ecolabel for textiles (Decision 2014/350/EU)", type: "Voluntary scheme", typeBn: "ঐচ্ছিক স্কিম", what: "Ecological criteria including restricted substances, dimensional stability and colour fastness.", source: "JRC draft", whatBn: "নিষিদ্ধ বা সীমিত পদার্থ, মাত্রিক স্থিতিশীলতা ও রঙের স্থায়িত্বসহ পরিবেশগত মানদণ্ড।", sourceBn: "JRC খসড়া", status: "checked" },
   { name: "French AGEC law 2020-105; Finnish sorting rules", type: "National law", typeBn: "জাতীয় আইন", what: "Eco-score (voluntary unless environmental claims are made) and Triman sorting instructions in France; sorting instructions in Finland.", source: "JRC draft", whatBn: "ফ্রান্সে ইকো-স্কোর (পরিবেশগত দাবি না করলে ঐচ্ছিক) ও Triman বাছাই-নির্দেশনা; ফিনল্যান্ডে বাছাই-নির্দেশনা।", sourceBn: "JRC খসড়া", status: "checked" },
-  { name: "GS1 GTIN / GLN; ISO/IEC 15459-6; prEN 18219", type: "Identifier standards", typeBn: "আইডি স্ট্যান্ডার্ড", what: "Product, batch and item identifiers (GTIN plus lot or serial) and facility identifiers (GLN) used in the DPP data model.", source: "JRC draft", whatBn: "ডিপিপি ডেটা মডেলে ব্যবহৃত পণ্য, ব্যাচ ও আইটেম আইডি (GTIN সাথে লট বা সিরিয়াল) এবং স্থাপনার আইডি (GLN)।", sourceBn: "JRC খসড়া", status: "checked" },
+  { name: "GS1 GTIN / GLN; ISO/IEC 15459-6; prEN 18219", type: "Identifier standards", typeBn: "আইডি স্ট্যান্ডার্ড", what: "Product, batch and item identifiers (GTIN plus lot or serial) and facility identifiers (GLN) used in the DPP data model. ISO/IEC 15459-6:2007 is shown as withdrawn on ISO’s page; a 2014 edition exists but we did not open its page.", source: "JRC draft", whatBn: "ডিপিপি ডেটা মডেলে ব্যবহৃত পণ্য, ব্যাচ ও আইটেম আইডি (GTIN সাথে লট বা সিরিয়াল) এবং স্থাপনার আইডি (GLN)। ISO/IEC 15459-6:2007 ISO-র পাতায় প্রত্যাহৃত দেখানো আছে; ২০১৪ সালের সংস্করণ আছে, তবে তার পাতা আমরা খুলিনি।", sourceBn: "JRC খসড়া", status: "checked" },
   { name: "ISO 3759, ISO 16322-3, ISO 15487", type: "Test methods (not laws)", typeBn: "টেস্ট পদ্ধতি (আইন নয়)", what: "Dimensional change, spirality and visual inspection. The JRC draft treats results as robustness data.", source: "JRC draft", whatBn: "মাত্রিক পরিবর্তন, স্পাইরালিটি ও দৃশ্যমান পরিদর্শন। JRC খসড়া ফলাফলগুলোকে মজবুতির (robustness) তথ্য হিসেবে দেখে।", sourceBn: "JRC খসড়া", status: "checked" },
-  { name: "ISO 21600:2019", type: "Standard", typeBn: "স্ট্যান্ডার্ড", what: "Referenced for the care-instructions data point.", source: "JRC draft, Table 7", whatBn: "যত্ন-নির্দেশনার ডেটা পয়েন্টে উল্লেখ করা হয়েছে।", sourceBn: "JRC খসড়া, টেবিল ৭", status: "checked" },
-  { name: "ISO 14021:2016, ISO 14024, ISO 22059:2020", type: "Standards", typeBn: "স্ট্যান্ডার্ড", what: "Self-declared environmental claims and recycled-content definitions; Type I ecolabels; commercial guarantee duration.", source: "JRC draft", whatBn: "স্ব-ঘোষিত পরিবেশগত দাবি ও রিসাইকেলড-উপাদানের সংজ্ঞা; টাইপ I ইকোলেবেল; বাণিজ্যিক গ্যারান্টির মেয়াদ।", sourceBn: "JRC খসড়া", status: "checked" },
+  { name: "ISO 21600:2019", type: "Standard", typeBn: "স্ট্যান্ডার্ড", what: "Referenced for the care-instructions data point. We could not find a standard with this number on iso.org, so the number may be a mistake in the source. The care-labelling code standard we did find is ISO 3758:2023 (linked below).", source: "JRC draft, Table 7", whatBn: "যত্ন-নির্দেশনার ডেটা পয়েন্টে উল্লেখ করা হয়েছে। iso.org-এ এই নম্বরের কোনো স্ট্যান্ডার্ড আমরা খুঁজে পাইনি; তাই নম্বরটি উৎসে ভুল থাকতে পারে। যত্ন-লেবেল কোডের যে স্ট্যান্ডার্ড পেয়েছি তা ISO 3758:2023 (নিচে লিংক)।", sourceBn: "JRC খসড়া, টেবিল ৭", status: "checked" },
+  { name: "ISO 14021:2016, ISO 14024, ISO 22059:2020", type: "Standards", typeBn: "স্ট্যান্ডার্ড", what: "Self-declared environmental claims and recycled-content definitions; Type I ecolabels; commercial guarantee duration. ISO has published ISO 14021:2026 and lists ISO 14024:2018 as withdrawn (replaced by a 2026 edition), so the editions named in the draft may be out of date.", source: "JRC draft", whatBn: "স্ব-ঘোষিত পরিবেশগত দাবি ও রিসাইকেলড-উপাদানের সংজ্ঞা; টাইপ I ইকোলেবেল; বাণিজ্যিক গ্যারান্টির মেয়াদ। ISO ISO 14021:2026 প্রকাশ করেছে এবং ISO 14024:2018 প্রত্যাহৃত (২০২৬ সংস্করণ দ্বারা প্রতিস্থাপিত) দেখাচ্ছে; তাই খসড়ায় উল্লেখিত সংস্করণ পুরনো হতে পারে।", sourceBn: "JRC খসড়া", status: "checked" },
   { name: "PEFCR for Apparel and Footwear", type: "Footprint method", typeBn: "ফুটপ্রিন্ট পদ্ধতি", what: "Product environmental footprint rules. The draft says footprint data is rare and usually calculated at model level.", source: "JRC draft", whatBn: "পণ্যের পরিবেশগত ফুটপ্রিন্টের নিয়ম। খসড়া বলছে ফুটপ্রিন্ট ডেটা বিরল এবং সাধারণত মডেল পর্যায়ে হিসাব করা হয়।", sourceBn: "JRC খসড়া", status: "checked" },
   { name: "OEKO-TEX Standard 100", type: "Voluntary certification", typeBn: "ঐচ্ছিক সনদ", what: "Cited as the most common chemical verification. Pass or fail only.", source: "JRC draft", whatBn: "সবচেয়ে প্রচলিত রাসায়নিক যাচাই হিসেবে উল্লেখিত। শুধু পাস বা ফেল।", sourceBn: "JRC খসড়া", status: "checked" },
   { name: "GOTS, GRS, RCS, OCS, BCI", type: "Voluntary schemes", typeBn: "ঐচ্ছিক স্কিম", what: "Organic, recycled and sustainable-cotton chain-of-custody schemes. GOTS, GRS, RCS and BCI are named in the draft; OCS appears in its abbreviations.", source: "JRC draft", whatBn: "জৈব, রিসাইকেলড ও টেকসই-তুলার চেইন-অব-কাস্টডি স্কিম। খসড়ায় GOTS, GRS, RCS ও BCI নাম ধরে আছে; OCS শুধু সংক্ষিপ্ত রূপের তালিকায়।", sourceBn: "JRC খসড়া", status: "checked" },
@@ -43,6 +43,255 @@ const ROWS: Row[] = [
   { name: "EU ban on destroying unsold clothes, clothing accessories and footwear (ESPR)", type: "EU law", typeBn: "ইইউ আইন", what: "Applies to large companies from 19 July 2026; medium-sized companies follow from 2030. Destruction is allowed only in limited cases such as unsafe, damaged or counterfeit items. Companies relying on an exemption must keep proof, publish annual reports and keep records for five years. Mainly a brand and retailer duty. The page read does not give the article number.", source: "European Commission, environment news, 17 July 2026", whatBn: "বড় কোম্পানির জন্য ১৯ জুলাই ২০২৬ থেকে কার্যকর; মাঝারি কোম্পানির জন্য ২০৩০ থেকে। ধ্বংস শুধু সীমিত ক্ষেত্রে অনুমোদিত, যেমন অনিরাপদ, ক্ষতিগ্রস্ত বা জাল পণ্য। ছাড়ের ওপর নির্ভর করলে প্রমাণ রাখতে হবে, বার্ষিক রিপোর্ট প্রকাশ করতে হবে এবং পাঁচ বছর নথি রাখতে হবে। মূলত ব্র্যান্ড ও খুচরা বিক্রেতার দায়িত্ব। পড়া পাতায় ধারার নম্বর দেওয়া নেই।", sourceBn: "ইউরোপীয় কমিশন, পরিবেশ সংবাদ, ১৭ জুলাই ২০২৬", status: "checked" },
   { name: "Bangladesh national rules", type: "National law", typeBn: "জাতীয় আইন", what: "Export registration, tax and labour or safety rules were not checked. Ask BGMEA or a legal adviser.", source: "Not checked", whatBn: "রপ্তানি নিবন্ধন, কর এবং শ্রম বা নিরাপত্তা নিয়ম যাচাই করা হয়নি। BGMEA বা আইনজীবীকে জিজ্ঞেস করুন।", sourceBn: "যাচাই করা হয়নি", status: "unverified" },
 ];
+
+type Link = { href: string; label: string; labelBn: string };
+const LINKS: Record<string, Link[]> = {
+ "EU ESPR": [
+  {
+   "href": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj",
+   "label": "EUR-Lex: official text",
+   "labelBn": "EUR-Lex: অফিসিয়াল পাঠ"
+  },
+  {
+   "href": "https://single-market-economy.ec.europa.eu/single-market/digital-product-passport/textile-apparel_en",
+   "label": "European Commission: textile and apparel DPP",
+   "labelBn": "ইউরোপীয় কমিশন: টেক্সটাইল ও অ্যাপারেল DPP"
+  }
+ ],
+ "JRC study": [
+  {
+   "href": "https://single-market-economy.ec.europa.eu/single-market/digital-product-passport/textile-apparel_en",
+   "label": "European Commission: textile and apparel DPP (links to the JRC study)",
+   "labelBn": "ইউরোপীয় কমিশন: টেক্সটাইল ও অ্যাপারেল DPP (JRC স্টাডির লিংকসহ)"
+  }
+ ],
+ "ESPR Article 13": [
+  {
+   "href": "https://eur-lex.europa.eu/eli/reg_impl/2026/1778/oj",
+   "label": "EUR-Lex: Regulation 2026/1778",
+   "labelBn": "EUR-Lex: রেগুলেশন 2026/1778"
+  },
+  {
+   "href": "https://single-market-economy.ec.europa.eu/news/digital-product-passport-registry-now-live-2026-07-20_en",
+   "label": "European Commission: registry now live (20 July 2026)",
+   "labelBn": "ইউরোপীয় কমিশন: রেজিস্ট্রি চালু (২০ জুলাই ২০২৬)"
+  }
+ ],
+ "Commission Implementing Decision": [
+  {
+   "href": "https://eur-lex.europa.eu/eli/dec_impl/2026/1736/oj",
+   "label": "EUR-Lex: Decision 2026/1736",
+   "labelBn": "EUR-Lex: সিদ্ধান্ত 2026/1736"
+  }
+ ],
+ "Textile Labelling": [
+  {
+   "href": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007",
+   "label": "EUR-Lex: official text",
+   "labelBn": "EUR-Lex: অফিসিয়াল পাঠ"
+  }
+ ],
+ "REACH": [
+  {
+   "href": "https://environment.ec.europa.eu/Topics/Chemicals/REACH-Regulation_en",
+   "label": "European Commission: REACH Regulation",
+   "labelBn": "ইউরোপীয় কমিশন: REACH রেগুলেশন"
+  },
+  {
+   "href": "https://single-market-economy.ec.europa.eu/sectors/chemicals/reach/reach-explained_en",
+   "label": "European Commission: REACH explained",
+   "labelBn": "ইউরোপীয় কমিশন: REACH ব্যাখ্যা"
+  }
+ ],
+ "Empowering": [
+  {
+   "href": "https://eur-lex.europa.eu/eli/dir/2024/825/oj",
+   "label": "EUR-Lex: official text",
+   "labelBn": "EUR-Lex: অফিসিয়াল পাঠ"
+  }
+ ],
+ "CSRD": [
+  {
+   "href": "https://eur-lex.europa.eu/eli/dir/2022/2464",
+   "label": "EUR-Lex: CSRD",
+   "labelBn": "EUR-Lex: CSRD"
+  },
+  {
+   "href": "https://eur-lex.europa.eu/eli/dir/2024/1760/oj",
+   "label": "EUR-Lex: CSDDD",
+   "labelBn": "EUR-Lex: CSDDD"
+  }
+ ],
+ "Waste Framework": [
+  {
+   "href": "https://eur-lex.europa.eu/eli/dir/2025/1892/oj",
+   "label": "EUR-Lex: official text",
+   "labelBn": "EUR-Lex: অফিসিয়াল পাঠ"
+  }
+ ],
+ "Forced Labour": [
+  {
+   "href": "https://eur-lex.europa.eu/eli/reg/2024/3015/oj/eng",
+   "label": "EUR-Lex: official text",
+   "labelBn": "EUR-Lex: অফিসিয়াল পাঠ"
+  }
+ ],
+ "EU Ecolabel": [
+  {
+   "href": "https://eur-lex.europa.eu/eli/dec/2014/350/oj",
+   "label": "EUR-Lex: official text",
+   "labelBn": "EUR-Lex: অফিসিয়াল পাঠ"
+  }
+ ],
+ "French AGEC": [
+  {
+   "href": "https://www.ecologie.gouv.fr/info-tri",
+   "label": "French Ministry of Ecology: Info-tri (sorting)",
+   "labelBn": "ফরাসি পরিবেশ মন্ত্রণালয়: Info-tri (বাছাই)"
+  }
+ ],
+ "GS1 GTIN": [
+  {
+   "href": "https://gs1.org/standards/id-keys/gtin",
+   "label": "GS1: GTIN",
+   "labelBn": "GS1: GTIN"
+  },
+  {
+   "href": "https://GS1.org/id-keys",
+   "label": "GS1: identification keys (includes GLN)",
+   "labelBn": "GS1: আইডেন্টিফিকেশন কী (GLN সহ)"
+  },
+  {
+   "href": "https://www.iso.org/standard/44149.html",
+   "label": "ISO/IEC 15459-6:2007 page (withdrawn edition)",
+   "labelBn": "ISO/IEC 15459-6:2007 পাতা (প্রত্যাহৃত সংস্করণ)"
+  },
+  {
+   "href": "https://knowledge.bsigroup.com/products/digital-product-passport-unique-identifiers",
+   "label": "BSI: DPP unique identifiers (prEN 18219)",
+   "labelBn": "BSI: DPP ইউনিক আইডেন্টিফায়ার (prEN 18219)"
+  }
+ ],
+ "ISO 3759": [
+  {
+   "href": "https://www.iso.org/standard/57309.html",
+   "label": "ISO 3759:2011",
+   "labelBn": "ISO 3759:2011"
+  },
+  {
+   "href": "https://www.iso.org/standard/78782.html",
+   "label": "ISO 16322-3:2021",
+   "labelBn": "ISO 16322-3:2021"
+  },
+  {
+   "href": "https://www.iso.org/standard/67602.html",
+   "label": "ISO 15487:2018",
+   "labelBn": "ISO 15487:2018"
+  }
+ ],
+ "ISO 21600": [
+  {
+   "href": "https://www.iso.org/standard/74401.html",
+   "label": "ISO 3758:2023 (care labelling code, related)",
+   "labelBn": "ISO 3758:2023 (যত্ন-লেবেল কোড, সম্পর্কিত)"
+  }
+ ],
+ "ISO 14021": [
+  {
+   "href": "https://www.iso.org/standard/87608.html",
+   "label": "ISO 14021:2026",
+   "labelBn": "ISO 14021:2026"
+  },
+  {
+   "href": "https://www.iso.org/standard/72458.html",
+   "label": "ISO 14024:2018 page",
+   "labelBn": "ISO 14024:2018 পাতা"
+  },
+  {
+   "href": "https://www.iso.org/standard/72471.html",
+   "label": "ISO 22059:2020",
+   "labelBn": "ISO 22059:2020"
+  }
+ ],
+ "PEFCR": [
+  {
+   "href": "https://environment.ec.europa.eu/news/new-eu-rules-measuring-environmental-impact-clothes-and-shoes-2025-06-25_en",
+   "label": "European Commission: new PEF rules for clothes and shoes (25 June 2025)",
+   "labelBn": "ইউরোপীয় কমিশন: পোশাক ও জুতার নতুন PEF নিয়ম (২৫ জুন ২০২৫)"
+  },
+  {
+   "href": "https://transition-pathways.europa.eu/textiles/legislative-developments/eu-product-environmental-footprint-category-rules-pefcrs-apparel",
+   "label": "EU Transition Pathways: PEFCR for apparel",
+   "labelBn": "EU Transition Pathways: পোশাকের PEFCR"
+  }
+ ],
+ "OEKO-TEX": [
+  {
+   "href": "https://oeko-tex.com/en/our-standards/oeko-tex-standard-100",
+   "label": "OEKO-TEX: Standard 100",
+   "labelBn": "OEKO-TEX: Standard 100"
+  }
+ ],
+ "GOTS, GRS": [
+  {
+   "href": "https://global-standard.org/the-standard",
+   "label": "GOTS: the standard",
+   "labelBn": "GOTS: স্ট্যান্ডার্ড"
+  },
+  {
+   "href": "https://textileexchange.org/standards/",
+   "label": "Textile Exchange standards (GRS, RCS, OCS)",
+   "labelBn": "Textile Exchange স্ট্যান্ডার্ড (GRS, RCS, OCS)"
+  },
+  {
+   "href": "https://bettercotton.org/about-bci/",
+   "label": "Better Cotton (BCI)",
+   "labelBn": "Better Cotton (BCI)"
+  }
+ ],
+ "ZDHC": [
+  {
+   "href": "https://www.roadmaptozero.com/about",
+   "label": "ZDHC (Roadmap to Zero): about",
+   "labelBn": "ZDHC (Roadmap to Zero): পরিচিতি"
+  },
+  {
+   "href": "https://roadmaptozero.com/mrsl",
+   "label": "ZDHC MRSL",
+   "labelBn": "ZDHC MRSL"
+  }
+ ],
+ "BGMEA": [
+  {
+   "href": "https://www.bgmea.com.bd/page/aboutus",
+   "label": "BGMEA: about us",
+   "labelBn": "BGMEA: পরিচিতি"
+  }
+ ],
+ "EU ban on destroying": [
+  {
+   "href": "https://environment.ec.europa.eu/news/ban-destruction-unsold-clothes-and-shoes-enters-application-2026-07-17_en",
+   "label": "European Commission: ban enters application (17 July 2026)",
+   "labelBn": "ইউরোপীয় কমিশন: নিষেধাজ্ঞা কার্যকর (১৭ জুলাই ২০২৬)"
+  }
+ ],
+ "Bangladesh national": [
+  {
+   "href": "https://epb.portal.gov.bd/site/files/2d6a532e-bb4b-40c0-b769-b51ba8c1ef3b/-Law-and-Regulations",
+   "label": "Export Promotion Bureau: laws and regulations (not a full list)",
+   "labelBn": "রপ্তানি উন্নয়ন ব্যুরো: আইন ও বিধি (সম্পূর্ণ তালিকা নয়)"
+  },
+  {
+   "href": "https://www.bgmea.com.bd/",
+   "label": "BGMEA",
+   "labelBn": "BGMEA"
+  }
+ ]
+};
+function linksFor(name: string): Link[] {
+  const k = Object.keys(LINKS).find((p) => name.startsWith(p));
+  return k ? LINKS[k] : [];
+}
 
 const LABEL: Record<Row["status"], { en: string; bn: string; cls: string }> = {
   checked: { en: "Seen in source", bn: "উৎসে পাওয়া গেছে", cls: "ru-ok" },
@@ -61,6 +310,9 @@ const CSS = `
 .ru-type{color:#0f766e;font-size:.88rem;font-weight:600;margin-bottom:4px}
 .ru-what{color:#334155;font-size:.95rem}
 .ru-src{color:#64748b;font-size:.84rem;margin-top:6px}
+.ru-links{margin-top:8px;display:flex;gap:6px 14px;flex-wrap:wrap;font-size:.9rem}
+.ru-links a{color:#0f766e;font-weight:600;text-decoration:underline;overflow-wrap:anywhere}
+.ru-nolink{color:#64748b;font-size:.84rem;margin-top:8px}
 .ru-legend{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
 `;
 
@@ -82,6 +334,9 @@ export default function RulesPage({ params }: { params: { locale: string } }) {
           <p className="dl-warn">
             {isBn ? "তালিকাভুক্ত হওয়া মানে এই সাইট ওই নিয়ম মেনে চলে বা যাচাই করে—এমন নয়।" : "Being listed does not mean this site complies with, certifies or verifies any of them."}
           </p>
+          <p className="dl-warn">
+            {isBn ? "লিংকগুলো অফিসিয়াল বা স্ট্যান্ডার্ড-সংস্থার সাইটে যায়। কিছু পাতা (যেমন EUR-Lex) আমাদের টুল খুলতে পারেনি, তাই পাতা সরে বা বদলে যেতে পারে। লিংক থাকা মানে নিয়ম যাচাই করা হয়েছে—এমন নয়।" : "Links go to official or standards-body sites. Some pages (such as EUR-Lex) could not be opened by our tools, so they may move or change. A link does not mean we verified the rule."}
+          </p>
           <div className="ru-legend" aria-label={isBn ? "চিহ্নের অর্থ" : "Legend"}>
             {(["checked", "limited", "unverified"] as const).map((k) => (
               <span key={k} className={"ru-chip " + LABEL[k].cls}>{isBn ? LABEL[k].bn : LABEL[k].en}</span>
@@ -90,6 +345,7 @@ export default function RulesPage({ params }: { params: { locale: string } }) {
           <div className="ru-list">
             {ROWS.map((r) => {
               const s = LABEL[r.status];
+              const ls = linksFor(r.name);
               return (
                 <article key={r.name} className="ru-card">
                   <div className="ru-top">
@@ -99,6 +355,17 @@ export default function RulesPage({ params }: { params: { locale: string } }) {
                   <div className="ru-type">{isBn ? r.typeBn : r.type}</div>
                   <p className="ru-what">{isBn ? r.whatBn : r.what}</p>
                   <p className="ru-src">{isBn ? "উৎস: " : "Source: "}{isBn ? r.sourceBn : r.source}</p>
+                  {ls.length > 0 ? (
+                    <p className="ru-links">
+                      {ls.map((l) => (
+                        <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer">
+                          {isBn ? l.labelBn : l.label} ↗
+                        </a>
+                      ))}
+                    </p>
+                  ) : (
+                    <p className="ru-nolink">{isBn ? "এই সারির জন্য অফিসিয়াল লিংক পাওয়া যায়নি।" : "No official link found for this row."}</p>
+                  )}
                 </article>
               );
             })}
