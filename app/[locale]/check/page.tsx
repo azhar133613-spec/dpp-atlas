@@ -14,6 +14,7 @@ const STATUS = [
   { v: "missing", en: "Missing", bn: "নেই" },
   { v: "nobody", en: "Nobody owns it", bn: "কেউ দায়িত্বে নেই" },
   { v: "brand", en: "Only the brand/buyer has it", bn: "শুধু ব্র্যান্ড/ক্রেতার কাছে" },
+  { v: "supplier", en: "A supplier holds it (fabric, trims, chemicals)", bn: "সরবরাহকারীর কাছে (কাপড়, ট্রিমস, কেমিক্যাল)" },
 ];
 
 const CAT_BN: Record<string, string> = {
@@ -49,7 +50,7 @@ const CSS = `
 .ck-p-nobody{color:#b91c1c;background:#fef2f2;border-color:#fecaca}
 .ck-p-missing{color:#92400e;background:#fffbeb;border-color:#fde68a}
 .ck-p-partial{color:#9a3412;background:#fff7ed;border-color:#fed7aa}
-.ck-p-brand{color:#1d4ed8;background:#eff6ff;border-color:#bfdbfe}
+.ck-p-brand{color:#1d4ed8;background:#eff6ff;border-color:#bfdbfe}.ck-p-supplier{color:#6d28d9;background:#f5f3ff;border-color:#ddd6fe}
 .ck-p-have{color:#15803d;background:#f0fdf4;border-color:#bbf7d0}
 .ck-p-unset{color:#475569;background:#f1f5f9;border-color:#e2e8f0}
 .ck-in{padding:10px 12px;border-radius:10px;border:1px solid #94a3b8;font-size:.95rem;font-family:inherit;background:#fff;color:#0f172a;min-width:0}
@@ -61,7 +62,7 @@ const CSS = `
 .ck-cat{margin:0 0 26px}
 .ck-cat h2{color:#0f766e;border-bottom:2px solid #e2e8f0;padding-bottom:6px}
 .ck-card{border:1px solid #e2e8f0;border-left-width:4px;border-radius:12px;padding:14px 16px;margin-bottom:12px;background:#fff}
-.ck-s-nobody{border-left-color:#b91c1c}.ck-s-missing{border-left-color:#d97706}.ck-s-partial{border-left-color:#ea580c}.ck-s-brand{border-left-color:#1d4ed8}.ck-s-have{border-left-color:#15803d}
+.ck-s-nobody{border-left-color:#b91c1c}.ck-s-missing{border-left-color:#d97706}.ck-s-partial{border-left-color:#ea580c}.ck-s-brand{border-left-color:#1d4ed8}.ck-s-supplier{border-left-color:#6d28d9}.ck-s-have{border-left-color:#15803d}
 .ck-t{font-weight:600;margin-bottom:6px}
 .ck-rule{font-size:.88rem;color:#0f766e;margin-bottom:4px}
 .ck-meta{font-size:.82rem;color:#64748b;margin-bottom:8px}
@@ -139,6 +140,7 @@ export default function CheckPage({ params }: { params: { locale: string } }) {
     if (s === "missing") return (isBn ? "কে তৈরি করতে পারে খুঁজুন · বাইরে ফোন: " : "Find who can create it · Outside call: ") + out;
     if (s === "nobody") return (isBn ? "মূল ফলাফল: এই সপ্তাহে একজন দায়িত্বশীল ঠিক করুন · বাইরে ফোন: " : "FINDING: assign an owner this week · Outside call: ") + out;
     if (s === "brand") return (isBn ? "ব্র্যান্ড/ক্রেতার কাছ থেকে চান: " : "Request from the brand/buyer: ") + out;
+    if (s === "supplier") return isBn ? "সরবরাহকারীর কাছ থেকে লিখিতভাবে চান। সরবরাহকারীর নাম ও নথির নাম নোটে লিখে রাখুন।" : "Request it from the supplier in writing. Note the supplier’s name and the document in the Note box.";
     if (isNobodyOwner(f)) return isBn ? "সম্ভবত কেউ দায়িত্বে নেই। খোঁজ নিন: কে এটি রাখে? তারপর এখানে চিহ্নিত করুন।" : "Probably nobody owns this. Ask around: who keeps it? Then mark it here.";
     if (isBrandOwner(f)) return (isBn ? "ব্র্যান্ড/ক্রেতার কাছে চান: " : "Ask the brand/buyer: ") + out;
     return (isBn ? "জিজ্ঞেস করুন " : "Ask ") + owner + (isBn ? ": তথ্যটি আছে কি?" : ": does it exist?");
@@ -166,7 +168,7 @@ export default function CheckPage({ params }: { params: { locale: string } }) {
   const owners: string[] = [];
   FIELDS.filter(isNobodyOwner).forEach((f) => { const o = ownerLabel(f); if (owners.indexOf(o) < 0) owners.push(o); });
   FIELDS.forEach((f) => { const o = ownerLabel(f); if (owners.indexOf(o) < 0) owners.push(o); });
-  const order = ["nobody", "missing", "partial", "brand", "", "have"];
+  const order = ["nobody", "missing", "partial", "brand", "supplier", "", "have"];
   const rank = (n: number) => order.indexOf(st(n));
 
   const groups = owners
@@ -181,7 +183,7 @@ export default function CheckPage({ params }: { params: { locale: string } }) {
         rules: "নিয়ম ও স্ট্যান্ডার্ড",
         prodPh: "পণ্য / স্টাইল নম্বর (একটি)",
         prodLabel: "পণ্য বা স্টাইল নম্বর",
-        pills: { nobody: "কেউ দায়িত্বে নেই", missing: "নেই", partial: "আংশিক", brand: "ব্র্যান্ডের কাছে", have: "আছে", unset: "বাকি" },
+        pills: { nobody: "কেউ দায়িত্বে নেই", missing: "নেই", partial: "আংশিক", brand: "ব্র্যান্ডের কাছে", supplier: "সরবরাহকারীর কাছে", have: "আছে", unset: "বাকি" },
         tabCheck: "তথ্যের তালিকা",
         tabAct: "দায়িত্ব অনুযায়ী কাজের তালিকা",
         csv: "CSV ডাউনলোড", print: "প্রিন্ট", clear: "মুছুন",
@@ -202,7 +204,7 @@ export default function CheckPage({ params }: { params: { locale: string } }) {
         rules: "Rules and standards",
         prodPh: "Product / style number (one)",
         prodLabel: "Product or style number",
-        pills: { nobody: "Nobody owns", missing: "Missing", partial: "Partial", brand: "Brand only", have: "Have", unset: "Not marked" },
+        pills: { nobody: "Nobody owns", missing: "Missing", partial: "Partial", brand: "Brand only", supplier: "Supplier", have: "Have", unset: "Not marked" },
         tabCheck: "Data points",
         tabAct: "Action list by owner",
         csv: "Download CSV", print: "Print", clear: "Clear",
@@ -235,6 +237,7 @@ export default function CheckPage({ params }: { params: { locale: string } }) {
             <span className="ck-pill ck-p-missing">{T.pills.missing}: {count("missing")}</span>
             <span className="ck-pill ck-p-partial">{T.pills.partial}: {count("partial")}</span>
             <span className="ck-pill ck-p-brand">{T.pills.brand}: {count("brand")}</span>
+            <span className="ck-pill ck-p-supplier">{T.pills.supplier}: {count("supplier")}</span>
             <span className="ck-pill ck-p-have">{T.pills.have}: {count("have")}</span>
             <span className="ck-pill ck-p-unset">{T.pills.unset}: {unset}</span>
           </div>
