@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FIELDS } from "./fields";
 import type { Field } from "./fields";
 import { BASE_CSS, Header, Footer } from "../_ui/chrome";
@@ -90,6 +90,7 @@ export default function CheckPage({ params }: { params: { locale: string } }) {
   const [marks, setMarks] = useState<Record<number, Mark>>({});
   const [view, setView] = useState<"check" | "actions">("check");
   const [loaded, setLoaded] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     try {
@@ -118,6 +119,44 @@ export default function CheckPage({ params }: { params: { locale: string } }) {
     if (typeof window !== "undefined" && !window.confirm(isBn ? "সব তথ্য মুছে ফেলবেন?" : "Clear everything you entered?")) return;
     setProduct(""); setMarks({});
     try { localStorage.removeItem(KEY); } catch { /* ignore */ }
+  }
+
+  function saveBackup() {
+    const data = { app: "dpp-atlas-check", version: 1, savedAt: new Date().toISOString(), product, marks };
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }));
+    a.download = "dpp_check_backup.json";
+    a.click();
+  }
+  function openBackup(file: File | undefined) {
+    if (!file) return;
+    const bad = () => window.alert(isBn ? "এই ফাইলটি DPP Atlas-এর ব্যাকআপ নয়, বা নষ্ট। কিছু বদলানো হয়নি।" : "This file is not a DPP Atlas backup, or it is damaged. Nothing was changed.");
+    if (file.size > 500000) { bad(); return; }
+    const r = new FileReader();
+    r.onload = () => {
+      try {
+        const d = JSON.parse(String(r.result));
+        if (!d || d.app !== "dpp-atlas-check" || typeof d.marks !== "object" || d.marks === null) { bad(); return; }
+        const ok = STATUS.map((x) => x.v);
+        const clean: Record<number, Mark> = {};
+        FIELDS.forEach((f) => {
+          const m = d.marks[f.n];
+          if (m && typeof m === "object") {
+            clean[f.n] = {
+              status: typeof m.status === "string" && ok.indexOf(m.status) >= 0 ? m.status : "",
+              name: typeof m.name === "string" ? m.name.slice(0, 500) : "",
+              note: typeof m.note === "string" ? m.note.slice(0, 500) : "",
+            };
+          }
+        });
+        const hasData = product.trim() !== "" || Object.keys(marks).length > 0;
+        if (hasData && !window.confirm(isBn ? "বর্তমান তথ্য ব্যাকআপ ফাইলের তথ্য দিয়ে বদলে যাবে। চালিয়ে যাবেন?" : "This will replace what is on screen with the backup. Continue?")) return;
+        setProduct(typeof d.product === "string" ? d.product.slice(0, 200) : "");
+        setMarks(clean);
+      } catch { bad(); }
+    };
+    r.readAsText(file);
+    if (fileRef.current) fileRef.current.value = "";
   }
 
   const st = (n: number) => marks[n]?.status || "";
@@ -186,7 +225,7 @@ export default function CheckPage({ params }: { params: { locale: string } }) {
         pills: { nobody: "কেউ দায়িত্বে নেই", missing: "নেই", partial: "আংশিক", brand: "ব্র্যান্ডের কাছে", supplier: "সরবরাহকারীর কাছে", have: "আছে", unset: "বাকি" },
         tabCheck: "তথ্যের তালিকা",
         tabAct: "দায়িত্ব অনুযায়ী কাজের তালিকা",
-        csv: "CSV ডাউনলোড", print: "প্রিন্ট", clear: "মুছুন",
+        csv: "CSV ডাউনলোড", print: "প্রিন্ট", clear: "মুছুন", backupSave: "ব্যাকআপ ফাইল সংরক্ষণ", backupOpen: "ব্যাকআপ ফাইল খুলুন", backupNote: "ব্যাকআপ আপনার নিজের ডিভাইসে ফাইল হিসেবে সংরক্ষিত হয়; কোথাও পাঠানো হয় না।", fbText: "কিছু ভুল বা বাদ পড়েছে মনে হলে GitHub-এ জানান (বিনামূল্যের GitHub অ্যাকাউন্ট লাগবে):", fbLink: "সমস্যা জানান",
         ruleL: "নিয়ম/স্ট্যান্ডার্ড: ", ready: "প্রস্তুতি: ",
         likely: "সম্ভাব্য দায়িত্বশীল (অনুমান): ", outside: "বাইরে ফোন (অনুমান): ",
         mark: "— চিহ্নিত করুন —", name: "আসল দায়িত্বশীলের নাম", note: "নোট (কোথায় রাখা: কাগজ/এক্সেল/ERP)",
@@ -207,7 +246,7 @@ export default function CheckPage({ params }: { params: { locale: string } }) {
         pills: { nobody: "Nobody owns", missing: "Missing", partial: "Partial", brand: "Brand only", supplier: "Supplier", have: "Have", unset: "Not marked" },
         tabCheck: "Data points",
         tabAct: "Action list by owner",
-        csv: "Download CSV", print: "Print", clear: "Clear",
+        csv: "Download CSV", print: "Print", clear: "Clear", backupSave: "Save backup file", backupOpen: "Open backup file", backupNote: "The backup is a file saved on your own device. It is not sent anywhere.", fbText: "Found something wrong or missing? Tell us on GitHub (needs a free GitHub account):", fbLink: "Report a problem",
         ruleL: "Rule / standard: ", ready: "readiness: ",
         likely: "Likely holder (assumed): ", outside: "Outside call (assumed): ",
         mark: "— mark —", name: "Who really holds it (name)", note: "Note (where kept: paper / Excel / ERP)",
@@ -249,8 +288,15 @@ export default function CheckPage({ params }: { params: { locale: string } }) {
             </div>
             <button type="button" className="dl-btn dl-btn-s" onClick={exportCsv}>{T.csv}</button>
             <button type="button" className="dl-btn dl-btn-s" onClick={() => window.print()}>{T.print}</button>
+            <button type="button" className="dl-btn dl-btn-s" onClick={saveBackup}>{T.backupSave}</button>
+            <button type="button" className="dl-btn dl-btn-s" onClick={() => fileRef.current?.click()}>{T.backupOpen}</button>
+            <input ref={fileRef} type="file" accept=".json,application/json" style={{ display: "none" }} aria-label={T.backupOpen} onChange={(e) => openBackup(e.target.files?.[0])} />
             <button type="button" className="dl-btn dl-btn-d" onClick={clearAll}>{T.clear}</button>
           </div>
+          <p className="dl-noprint" style={{ fontSize: ".9rem", color: "#475569", margin: "8px 0 0" }}>
+            {T.backupNote} {T.fbText}{" "}
+            <a href="https://github.com/azhar133613-spec/dpp-atlas/issues/new" target="_blank" rel="noopener noreferrer">{T.fbLink}</a>
+          </p>
 
           {view === "check" && cats.map((c) => (
             <section key={c} className="ck-cat">
